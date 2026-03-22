@@ -1,0 +1,66 @@
+@import './variables.css';
+
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-body);
+}
+
+html {
+  font-size: 16px;
+
+  @media (max-width: 767px) {
+    font-size: 14px;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+body {
+  background-color: var(--color-darkest);
+  color: var(--color-text);
+  font-size: 1rem;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 4px, #1d1f35 4px, #121f35 8px),
+    repeating-linear-gradient(90deg, transparent, transparent 4px, #121f35 4px, #1d1f35 8px);
+  position: relative;
+}
+
+img,
+svg {
+  image-rendering: pixelated !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: crisp-edges !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: inherit;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+main {
+  min-height: 100vh;
+}

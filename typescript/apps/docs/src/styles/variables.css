@@ -1,0 +1,88 @@
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'CompassGoldTitle';
+  src: url('/fonts/CompassGold.woff') format('woff');
+  font-display: block;
+}
+
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'CompassGold';
+  size-adjust: 130%;
+  src: url('/fonts/CompassGold.woff') format('woff');
+  font-display: block;
+}
+
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'DOS';
+  src: url('/fonts/DOS.woff') format('woff');
+  font-display: block;
+}
+
+:root {
+  /* fonts */
+  --font-heading-no-scale: 'CompassGoldTitle', 'DOS', monospace;
+  --font-heading: 'CompassGold', 'DOS', monospace;
+  --font-body: 'DOS', monospace;
+  --font-code: 'DOS', monospace;
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-md: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 1.875rem;
+  --font-4xl: 2.25rem;
+  --font-5xl: 3rem;
+
+  /* containers */
+  --container-sm: 450px;
+  --container-md: 550px;
+  --container-lg: 700px;
+  --container-xl: 950px;
+
+  /* controls */
+  --control-size-small: 38px;
+  --control-size-middle: 42px;
+  --control-size-large: 50px;
+
+  /* colors */
+  --color-text: #fff;
+  --color-text-subtle: #ddd;
+  --color-black: #111;
+  --color-darker: #0002;
+  --color-lighter-1: #fff2;
+  --color-lighter-2: #fff4;
+  --color-darkest: #1a2942;
+  --color-background: #1a2942;
+  --color-background-transparent: #1a294299;
+  --color-container: #2a2b30;
+  --color-container-light: #353640;
+  --color-control: #272f3a;
+  --color-border: #999;
+  --color-border-dark: #666;
+  --color-shadow: #444;
+  --color-gray: #818571;
+  --color-light: #c6cea5;
+  --color-bright: #c6cea5;
+  --color-primary: #e1c562;
+  --color-primary-light: #b9b065;
+  --color-card: #4e5044;
+
+  --color-orange: #ffb347;
+  --color-orange-dark: #6b3d1a;
+  --color-orange-darker: #2e1a0b;
+  --color-green: #a8d8a8;
+  --color-green-dark: #2d5938;
+  --color-green-darker: #162b1c;
+  --color-red: #ff8b94;
+  --color-red-dark: #6b2d33;
+  --color-red-darker: #321518;
+  --color-blue: #89c4e1;
+  --color-blue-dark: #1e4a59;
+  --color-blue-darker: #112228;
+}

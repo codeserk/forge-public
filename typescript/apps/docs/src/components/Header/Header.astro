@@ -1,0 +1,45 @@
+---
+import Logo from './Logo.astro'
+import Nav from './Nav.astro'
+import Button from '../Button.astro'
+---
+
+<header>
+  <div class="container">
+    <Logo />
+    <Nav />
+    <div class="actions">
+      <Button href="https://dashboard.forge.codeserk.es/login" >Connect</Button>
+    </div>
+  </div>
+</header>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: var(--color-container);
+    border-bottom: 4px solid var(--color-border);
+
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  }
+
+
+</style>

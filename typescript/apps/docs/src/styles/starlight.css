@@ -1,0 +1,191 @@
+@import './variables.css';
+
+:root {
+  --sl-font: var(--font-heading);
+  --sl-font-mono: var(--font-code);
+
+  --sl-color-bg: var(--color-background);
+  --sl-color-bg-nav: var(--color-background-transparent);
+  --sl-color-bg-sidebar: var(--color-background-transparent);
+  --sl-color-hairline: var(--color-lighter-1);
+  --sl-color-hairline-light: #ffffff11;
+  --sl-color-text: var(--color-text);
+  --sl-color-text-accent: var(--color-primary);
+  --sl-color-accent: var(--color-primary);
+  --sl-color-accent-high: var(--color-primary-light);
+  --sl-color-accent-low: var(--color-background);
+  --sl-color-white: #fff;
+  --sl-color-gray-1: var(--color-text-subtle);
+  --sl-color-gray-2: var(--color-border);
+  --sl-color-gray-3: var(--color-border);
+  --sl-color-gray-4: var(--color-shadow);
+  --sl-color-gray-5: var(--color-container);
+  --sl-color-gray-6: var(--color-background);
+  --sl-color-black: var(--color-black);
+}
+
+/* background with pixel grid */
+body {
+  background-color: var(--color-background);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 4px, #1d1f35 4px, #121f35 8px),
+    repeating-linear-gradient(90deg, transparent, transparent 4px, #121f35 4px, #1d1f35 8px);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* global */
+* {
+  border-radius: 0 !important;
+}
+
+:root {
+  --sl-text-base: 1.125rem;
+  --sl-nav-height: 80px;
+}
+
+html {
+  font-size: 18px;
+}
+
+/* nav / header */
+header.header {
+  backdrop-filter: blur(8px);
+  border-bottom: 4px solid var(--color-border-dark);
+  background-color: var(--color-container);
+}
+
+/* pagination */
+.pagination-links {
+  & a {
+    background-color: var(--color-control);
+    border: 4px solid var(--color-border-dark);
+    box-shadow: 0px 6px 0 var(--color-shadow);
+    color: var(--color-text);
+    text-decoration: none;
+
+    &:hover {
+      transform: translate(0px, 2px);
+      box-shadow: 0px 4px 0 var(--color-shadow);
+      border-color: var(--color-border);
+    }
+
+    &:focus {
+      outline: none;
+      transform: translate(0px, 4px);
+      box-shadow: 0px 2px 0 var(--color-shadow);
+    }
+  }
+}
+
+/* mobile menu button */
+starlight-menu-button button {
+  height: var(--control-size-middle);
+  width: var(--control-size-middle);
+  background-color: var(--color-container);
+  border: 4px solid var(--color-border-dark);
+  box-shadow: 0px 6px 0 var(--color-shadow);
+  top: 17px;
+  color: var(--color-text);
+
+  & svg {
+    color: var(--color-text);
+    fill: var(--color-text);
+  }
+
+  &:hover {
+    transform: translate(0px, 2px);
+    box-shadow: 0px 4px 0 var(--color-shadow);
+    border-color: var(--color-border);
+  }
+}
+
+/* search button */
+site-search button {
+  border: 4px solid var(--color-border-dark) !important;
+  box-shadow: 0px 6px 0 var(--color-shadow);
+
+  &:hover {
+    transform: translate(0px, 2px);
+    box-shadow: 0px 4px 0 var(--color-shadow);
+    border-color: var(--color-border) !important;
+  }
+}
+
+/* active nav item */
+[aria-current='page'] {
+  background: none;
+  color: var(--color-primary);
+}
+
+/* sidebar */
+.sidebar-pane {
+  background-color: var(--color-container);
+  border-inline-end: 4px solid var(--color-border-dark);
+  font-family: var(--font-heading);
+}
+
+/* right "on this page" panel */
+.right-sidebar {
+  background-color: var(--color-container);
+  border-inline-start: 4px solid var(--color-border-dark);
+}
+
+/* code blocks */
+.expressive-code {
+  position: relative;
+  border: 4px solid var(--color-border);
+  box-shadow: 0px 8px 0 var(--color-shadow);
+  margin-bottom: 18px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--color-border);
+    z-index: 1;
+  }
+
+  &::before {
+    top: -2px;
+    left: -2px;
+  }
+
+  & .header {
+    display: none;
+  }
+
+  &::after {
+    bottom: -2px;
+    right: -2px;
+    box-shadow:
+      -8px 0 0 var(--color-border),
+      0 -8px 0 var(--color-border);
+  }
+}
+
+/* content panel header */
+.content-panel + .content-panel {
+  border-top: 4px dashed var(--color-border-dark);
+}
+
+/* content */
+.sl-markdown-content {
+  font-family: var(--font-body);
+
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+  }
+
+  & code {
+    font-family: var(--font-code);
+    background-color: var(--color-container);
+  }
+}

@@ -1,18 +1,18 @@
 ---
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import Layout from '../layouts/Layout.astro'
+import Hero from '../components/Hero.astro'
+import Preview from '../components/Preview.astro'
+import Organizations from '../components/Organizations.astro'
+import Stats from '../components/products/Stats.astro'
+import FAQ from '../components/FAQ.astro'
+import Pricing from '../components/Pricing.astro'
 ---
 
-<StarlightPage
-  frontmatter={{
-    title: 'Forge',
-    description: 'Documentation for Forge',
-    hero: {
-      tagline: 'Build, ship, and scale with Forge.',
-      actions: [
-        { text: 'Get Started', link: '/docs/introduction/', variant: 'primary' },
-        { text: 'GitHub', link: 'https://github.com/codeserk/forge-public', variant: 'secondary', icon: 'external' },
-      ],
-    },
-    template: 'splash',
-  }}
-/>
+<Layout>
+  <Hero />
+  <Preview />
+  <Organizations />
+  <Stats />
+  <FAQ />
+  <Pricing />
+</Layout>

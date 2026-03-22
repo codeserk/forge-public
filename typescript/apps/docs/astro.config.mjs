@@ -8,6 +8,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Forge',
+      customCss: ['./src/styles/starlight.css'],
+
+      components: {
+        ThemeSelect: './src/components/starlight/ThemeSelect.astro',
+        SocialIcons: './src/components/starlight/SocialIcons.astro',
+        PageFrame: './src/components/starlight/PageFrame.astro',
+      },
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/codeserk/forge-public' },
       ],
