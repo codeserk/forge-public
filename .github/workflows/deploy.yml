@@ -32,6 +32,10 @@ jobs:
           npm ci
           cd typescript && npm ci
 
+      - name: Build stats
+        working-directory: typescript/packages/stats
+        run: npm run build
+
       - name: Build stats-browser
         working-directory: typescript/packages/stats-browser
         run: npm run build
