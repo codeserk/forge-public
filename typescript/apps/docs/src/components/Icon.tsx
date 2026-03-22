@@ -1,4 +1,4 @@
-import { Icon as PixelIcon } from '@nsmr/pixelart-react'
+import { ICONS } from 'virtual:pixelart-icons'
 
 export enum IconName {
   AbTesting = 'ab-testing',
@@ -496,5 +496,14 @@ interface Props {
 }
 
 export function Icon({ name, size = 24, className }: Props) {
-  return <PixelIcon name={name} size={size} className={className} />
+  const d = ICONS[name]
+  if (!d) {
+    return null
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" class={className}>
+      <path d={d} />
+    </svg>
+  )
 }

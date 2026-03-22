@@ -1,0 +1,24 @@
+---
+interface Props {
+  readonly title?: string
+  readonly description?: string
+}
+
+const {
+  title = 'Forge - Developer tools, without the nonsense',
+  description = 'Analytics, translations, and more. Built because existing tools were either too expensive, too invasive, or both.',
+} = Astro.props
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />

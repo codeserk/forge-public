@@ -2,14 +2,24 @@
 import Header from '../components/Header/Header.astro'
 import Footer from '../components/Footer.astro'
 import Shapes from '../components/Shapes.astro'
+import SEO from '../components/SEO.astro'
 import '../styles/global.css'
 import { PUBLIC_STATS_BASE_URL, PUBLIC_STATS_SDK_KEY } from 'astro:env/client'
+
+interface Props {
+  readonly title?: string
+  readonly description?: string
+}
+
+const { title, description } = Astro.props
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEO title={title} description={description} />
     <slot name="head" />
     {
       PUBLIC_STATS_BASE_URL && PUBLIC_STATS_SDK_KEY && (
