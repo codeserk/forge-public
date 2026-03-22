@@ -1,5 +1,183 @@
 ---
-
+import Button from './Button.astro'
+import Icon from './Icon.astro'
 ---
 
-<section></section>
+<section class="hero">
+  <div class="container">
+    <div class="badge">Early alpha - here be dragons</div>
+
+    <h1>
+      Developer tools,<br />
+      without the <em>nonsense</em>
+    </h1>
+
+    <p class="subtitle">
+      Analytics, translations, and more. Built because existing tools were either too expensive,
+      <em>too invasive</em>, or both. Still a work in progress - but the parts that exist <em
+        >actually work</em
+      >.
+    </p>
+
+    <div class="values">
+      <div class="value">
+        <div class="value-header">
+          <Icon name="coin" size={32} />
+          <span class="value-label">Fairness</span>
+        </div>
+        <span class="value-desc"
+          >Pricing matches real costs. If a feature doesn't cost more to run, it <strong
+            >won't cost more to use</strong
+          >.</span
+        >
+      </div>
+      <div class="value">
+        <div class="value-header">
+          <Icon name="eye" size={32} />
+          <span class="value-label">Honesty</span>
+        </div>
+        <span class="value-desc"
+          >No hidden tracking, no <em>shady defaults</em>, no dark patterns. <strong
+            >What you see is what you get.</strong
+          ></span
+        >
+      </div>
+    </div>
+
+    <div class="actions">
+      <Button href="/docs/introduction" size="large">
+        <Icon name="arrow-right" size={18} />
+        Get started
+      </Button>
+      <Button href="https://dashboard.forge.codeserk.es" variant="ghost" size="large"
+        >Dashboard</Button
+      >
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 3rem;
+
+      @media (max-width: 768px) {
+        gap: 2rem;
+      }
+    }
+
+    .badge {
+      font-size: var(--font-sm);
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+      padding: 0.25rem 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: var(--font-heading-no-scale);
+      font-size: var(--font-6xl);
+      color: var(--color-text);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: var(--font-xl);
+      color: var(--color-text-subtle);
+      margin: 0;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .values {
+      display: flex;
+      gap: 2rem;
+      text-align: left;
+      width: 100%;
+
+      .value {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 1.25rem;
+        background-color: var(--color-container);
+        position: relative;
+
+        --card-color-border: var(--color-border);
+        --card-color-shadow: var(--color-shadow);
+
+        border: 4px solid var(--card-color-border);
+        box-shadow: 0px 8px 0 var(--card-color-shadow);
+
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          background: var(--card-color-border);
+        }
+
+        &::before {
+          top: -2px;
+          left: -2px;
+        }
+
+        &::after {
+          bottom: -2px;
+          right: -2px;
+          box-shadow:
+            -8px 0 0 var(--card-color-border),
+            0 -8px 0 var(--card-color-border);
+        }
+
+        .value-header {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: var(--color-primary);
+
+          svg {
+            fill: var(--color-primary);
+            width: var(--font-2xl);
+            height: var(--font-2xl);
+          }
+        }
+
+        .value-label {
+          font-family: var(--font-heading);
+          font-size: var(--font-2xl);
+          color: var(--color-primary);
+        }
+
+        .value-desc {
+          font-size: var(--font-lg);
+          color: var(--color-text-subtle);
+          line-height: 1.6;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>

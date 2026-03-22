@@ -1,0 +1,15 @@
+---
+import { Icon as IconComponent, IconName } from './Icon'
+
+export { IconName }
+
+interface Props {
+  name: `${IconName}`
+  size?: number
+  class?: string
+}
+
+const { name, size = 24, class: className } = Astro.props
+---
+
+<IconComponent name={name} size={size} className={className} />

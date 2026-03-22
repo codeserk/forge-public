@@ -3,7 +3,7 @@ title: Forge Stats
 description: Lightweight, privacy-friendly analytics for any web project.
 ---
 
-Forge Stats is the analytics module of Forge. It tracks page views and sends them to the Forge API - that's it. No fingerprinting, no third-party scripts phoning home, no cookie banners required.
+Forge Stats tracks page views and sends them to the Forge API - _that's it_. No fingerprinting, no third-party scripts phoning home, **no cookie banners required**.
 
 It works in any context:
 
@@ -13,7 +13,7 @@ It works in any context:
 
 ## Pick your approach
 
-**[Script (CDN)](/docs/stats/usage/script)** - one tag in your `<head>`, done. No build step, no npm. Best for most cases.
+**[Script (CDN)](/docs/stats/usage/script)** - one tag in your `<head>`, done. _No build step, no npm._ Best for most cases.
 
 **[TypeScript SDK](/docs/stats/usage/sdks/typescript)** - install the package and call `track()`. Use this when you need custom event data, error handling, or are working in Node.js or React Native.
 

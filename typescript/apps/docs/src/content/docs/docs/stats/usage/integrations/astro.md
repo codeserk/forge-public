@@ -22,9 +22,9 @@ Add the script to your base layout and you are set - including View Transitions 
 
 Two things worth noting:
 
-- **`is:inline`** is required. Without it, Astro bundles the script, which breaks `document.currentScript` - and the auto-detection relies on that.
+- **`is:inline`** is required. Without it, Astro bundles the script, which **breaks `document.currentScript`** - and the auto-detection relies on that.
 - **`defer`** still works with `is:inline`, so you keep the performance benefit.
 
 ## View Transitions
 
-If your site uses [View Transitions](https://docs.astro.build/en/guides/view-transitions/), the script listens to `astro:page-load` automatically. Every navigation gets tracked as a page view - nothing else to configure.
+If your site uses [View Transitions](https://docs.astro.build/en/guides/view-transitions/), the script listens to `astro:page-load` automatically. Every navigation gets tracked as a page view - _nothing else to configure_.

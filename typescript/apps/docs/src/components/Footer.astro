@@ -1,5 +1,32 @@
 ---
-
+import Icon from './Icon.astro'
 ---
 
-<footer></footer>
+<footer>
+  <span
+    >Made with <Icon name="heart" size={14} /> by <a
+      href="https://www.codeserk.es"
+      target="_blank"
+      rel="noopener">codeserk.es</a
+    ></span
+  >
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    border-top: 2px dashed var(--color-border);
+    background-color: rgba(0, 0, 0, 0.3);
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: var(--font-md);
+      color: var(--color-text-subtle);
+    }
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import Icon from '../../Icon.astro'
+import Button from '../../Button.astro'
+import Features from './Features.astro'
+import Pricing from './Pricing.astro'
+import StatsPreview from './StatsPreview.astro'
+---
+
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="header">
+      <h2>
+        <Icon name="chart" size={36} />
+        Stats
+      </h2>
+      <p class="subtitle">
+        Most analytics tools store <em>every raw event forever</em> - then charge you for the storage.
+        We don't. Events are <strong>aggregated and optimised</strong> as they come in, so you get the
+        numbers you care about at a <strong>fraction of the cost</strong> - without giving up your users'
+        privacy in exchange.
+      </p>
+      <Button href="/docs/stats">
+        <Icon name="arrow-right" size={18} />
+        Read the docs
+      </Button>
+    </div>
+
+    <StatsPreview />
+    <Features />
+    <Pricing />
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding: 6rem 1.5rem;
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+
+      h2 {
+        font-family: var(--font-heading-no-scale);
+        font-size: var(--font-5xl);
+        color: var(--color-text);
+        margin: 0;
+
+        svg {
+          fill: var(--color-primary);
+          vertical-align: middle;
+          margin-right: 0.5rem;
+        }
+      }
+
+      .subtitle {
+        font-size: var(--font-lg);
+        color: var(--color-text-subtle);
+        line-height: 1.7;
+        max-width: 620px;
+        margin: 0;
+      }
+    }
+  }
+</style>

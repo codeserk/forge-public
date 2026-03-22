@@ -14,8 +14,12 @@
     "format": "prettier --write src"
   },
   "dependencies": {
+    "@astrojs/preact": "^5.0.2",
     "@astrojs/starlight": "^0.38.2",
-    "astro": "^6.0.8"
+    "@nsmr/pixelart-react": "^2.0.0",
+    "astro": "^6.0.8",
+    "pixelarticons": "^2.0.2",
+    "preact": "^10.29.0"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "^8.57.1",

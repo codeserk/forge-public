@@ -1,7 +1,8 @@
 ---
 import config from 'virtual:starlight/user-config'
-import Icon from '@astrojs/starlight/components/SocialIcons.astro'
+import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro'
 import Button from '../Button.astro'
+import Icon from '../Icon.astro'
 
 const links = config.social || []
 ---
@@ -13,12 +14,15 @@ const links = config.social || []
     links.map(({ label, href, icon }) => (
       <a href={href} rel="me" class="sl-flex">
         <span class="sr-only">{label}</span>
-        <Icon name={icon} />
+        <SocialIcons name={icon} />
       </a>
     ))
   }
 
-  <Button href="https://dashboard.forge.codeserk.es">Connect</Button>
+  <Button href="https://dashboard.forge.codeserk.es">
+    <Icon name="login" size={16} />
+    Connect
+  </Button>
 </div>
 
 <style>

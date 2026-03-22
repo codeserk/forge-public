@@ -48,6 +48,10 @@ jobs:
       - name: Build docs
         working-directory: typescript/apps/docs
         run: npm run build
+        env:
+          PUBLIC_STATS_PREVIEW_URL: ${{ secrets.PUBLIC_STATS_PREVIEW_URL }}
+          PUBLIC_STATS_BASE_URL: ${{ secrets.PUBLIC_STATS_BASE_URL }}
+          PUBLIC_STATS_SDK_KEY: ${{ secrets.PUBLIC_STATS_SDK_KEY }}
 
       - uses: actions/configure-pages@v4
 

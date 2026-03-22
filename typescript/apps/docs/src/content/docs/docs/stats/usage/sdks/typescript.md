@@ -3,7 +3,7 @@ title: TypeScript SDK
 description: Track events from Node.js, browser, or React Native using the TypeScript SDK.
 ---
 
-If you are building something with TypeScript (or plain JS), this is your go-to. Works in Node.js, browser, and React Native - though React Native needs a small polyfill (more on that below).
+If you are building something with TypeScript (or plain JS), _this is your go-to_. Works in Node.js, browser, and React Native - though React Native needs a small polyfill (more on that below).
 
 ## Installation
 
@@ -15,7 +15,7 @@ npm install @codeserk/forge-stats
 
 ### Singleton (recommended)
 
-The easiest way to get started. Initialize once - usually at app startup - and call `track` from anywhere without passing a client around.
+The easiest way to get started. Initialize once - _usually at app startup_ - and call `track` from anywhere **without passing a client around**.
 
 ```ts
 import { init, track } from '@codeserk/forge-stats'
@@ -84,4 +84,4 @@ Same as `track` but returns a `Promise` - use this when you need to await or cat
 
 ### `getClient()`
 
-Returns the singleton `Client` instance. Throws if `init()` has not been called yet.
+Returns the singleton `Client` instance. **Throws if `init()` has not been called yet.**

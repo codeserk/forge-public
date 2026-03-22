@@ -188,8 +188,29 @@ site-search button {
     color: var(--color-text);
   }
 
+  & a {
+    color: var(--color-primary);
+    text-decoration: dotted;
+  }
+
+  & em {
+    color: var(--color-red);
+    font-style: italic;
+    text-transform: none;
+  }
+
+  & strong {
+    color: var(--color-orange);
+  }
+
   & code {
     font-family: var(--font-code);
     background-color: var(--color-container);
+    color: var(--color-green);
+  }
+
+  & blockquote {
+    padding-left: 1em;
+    border-left: 8px solid white;
   }
 }

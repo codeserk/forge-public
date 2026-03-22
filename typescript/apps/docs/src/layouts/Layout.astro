@@ -3,6 +3,7 @@ import Header from '../components/Header/Header.astro'
 import Footer from '../components/Footer.astro'
 import Shapes from '../components/Shapes.astro'
 import '../styles/global.css'
+import { PUBLIC_STATS_BASE_URL, PUBLIC_STATS_SDK_KEY } from 'astro:env/client'
 ---
 
 <html lang="en">
@@ -10,6 +11,17 @@ import '../styles/global.css'
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <slot name="head" />
+    {
+      PUBLIC_STATS_BASE_URL && PUBLIC_STATS_SDK_KEY && (
+        <script
+          is:inline
+          defer
+          src="https://forge.codeserk.es/cdn/stats.js"
+          data-base-url={PUBLIC_STATS_BASE_URL}
+          data-sdk={PUBLIC_STATS_SDK_KEY}
+        />
+      )
+    }
   </head>
   <body>
     <Shapes />

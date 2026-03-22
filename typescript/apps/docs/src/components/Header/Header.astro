@@ -2,6 +2,7 @@
 import Logo from './Logo.astro'
 import Nav from './Nav.astro'
 import Button from '../Button.astro'
+import Icon from '../Icon.astro'
 ---
 
 <header>
@@ -9,26 +10,21 @@ import Button from '../Button.astro'
     <Logo />
     <Nav />
     <div class="actions">
-      <Button href="https://dashboard.forge.codeserk.es/login">Connect</Button>
+      <Button href="https://dashboard.forge.codeserk.es/login">
+        <Icon name="login" size={16} />
+        Connect
+      </Button>
     </div>
   </div>
 </header>
 
 <style>
   header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: var(--color-container);
-    border-bottom: 4px solid var(--color-border);
-
     .container {
       max-width: 1024px;
       margin: 0 auto;
-      padding: 0 1.5rem;
-      height: 80px;
+      padding: 1rem 1.5rem;
+      height: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;

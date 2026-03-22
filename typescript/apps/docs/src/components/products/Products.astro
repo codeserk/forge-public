@@ -1,0 +1,183 @@
+---
+import Icon from '../Icon.astro'
+---
+
+<section class="products" id="products">
+  <div class="container">
+    <h2>
+      <Icon name="zap" size={36} />
+      What exists (and what doesn't yet)
+    </h2>
+
+    <div class="grid">
+      <a href="/#stats" class="product">
+        <div class="product-header">
+          <Icon name="chart" size={28} />
+          <span class="product-name">Stats</span>
+        </div>
+        <span class="product-desc"
+          >Page view analytics. <em>No cookies, no fingerprinting.</em> Drop a script tag and it works.
+          <strong>Drastically cheaper</strong> than alternatives (<em
+            >the ones that don't pay themselves with everyone's data</em
+          >).</span
+        >
+        <span class="product-tag">Available now</span>
+      </a>
+
+      <div class="product product-disabled">
+        <div class="product-header">
+          <Icon name="image" size={28} />
+          <span class="product-name">Studio</span>
+        </div>
+        <span class="product-desc"
+          >Screenshots and marketing assets from your content. <em
+            >Useful if you hate making them manually.</em
+          ></span
+        >
+        <span class="product-tag">Not yet</span>
+      </div>
+
+      <div class="product product-disabled">
+        <div class="product-header">
+          <Icon name="article" size={28} />
+          <span class="product-name">Content</span>
+        </div>
+        <span class="product-desc"
+          >A CMS. The original reason this whole thing started. <em>Still mostly a dream.</em></span
+        >
+        <span class="product-tag">Not yet</span>
+      </div>
+
+      <div class="product product-disabled">
+        <div class="product-header">
+          <Icon name="text-search" size={28} />
+          <span class="product-name">Text</span>
+        </div>
+        <span class="product-desc"
+          >Translation management across your codebase. <em>Because i18n is always a mess.</em
+          ></span
+        >
+        <span class="product-tag">Not yet</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .products {
+    padding: 6rem 1.5rem;
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    h2 {
+      font-family: var(--font-heading-no-scale);
+      font-size: var(--font-5xl);
+      color: var(--color-text);
+      margin: 0;
+      text-align: center;
+
+      svg {
+        fill: var(--color-primary);
+        vertical-align: middle;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.5rem;
+      background-color: var(--color-container);
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+
+      --card-color-border: var(--color-border);
+      --card-color-shadow: var(--color-shadow);
+
+      border: 4px solid var(--card-color-border);
+      box-shadow: 0px 8px 0 var(--card-color-shadow);
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: var(--card-color-border);
+      }
+
+      &::before {
+        top: -2px;
+        left: -2px;
+      }
+
+      &::after {
+        bottom: -2px;
+        right: -2px;
+        box-shadow:
+          -8px 0 0 var(--card-color-border),
+          0 -8px 0 var(--card-color-border);
+      }
+
+      &:not(.product-disabled):hover {
+        --card-color-border: var(--color-primary);
+        --card-color-shadow: var(--color-shadow);
+      }
+
+      &.product-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .product-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        svg {
+          fill: var(--color-primary);
+        }
+      }
+
+      .product-name {
+        font-family: var(--font-heading);
+        font-size: var(--font-2xl);
+        color: var(--color-primary);
+      }
+
+      .product-desc {
+        font-size: var(--font-lg);
+        color: var(--color-text-subtle);
+        line-height: 1.6;
+        flex: 1;
+      }
+
+      .product-tag {
+        font-size: var(--font-xs);
+        color: var(--color-light);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+    }
+  }
+</style>
