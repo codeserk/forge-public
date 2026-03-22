@@ -15,7 +15,7 @@ Add the script tag to your `<head>` with `defer` so it loads in parallel and nev
 ```html
 <script
   defer
-  src="https://codeserk.github.io/forge-public/forge-stats.min.js"
+  src="https://forge.codeserk.es/cdn/stats.js"
   data-base-url="https://api-events.forge.codeserk.es"
   data-sdk="YOUR_SDK_KEY"
 ></script>
@@ -33,7 +33,7 @@ That's it. Page views are tracked automatically.
   <script
     is:inline
     defer
-    src="https://codeserk.github.io/forge-public/forge-stats.min.js"
+    src="https://forge.codeserk.es/cdn/stats.js"
     data-base-url="https://api-events.forge.codeserk.es"
     data-sdk="YOUR_SDK_KEY"
   ></script>
