@@ -9,14 +9,14 @@ Add the script to your base layout and you are set - including View Transitions 
 ---
 // src/layouts/Layout.astro
 ---
+
 <head>
   <script
     is:inline
     defer
     src="https://forge.codeserk.es/cdn/stats.js"
     data-base-url="https://api-events.forge.codeserk.es"
-    data-sdk="YOUR_SDK_KEY"
-  ></script>
+    data-sdk="YOUR_SDK_KEY"></script>
 </head>
 ```
 

@@ -9,14 +9,16 @@ const links = config.social || []
 <div class="social-icons">
   <a href="https://www.codeserk.es" class="website-link">codeserk.es</a>
 
-  {links.map(({ label, href, icon }) => (
-    <a href={href} rel="me" class="sl-flex">
-      <span class="sr-only">{label}</span>
-      <Icon name={icon} />
-    </a>
-  ))}
+  {
+    links.map(({ label, href, icon }) => (
+      <a href={href} rel="me" class="sl-flex">
+        <span class="sr-only">{label}</span>
+        <Icon name={icon} />
+      </a>
+    ))
+  }
 
-  <Button href="https://dashboard.forge.codeserk.es" >Connect</Button>
+  <Button href="https://dashboard.forge.codeserk.es">Connect</Button>
 </div>
 
 <style>

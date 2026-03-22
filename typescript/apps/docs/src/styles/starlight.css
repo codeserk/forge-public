@@ -49,6 +49,10 @@ html {
   font-size: 18px;
 }
 
+.sl-container {
+  margin: auto;
+}
+
 /* nav / header */
 header.header {
   backdrop-filter: blur(8px);

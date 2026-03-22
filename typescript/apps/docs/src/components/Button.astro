@@ -8,9 +8,16 @@ interface Props {
 const { href, variant = 'default', size = 'default' } = Astro.props
 ---
 
-{href
-  ? <a href={href} class={`btn variant-${variant} size-${size}`}><slot /></a>
-  : <button class={`btn variant-${variant} size-${size}`}><slot /></button>
+{
+  href ? (
+    <a href={href} class={`btn variant-${variant} size-${size}`}>
+      <slot />
+    </a>
+  ) : (
+    <button class={`btn variant-${variant} size-${size}`}>
+      <slot />
+    </button>
+  )
 }
 
 <style>
