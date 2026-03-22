@@ -14,7 +14,27 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Start Here',
-          items: [{ label: 'Getting Started', slug: 'getting-started' }],
+          items: [{ label: 'Introduction', slug: 'docs/introduction' }],
+        },
+        {
+          label: 'Stats',
+          items: [
+            { label: 'Overview', slug: 'docs/stats' },
+            {
+              label: 'Usage',
+              items: [
+                { label: 'Script (CDN)', slug: 'docs/stats/usage/script' },
+                {
+                  label: 'SDKs',
+                  items: [{ label: 'TypeScript', slug: 'docs/stats/usage/sdks/typescript' }],
+                },
+                {
+                  label: 'Integrations',
+                  items: [{ label: 'Astro', slug: 'docs/stats/usage/integrations/astro' }],
+                },
+              ],
+            },
+          ],
         },
       ],
     }),
