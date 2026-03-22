@@ -1,0 +1,22 @@
+{
+  "name": "@codeserk/forge-stats-browser",
+  "version": "0.0.1",
+  "private": true,
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major",
+    "publish:dry": "npm publish --dry-run",
+    "publish:npm": "npm run build && npm publish"
+  },
+  "devDependencies": {
+    "tsdown": "^0.21.4",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "@codeserk/forge-stats": "*"
+  }
+}

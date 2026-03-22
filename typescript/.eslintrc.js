@@ -30,6 +30,7 @@ module.exports = {
   ],
   rules: {
     'no-console': 'error',
+    'curly': ['error', 'all'],
     '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/react-in-jsx-scope': 'off',
