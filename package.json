@@ -1,7 +1,7 @@
 {
   "workspaces": [
-    "web/apps/*",
-    "web/packages/*"
+    "typescript/apps/*",
+    "typescript/packages/*"
   ],
   "dependencies": {
     "prettier-plugin-astro": "^0.14.1"
