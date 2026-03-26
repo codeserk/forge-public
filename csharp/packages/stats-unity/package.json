@@ -9,7 +9,7 @@
     "url": "https://github.com/codeserk"
   },
   "dependencies": {
-    "com.codeserk.forge-stats": "0.0.4",
+    "com.codeserk.forge-stats": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats",
     "com.unity.nuget.newtonsoft-json": "3.2.1"
   },
   "scripts": {
