@@ -1,6 +1,6 @@
 {
   "name": "es.codeserk.forge-stats-unity",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "displayName": "Forge Stats Unity",
   "description": "Unity-specific utilities for Forge Stats.",
   "unity": "2018.1",
