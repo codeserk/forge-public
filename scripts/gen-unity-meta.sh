@@ -7,7 +7,11 @@
 # Default package-dir: csharp/packages/stats
 set -euo pipefail
 
-PACKAGE_DIR="${1:-csharp/packages/stats}"
+if [ $# -eq 0 ]; then
+  PACKAGE_DIRS=(csharp/packages/stats csharp/packages/stats-unity)
+else
+  PACKAGE_DIRS=("$@")
+fi
 
 generate_guid() {
   uuidgen | tr -d '-' | tr '[:upper:]' '[:lower:]'
@@ -70,12 +74,14 @@ EOF
   echo "Generated $meta"
 }
 
-while IFS= read -r item; do
-  write_meta "$item"
-done < <(find "$PACKAGE_DIR" -mindepth 1 \
-  -not -path "*/.git/*" \
-  -not -path "*/bin*" \
-  -not -path "*/obj*" \
-  -not -name ".*" \
-  -not -name "*.meta" \
-  | sort)
+for PACKAGE_DIR in "${PACKAGE_DIRS[@]}"; do
+  while IFS= read -r item; do
+    write_meta "$item"
+  done < <(find "$PACKAGE_DIR" -mindepth 1 \
+    -not -path "*/.git/*" \
+    -not -path "*/bin*" \
+    -not -path "*/obj*" \
+    -not -name ".*" \
+    -not -name "*.meta" \
+    | sort)
+done

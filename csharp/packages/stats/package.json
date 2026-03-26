@@ -4,6 +4,10 @@
   "displayName": "Forge Stats",
   "description": "Stats client for Forge. Sends analytics events to the Forge Stats API.",
   "unity": "2018.1",
+  "author": {
+    "name": "codeserk",
+    "url": "https://github.com/codeserk"
+  },
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.1"
   },

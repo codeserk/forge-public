@@ -1,10 +1,11 @@
-.PHONY: lint csharp-lint-stats \
-        csharp-gen-meta-stats \
-        csharp-version-stats-patch csharp-version-stats-minor csharp-version-stats-major
+.PHONY: lint csharp-lint-stats csharp-lint-stats-unity \
+        csharp-gen-meta-stats csharp-gen-meta-stats-unity \
+        csharp-version-stats-patch csharp-version-stats-minor csharp-version-stats-major \
+        csharp-version-stats-unity-patch csharp-version-stats-unity-minor csharp-version-stats-unity-major
 
 # General
 
-lint: csharp-lint-stats
+lint: csharp-lint-stats csharp-lint-stats-unity
 
 # C# / Stats
 
@@ -22,3 +23,20 @@ csharp-version-stats-minor:
 
 csharp-version-stats-major:
 	cd csharp/packages/stats && npm version major --no-git-tag-version
+
+# C# / Stats Unity
+
+csharp-lint-stats-unity:
+	dotnet build csharp/packages/stats-unity/src/Codeserk.ForgeStatsUnity.csproj -warnaserror
+
+csharp-gen-meta-stats-unity:
+	./scripts/gen-unity-meta.sh csharp/packages/stats-unity
+
+csharp-version-stats-unity-patch:
+	cd csharp/packages/stats-unity && npm version patch --no-git-tag-version
+
+csharp-version-stats-unity-minor:
+	cd csharp/packages/stats-unity && npm version minor --no-git-tag-version
+
+csharp-version-stats-unity-major:
+	cd csharp/packages/stats-unity && npm version major --no-git-tag-version
