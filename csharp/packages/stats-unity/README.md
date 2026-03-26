@@ -4,27 +4,27 @@ Unity-specific utilities for [Forge Stats](https://github.com/codeserk/forge-pub
 
 ## Installation
 
-`com.codeserk.forge-stats` is listed as a dependency and will be installed automatically.
+UPM does not support automatic resolution of git-based dependencies, so both packages must be added manually.
 
-1. Open **Window > Package Manager**
-2. Click **+** and choose **Add package from git URL...**
-3. Enter:
-   ```
-   https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity
-   ```
-
-To pin a specific version, append a tag:
-```
-https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity#v0.0.1
-```
-
-Alternatively, add it directly to `Packages/manifest.json`:
+Add them to `Packages/manifest.json`:
 ```json
 {
   "dependencies": {
+    "com.codeserk.forge-stats": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats",
     "com.codeserk.forge-stats-unity": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity"
   }
 }
+```
+
+Or via **Window > Package Manager > + > Add package from git URL...**, adding each URL separately:
+```
+https://github.com/codeserk/forge-public.git?path=csharp/packages/stats
+https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity
+```
+
+To pin a specific version, append a tag to each URL:
+```
+https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity#v0.0.1
 ```
 
 ## Setup
