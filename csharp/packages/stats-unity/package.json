@@ -1,6 +1,6 @@
 {
   "name": "es.codeserk.forge-stats-unity",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "displayName": "Forge Stats Unity",
   "description": "Unity-specific utilities for Forge Stats.",
   "unity": "2018.1",
@@ -9,7 +9,7 @@
     "url": "https://github.com/codeserk"
   },
   "dependencies": {
-"com.unity.nuget.newtonsoft-json": "3.2.1"
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
   },
   "scripts": {
     "version": "sed -i '' 's|<Version>.*</Version>|<Version>'\"$npm_package_version\"'</Version>|' src/Codeserk.ForgeStatsUnity.csproj && ../../../scripts/gen-unity-meta.sh ."
