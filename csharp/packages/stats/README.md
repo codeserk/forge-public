@@ -4,13 +4,36 @@ Stats client for [Forge](https://github.com/codeserk/forge-public). Targets `net
 
 ## Installation
 
-Add via NuGet:
+### Unity (recommended)
+
+1. Open **Window > Package Manager**
+2. Click **+** and choose **Add package from git URL...**
+3. Enter:
+   ```
+   https://github.com/codeserk/forge-public.git?path=csharp/packages/stats
+   ```
+
+This automatically installs `com.unity.nuget.newtonsoft-json` as a dependency.
+
+To pin a specific version, append a tag:
+```
+https://github.com/codeserk/forge-public.git?path=csharp/packages/stats#v0.0.1
+```
+
+Alternatively, add it directly to `Packages/manifest.json`:
+```json
+{
+  "dependencies": {
+    "com.codeserk.forge-stats": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats"
+  }
+}
+```
+
+### Other .NET projects
 
 ```sh
 dotnet add package Codeserk.ForgeStats
 ```
-
-For Unity, install `Newtonsoft.Json` via Package Manager (`com.unity.nuget.newtonsoft-json`) before adding this package.
 
 ## Usage
 

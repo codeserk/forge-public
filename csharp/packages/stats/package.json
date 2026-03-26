@@ -1,10 +1,13 @@
 {
   "name": "com.codeserk.forge-stats",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "Forge Stats",
   "description": "Stats client for Forge. Sends analytics events to the Forge Stats API.",
   "unity": "2018.1",
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.1"
+  },
+  "scripts": {
+    "version": "sed -i '' 's|<Version>.*</Version>|<Version>'\"$npm_package_version\"'</Version>|' src/Codeserk.ForgeStats.csproj && ../../../scripts/gen-unity-meta.sh ."
   }
 }
