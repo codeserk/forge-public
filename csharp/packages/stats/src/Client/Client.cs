@@ -40,9 +40,9 @@ namespace Codeserk.ForgeStats
         }
 
         /// <summary>Sends a single event to the API.</summary>
-        public Task SendEvent(EventContent content, string? referrer = null)
+        public Task SendEvent(EventContent content, EventMeta? meta = null)
         {
-            return SendEvents(new SendEventParams { Content = new[] { content }, Referrer = referrer });
+            return SendEvents(new SendEventParams { Content = new[] { content }, Meta = meta });
         }
 
         /// <summary>Sends multiple events to the API.</summary>
@@ -63,9 +63,9 @@ namespace Codeserk.ForgeStats
         }
 
         /// <summary>Fire-and-forget single event. Calls OnError instead of throwing.</summary>
-        public void Track(EventContent content, string? referrer = null)
+        public void Track(EventContent content, EventMeta? meta = null)
         {
-            TrackMany(new SendEventParams { Content = new[] { content }, Referrer = referrer });
+            TrackMany(new SendEventParams { Content = new[] { content }, Meta = meta });
         }
 
         /// <summary>Fire-and-forget multiple events. Calls OnError instead of throwing.</summary>
@@ -84,7 +84,8 @@ namespace Codeserk.ForgeStats
         {
             var body = new
             {
-                referrer = eventParams.Referrer,
+                referrer = eventParams.Meta?.Referrer,
+                userAgent = eventParams.Meta?.UserAgent,
                 Content = eventParams.Content,
             };
             return JsonConvert.SerializeObject(body, JsonSettings);

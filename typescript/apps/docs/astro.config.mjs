@@ -21,6 +21,7 @@ const pixelartIconsPlugin = {
     }
     const svgDir = new URL('../../../node_modules/@nsmr/pixelart-react/svg', import.meta.url)
       .pathname
+    /** @type {Record<string, string>} */
     const icons = {}
     for (const file of readdirSync(svgDir)) {
       if (!file.endsWith('.svg') || file.endsWith('-sharp.svg')) continue

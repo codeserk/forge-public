@@ -27,13 +27,13 @@ namespace Codeserk.ForgeStats
         }
 
         /// <summary>Sends a single event using the singleton client.</summary>
-        public static Task SendEvent(EventContent content, string? referrer = null) => GetClient().SendEvent(content, referrer);
+        public static Task SendEvent(EventContent content, EventMeta? meta = null) => GetClient().SendEvent(content, meta);
 
         /// <summary>Sends multiple events using the singleton client.</summary>
         public static Task SendEvents(SendEventParams eventParams) => GetClient().SendEvents(eventParams);
 
         /// <summary>Fire-and-forget single event using the singleton client.</summary>
-        public static void Track(EventContent content, string? referrer = null) => GetClient().Track(content, referrer);
+        public static void Track(EventContent content, EventMeta? meta = null) => GetClient().Track(content, meta);
 
         /// <summary>Fire-and-forget multiple events using the singleton client.</summary>
         public static void TrackMany(SendEventParams eventParams) => GetClient().TrackMany(eventParams);
