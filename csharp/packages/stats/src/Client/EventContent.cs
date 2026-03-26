@@ -12,5 +12,9 @@ namespace Codeserk.ForgeStats
         /// <summary>Gets or sets the event name, e.g. the page path.</summary>
         [JsonProperty("name")]
         public string Name { get; set; } = null!;
+
+        /// <summary>Gets or sets the user agent string.</summary>
+        [JsonProperty("userAgent", NullValueHandling = NullValueHandling.Ignore)]
+        public string? UserAgent { get; set; }
     }
 }

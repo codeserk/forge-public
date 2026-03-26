@@ -39,8 +39,14 @@ namespace Codeserk.ForgeStats
             _signatureSecret = parts[1];
         }
 
-        /// <summary>Sends a tracking event to the API.</summary>
-        public async Task SendEventAsync(SendEventParams eventParams)
+        /// <summary>Sends a single event to the API.</summary>
+        public Task SendEvent(EventContent content, string? referrer = null)
+        {
+            return SendEvents(new SendEventParams { Content = new[] { content }, Referrer = referrer });
+        }
+
+        /// <summary>Sends multiple events to the API.</summary>
+        public async Task SendEvents(SendEventParams eventParams)
         {
             var body = SerializeBody(eventParams);
             var headers = BuildHeaders(EventsPath, body);
@@ -56,10 +62,16 @@ namespace Codeserk.ForgeStats
             response.EnsureSuccessStatusCode();
         }
 
-        /// <summary>Fire-and-forget wrapper around <see cref="SendEventAsync"/>. Calls OnError instead of throwing.</summary>
-        public void Track(SendEventParams eventParams)
+        /// <summary>Fire-and-forget single event. Calls OnError instead of throwing.</summary>
+        public void Track(EventContent content, string? referrer = null)
         {
-            SendEventAsync(eventParams).ContinueWith(task =>
+            TrackMany(new SendEventParams { Content = new[] { content }, Referrer = referrer });
+        }
+
+        /// <summary>Fire-and-forget multiple events. Calls OnError instead of throwing.</summary>
+        public void TrackMany(SendEventParams eventParams)
+        {
+            SendEvents(eventParams).ContinueWith(task =>
             {
                 if (task.IsFaulted && task.Exception != null)
                 {
