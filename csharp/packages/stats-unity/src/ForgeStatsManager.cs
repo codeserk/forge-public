@@ -1,9 +1,10 @@
+using System.Threading.Tasks;
 using Codeserk.ForgeStats;
 using UnityEngine;
 
 namespace Codeserk.ForgeStats.Unity
 {
-    // StatsManager is the main entry point for tracking analytics events in Unity.
+    // ForgeStatsManager is the main entry point for tracking analytics events in Unity.
     // It wraps ForgeStatsModule with Unity-specific initialization and device detection.
     //
     // Setup:
@@ -12,18 +13,52 @@ namespace Codeserk.ForgeStats.Unity
     //   3. Fill in your Forge Stats URL and SDK key from the dashboard
     //
     // Usage:
-    //   StatsManager.TrackView("MainMenu");
+    //   ForgeStatsManager.TrackView("MainMenu");
     //
     // The manager initializes lazily on first call - no manual Init() needed.
     // See https://forge.codeserk.es/docs/sdks/csharp-unity
-    public static class StatsManager
+    public static class ForgeStatsManager
     {
         private static bool _initialized;
 
-        public static void TrackView(string name)
+        public static void TrackView(string name, EventMeta? meta = null)
         {
             EnsureInitialized();
-            ForgeStatsModule.Track(new EventContent { Type = "View", Name = name }, GetEventMeta());
+            ForgeStatsModule.Track(new EventContent { Type = "View", Name = name }, meta ?? GetEventMeta());
+        }
+
+        public static Task SendEvent(EventContent content, EventMeta? meta = null)
+        {
+            EnsureInitialized();
+            return ForgeStatsModule.SendEvent(content, meta ?? GetEventMeta());
+        }
+
+        public static Task SendEvents(SendEventParams eventParams)
+        {
+            EnsureInitialized();
+            if (eventParams.Meta == null)
+            {
+                eventParams = new SendEventParams { Content = eventParams.Content, Meta = GetEventMeta() };
+            }
+
+            return ForgeStatsModule.SendEvents(eventParams);
+        }
+
+        public static void Track(EventContent content, EventMeta? meta = null)
+        {
+            EnsureInitialized();
+            ForgeStatsModule.Track(content, meta ?? GetEventMeta());
+        }
+
+        public static void TrackMany(SendEventParams eventParams)
+        {
+            EnsureInitialized();
+            if (eventParams.Meta == null)
+            {
+                eventParams = new SendEventParams { Content = eventParams.Content, Meta = GetEventMeta() };
+            }
+
+            ForgeStatsModule.TrackMany(eventParams);
         }
 
         public static EventMeta GetEventMeta()

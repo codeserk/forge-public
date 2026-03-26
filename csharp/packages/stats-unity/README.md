@@ -33,7 +33,7 @@ https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity#v0
 2. Place it in a `Resources` folder, named exactly `StatsConfig` (e.g. `Assets/Resources/StatsConfig.asset`)
 3. Fill in your **URL** and **SDK key** from the Forge dashboard
 
-No code initialization is needed - `StatsManager` loads the config lazily on first use.
+No code initialization is needed - `ForgeStatsManager` loads the config lazily on first use.
 
 ## Usage
 
@@ -41,25 +41,25 @@ No code initialization is needed - `StatsManager` loads the config lazily on fir
 using Codeserk.ForgeStats.Unity;
 
 // Track a screen view
-StatsManager.TrackView("MainMenu");
+ForgeStatsManager.TrackView("MainMenu");
 ```
 
 Device and OS are detected automatically from `SystemInfo` and `Application.platform`.
 
 ## API
 
-### `StatsManager.TrackView(name)`
+### `ForgeStatsManager.TrackView(name)`
 
 Fire-and-forget view event. Initializes from `StatsConfig` on first call.
 
-### `StatsManager.GetEventMeta()`
+### `ForgeStatsManager.GetEventMeta()`
 
 Returns an `EventMeta` with the current device's user agent string.
 
-### `StatsManager.GetCurrentDevice()`
+### `ForgeStatsManager.GetCurrentDevice()`
 
 Maps `SystemInfo.deviceType` to a `Device` enum value (`Mobile`, `Console`, `Desktop`).
 
-### `StatsManager.GetCurrentOS()`
+### `ForgeStatsManager.GetCurrentOS()`
 
 Maps `Application.platform` to an `OS` enum value (`IOS`, `Android`, `Windows`, `MacOS`, `Linux`, `WebGL`).
