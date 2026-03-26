@@ -1,0 +1,9 @@
+{
+  "name": "Codeserk.ForgeStats",
+  "rootNamespace": "Codeserk.ForgeStats",
+  "references": [
+    "Newtonsoft.Json"
+  ],
+  "autoReferenced": true,
+  "noEngineReferences": true
+}
