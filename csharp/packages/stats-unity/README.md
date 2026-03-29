@@ -1,6 +1,6 @@
 # Codeserk.ForgeStatsUnity
 
-Unity-specific utilities for [Forge Stats](https://github.com/codeserk/forge-public). Wraps `com.codeserk.forge-stats` with automatic device/OS detection and config-driven initialization.
+Unity-specific utilities for [Forge Stats](https://github.com/codeserk/forge-public). Wraps `es.codeserk.forge-stats` with automatic device/OS detection and config-driven initialization.
 
 ## Installation
 
@@ -10,8 +10,8 @@ Add them to `Packages/manifest.json`:
 ```json
 {
   "dependencies": {
-    "com.codeserk.forge-stats": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats",
-    "com.codeserk.forge-stats-unity": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity"
+    "es.codeserk.forge-stats": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats",
+    "es.codeserk.forge-stats-unity": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats-unity"
   }
 }
 ```

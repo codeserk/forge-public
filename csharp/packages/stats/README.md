@@ -24,7 +24,7 @@ Alternatively, add it directly to `Packages/manifest.json`:
 ```json
 {
   "dependencies": {
-    "com.codeserk.forge-stats": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats"
+    "es.codeserk.forge-stats": "https://github.com/codeserk/forge-public.git?path=csharp/packages/stats"
   }
 }
 ```

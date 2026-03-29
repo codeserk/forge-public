@@ -1,5 +1,5 @@
 {
-  "name": "com.codeserk.forge-stats",
+  "name": "es.codeserk.forge-stats",
   "version": "0.0.4",
   "displayName": "Forge Stats",
   "description": "Stats client for Forge. Sends analytics events to the Forge Stats API.",
