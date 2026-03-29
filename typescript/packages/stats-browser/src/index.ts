@@ -1,4 +1,4 @@
-import { init, track } from '@codeserk/forge-stats'
+import { init, trackView } from '@codeserk/forge-stats'
 
 /** Reads config from the current script tag's data attributes. */
 function readConfig(): { baseUrl: string; sdk: string } | undefined {
@@ -16,10 +16,7 @@ function readConfig(): { baseUrl: string; sdk: string } | undefined {
 
 /** Sends a page view event for the current location. */
 function trackPageView(): void {
-  track({
-    content: [{ type: 'View', name: window.location.pathname }],
-    referrer: document.referrer,
-  })
+  trackView(window.location.pathname, { referrer: document.referrer })
 }
 
 /** Patches history.pushState to detect SPA navigation. */

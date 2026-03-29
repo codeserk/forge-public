@@ -1,4 +1,19 @@
 export { Client } from './client/client.service'
-export type { ClientOptions, SendEventParams, EventContent, Logger } from './client/client.types'
+export type {
+  ClientOptions,
+  SendEventParams,
+  EventContent,
+  EventMeta,
+  EventData,
+  Logger,
+} from './client/client.types'
 
-export { init, getClient, sendEvent, track } from './client/client.module'
+export {
+  init,
+  getClient,
+  sendEvent,
+  sendEvents,
+  track,
+  trackMany,
+  trackView,
+} from './client/client.module'

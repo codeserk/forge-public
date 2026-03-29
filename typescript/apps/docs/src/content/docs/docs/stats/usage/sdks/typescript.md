@@ -18,20 +18,42 @@ npm install @codeserk/forge-stats
 The easiest way to get started. Initialize once - _usually at app startup_ - and call `track` from anywhere **without passing a client around**.
 
 ```ts
-import { init, track } from '@codeserk/forge-stats'
+import { init, track, trackView } from '@codeserk/forge-stats'
 
 init({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
 
-// fire-and-forget - errors are swallowed and logged
-track({ content: [{ type: 'View', name: '/home' }], referrer: document.referrer })
+// track a single event - fire-and-forget, errors are logged
+track({ type: 'View', name: '/home' })
+
+// convenience shorthand for view events
+trackView('/home', { referrer: document.referrer })
 ```
 
-If you need to await the result or handle errors yourself, use `sendEvent` instead:
+To track multiple events in one request, use `trackMany`:
 
 ```ts
-import { sendEvent } from '@codeserk/forge-stats'
+import { trackMany } from '@codeserk/forge-stats'
 
-await sendEvent({ content: [{ type: 'View', name: '/home' }] })
+trackMany({
+  content: [
+    { type: 'View', name: '/home' },
+    { type: 'Click', name: 'cta-button', data: { label: 'Get started' } },
+  ],
+  meta: { referrer: document.referrer },
+})
+```
+
+If you need to await the result or handle errors yourself, use `sendEvent` / `sendEvents`:
+
+```ts
+import { sendEvent, sendEvents } from '@codeserk/forge-stats'
+
+await sendEvent({ type: 'View', name: '/home' })
+
+await sendEvents({
+  content: [{ type: 'View', name: '/home' }],
+  meta: { referrer: document.referrer, userId: 'user_123' },
+})
 ```
 
 ### Instance
@@ -43,7 +65,8 @@ import { Client } from '@codeserk/forge-stats'
 
 const client = new Client({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
 
-client.track({ content: [{ type: 'View', name: '/home' }] })
+client.track({ type: 'View', name: '/home' })
+client.trackView('/home', { referrer: document.referrer })
 ```
 
 ### Custom logger
@@ -66,7 +89,7 @@ You will need a `crypto.subtle` polyfill - [`react-native-quick-crypto`](https:/
 
 ### `init(options)`
 
-Initializes the singleton. Call this before `track` or `sendEvent`.
+Initializes the singleton. Call this before any send/track calls.
 
 | Option    | Type     | Required | Description                                     |
 | --------- | -------- | -------- | ----------------------------------------------- |
@@ -74,14 +97,52 @@ Initializes the singleton. Call this before `track` or `sendEvent`.
 | `sdk`     | `string` | yes      | Base64-encoded SDK key from the Forge dashboard |
 | `logger`  | `Logger` | no       | Defaults to `console`                           |
 
-### `track(params)`
+### `track(content, meta?)`
 
-Fire-and-forget. Swallows errors and logs them via the logger.
+Fire-and-forget for a single event. Swallows errors and logs them via the logger.
 
-### `sendEvent(params)`
+### `trackMany(params)`
+
+Fire-and-forget for multiple events in one request.
+
+### `trackView(name, meta?)`
+
+Convenience shorthand - equivalent to `track({ type: 'View', name }, meta)`.
+
+### `sendEvent(content, meta?)`
 
 Same as `track` but returns a `Promise` - use this when you need to await or catch errors.
+
+### `sendEvents(params)`
+
+Same as `trackMany` but returns a `Promise`.
 
 ### `getClient()`
 
 Returns the singleton `Client` instance. **Throws if `init()` has not been called yet.**
+
+### `EventMeta`
+
+Optional metadata that can be attached to any event.
+
+| Field                | Type                  | Description          |
+| -------------------- | --------------------- | -------------------- |
+| `referrer`           | `string`              | Referring URL        |
+| `userAgent`          | `string`              | User-Agent string    |
+| `userId`             | `string`              | Application user ID  |
+| `userData`           | `EventData`           | Arbitrary user data  |
+| `referrerUtmMedium`  | `string`              | UTM medium           |
+| `referrerUtmSource`  | `string`              | UTM source           |
+| `referrerUtmCampaign`| `string`              | UTM campaign         |
+| `referrerUtmContent` | `string`              | UTM content          |
+| `referrerUtmTerm`    | `string`              | UTM term             |
+
+### `EventContent`
+
+| Field  | Type        | Required | Description                         |
+| ------ | ----------- | -------- | ----------------------------------- |
+| `type` | `string`    | yes      | Event type, e.g. `'View'`           |
+| `name` | `string`    | yes      | Event name, e.g. a page path        |
+| `data` | `EventData` | no       | Arbitrary key/value data            |
+
+`EventData` is `Record<string, string | number | boolean>`.

@@ -1,15 +1,41 @@
+export type EventData = Record<string, string | number | boolean>
+
 /** A single piece of content to track in an event. */
 export interface EventContent {
   /** Event type, e.g. `'View'`. */
   readonly type: string
   /** Event name, e.g. the page path. */
   readonly name: string
+  /** Arbitrary key/value data attached to this content item. */
+  readonly data?: EventData
+}
+
+/** Optional metadata sent alongside the event payload. */
+export interface EventMeta {
+  /** Referring URL. */
+  readonly referrer?: string
+  /** User-Agent string. */
+  readonly userAgent?: string
+  /** Application-level user identifier. */
+  readonly userId?: string
+  /** Arbitrary key/value data attached to the user. */
+  readonly userData?: EventData
+  /** UTM medium. */
+  readonly referrerUtmMedium?: string
+  /** UTM source. */
+  readonly referrerUtmSource?: string
+  /** UTM campaign. */
+  readonly referrerUtmCampaign?: string
+  /** UTM content. */
+  readonly referrerUtmContent?: string
+  /** UTM term. */
+  readonly referrerUtmTerm?: string
 }
 
 /** Parameters for {@link Client.sendEvent}. */
 export interface SendEventParams {
   readonly content: EventContent[]
-  readonly referrer?: string
+  readonly meta?: EventMeta
 }
 
 /** Minimal logger interface accepted by the SDK. */

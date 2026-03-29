@@ -1,6 +1,12 @@
 import { SignatureBuilder } from '../utils/signature'
 import { EVENTS_PATH, KEY_SEPARATOR, SIGNATURE_APP } from './client.const'
-import type { ClientOptions, Logger, SendEventParams } from './client.types'
+import type {
+  ClientOptions,
+  EventContent,
+  EventMeta,
+  Logger,
+  SendEventParams,
+} from './client.types'
 
 /** Client for sending analytics events to the Forge Stats API. */
 export class Client {
@@ -20,12 +26,23 @@ export class Client {
   }
 
   /**
-   * Sends a tracking event to the API.
+   * Sends one or more tracking events to the API.
    * @param params Event payload.
    * @returns Promise that resolves when the request completes.
    */
-  async sendEvent({ content, referrer }: SendEventParams): Promise<void> {
-    const body = { referrer, Content: content }
+  async sendEvents({ content, meta }: SendEventParams): Promise<void> {
+    const body = {
+      Referrer: meta?.referrer,
+      UserAgent: meta?.userAgent,
+      UserID: meta?.userId,
+      UserData: meta?.userData,
+      ReferrerUTMMedium: meta?.referrerUtmMedium,
+      ReferrerUTMSource: meta?.referrerUtmSource,
+      ReferrerUTMCampaign: meta?.referrerUtmCampaign,
+      ReferrerUTMContent: meta?.referrerUtmContent,
+      ReferrerUTMTerm: meta?.referrerUtmTerm,
+      Content: content,
+    }
 
     await fetch(`${this.baseUrl}${EVENTS_PATH}`, {
       method: 'POST',
@@ -35,13 +52,42 @@ export class Client {
   }
 
   /**
-   * Fire-and-forget wrapper around {@link sendEvent}. Logs errors instead of throwing.
+   * Sends a single tracking event to the API.
+   * @param content Single event content.
+   * @param meta Optional metadata.
+   */
+  async sendEvent(content: EventContent, meta?: EventMeta): Promise<void> {
+    return this.sendEvents({ content: [content], meta })
+  }
+
+  /**
+   * Fire-and-forget wrapper around {@link sendEvents}. Logs errors instead of throwing.
    * @param params Event payload.
    */
-  track(params: SendEventParams): void {
-    this.sendEvent(params).catch((error) =>
+  trackMany(params: SendEventParams): void {
+    this.sendEvents(params).catch((error) =>
       this.logger.error('[forge-stats] Failed to send event', error),
     )
+  }
+
+  /**
+   * Fire-and-forget for a single event. Logs errors instead of throwing.
+   * @param content Single event content.
+   * @param meta Optional metadata.
+   */
+  track(content: EventContent, meta?: EventMeta): void {
+    this.sendEvent(content, meta).catch((error) =>
+      this.logger.error('[forge-stats] Failed to send event', error),
+    )
+  }
+
+  /**
+   * Convenience method to track a single View event.
+   * @param name Page path or view name.
+   * @param meta Optional metadata.
+   */
+  trackView(name: string, meta?: EventMeta): void {
+    this.track({ type: 'View', name }, meta)
   }
 
   /**
