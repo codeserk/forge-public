@@ -111,7 +111,11 @@ export default defineConfig({
                 { label: 'Script (CDN)', slug: 'docs/stats/usage/script' },
                 {
                   label: 'SDKs',
-                  items: [{ label: 'TypeScript', slug: 'docs/stats/usage/sdks/typescript' }],
+                  items: [
+                    { label: 'TypeScript', slug: 'docs/stats/usage/sdks/typescript' },
+                    { label: 'C#', slug: 'docs/stats/usage/sdks/csharp' },
+                    { label: 'Unity', slug: 'docs/stats/usage/sdks/unity' },
+                  ],
                 },
                 {
                   label: 'Integrations',
