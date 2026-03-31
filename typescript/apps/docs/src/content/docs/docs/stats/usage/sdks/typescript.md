@@ -3,7 +3,7 @@ title: TypeScript SDK
 description: Track events from Node.js, browser, or React Native using the TypeScript SDK.
 ---
 
-If you are building something with TypeScript (or plain JS), _this is your go-to_. Works in Node.js, browser, and React Native - though React Native needs a small polyfill (more on that below).
+If you are building something with TypeScript (or plain JS), _this is your go-to_. Works in Node.js and browser. For React Native, use [`@codeserk/forge-stats-react-native`](/docs/stats/usage/sdks/react-native) instead.
 
 ## Installation
 
@@ -80,10 +80,6 @@ init({
   logger: { error: (...args) => myLogger.error(...args) },
 })
 ```
-
-## React Native
-
-You will need a `crypto.subtle` polyfill - [`react-native-quick-crypto`](https://github.com/margelo/react-native-quick-crypto) works well for this.
 
 ## API reference
 

@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/stats",
+    "packages/stats-browser"
   ],
   "devDependencies": {
     "@types/react": "^18.2.52",

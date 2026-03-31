@@ -113,6 +113,7 @@ export default defineConfig({
                   label: 'SDKs',
                   items: [
                     { label: 'TypeScript', slug: 'docs/stats/usage/sdks/typescript' },
+                    { label: 'React Native', slug: 'docs/stats/usage/sdks/react-native' },
                     { label: 'C#', slug: 'docs/stats/usage/sdks/csharp' },
                     { label: 'Unity', slug: 'docs/stats/usage/sdks/unity' },
                   ],

@@ -1,6 +1,6 @@
 {
-  "name": "@codeserk/forge-stats",
-  "version": "0.0.5",
+  "name": "@codeserk/forge-stats-react-native",
+  "version": "0.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -23,7 +23,6 @@
     "dist",
     "README.md"
   ],
-  "readme": "README.md",
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
@@ -33,7 +32,14 @@
     "publish:dry": "npm publish --dry-run",
     "publish:npm": "npm run build && npm publish"
   },
+  "peerDependencies": {
+    "react-native-quick-crypto": ">=0.7.0"
+  },
+  "dependencies": {
+    "@codeserk/forge-stats": "*"
+  },
   "devDependencies": {
+    "react-native-quick-crypto": "^0.7.0",
     "tsdown": "^0.21.4",
     "typescript": "^5.7.0"
   }
