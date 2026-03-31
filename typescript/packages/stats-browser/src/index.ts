@@ -1,7 +1,7 @@
-import { init, trackView } from '@codeserk/forge-stats'
+import { captureGlobalErrors, init, trackView } from '@codeserk/forge-stats'
 
 /** Reads config from the current script tag's data attributes. */
-function readConfig(): { baseUrl: string; sdk: string } | undefined {
+function readConfig(): { baseUrl: string; sdk: string; errors: boolean } | undefined {
   const script = document.currentScript as HTMLScriptElement | null
   const baseUrl = script?.dataset.baseUrl
   const sdk = script?.dataset.sdk
@@ -11,7 +11,7 @@ function readConfig(): { baseUrl: string; sdk: string } | undefined {
     return
   }
 
-  return { baseUrl, sdk }
+  return { baseUrl, sdk, errors: script?.dataset.errors !== undefined }
 }
 
 /** Sends a page view event for the current location. */
@@ -36,7 +36,12 @@ function setup(): void {
 
   init(config)
 
+  if (config.errors) {
+    captureGlobalErrors()
+  }
+
   // Astro View Transitions
+
   if (document.documentElement.dataset.astroTransition !== undefined) {
     document.addEventListener('astro:page-load', () => trackPageView())
     return

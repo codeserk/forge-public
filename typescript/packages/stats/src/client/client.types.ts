@@ -43,6 +43,16 @@ export interface Logger {
   error(...args: unknown[]): void
 }
 
+/** Options for tracking an error event. */
+export interface ErrorEventOptions {
+  /** Whether the error was caught by user code. @default true */
+  readonly handled?: boolean
+  /** Extra key/value data attached to the error event. */
+  readonly data?: EventData
+  /** Number of top stack frames used for fingerprinting. @default 3 */
+  readonly maxFrames?: number
+}
+
 /** Options used to initialise a {@link Client} instance. */
 export interface ClientOptions {
   /** Base URL of the Forge Stats API, e.g. `'https://api-events.forge.codeserk.es'`. */

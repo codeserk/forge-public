@@ -1,7 +1,9 @@
+import { generateFingerprint } from '../errors/error'
 import { SignatureBuilder } from '../utils/signature'
 import { EVENTS_PATH, KEY_SEPARATOR, SIGNATURE_APP } from './client.const'
 import type {
   ClientOptions,
+  ErrorEventOptions,
   EventContent,
   EventMeta,
   Logger,
@@ -27,8 +29,7 @@ export class Client {
 
   /**
    * Sends one or more tracking events to the API.
-   * @param params Event payload.
-   * @returns Promise that resolves when the request completes.
+   * @param params Event payload
    */
   async sendEvents({ content, meta }: SendEventParams): Promise<void> {
     const body = {
@@ -53,8 +54,8 @@ export class Client {
 
   /**
    * Sends a single tracking event to the API.
-   * @param content Single event content.
-   * @param meta Optional metadata.
+   * @param content Single event content
+   * @param meta Optional metadata
    */
   async sendEvent(content: EventContent, meta?: EventMeta): Promise<void> {
     return this.sendEvents({ content: [content], meta })
@@ -62,7 +63,7 @@ export class Client {
 
   /**
    * Fire-and-forget wrapper around {@link sendEvents}. Logs errors instead of throwing.
-   * @param params Event payload.
+   * @param params Event payload
    */
   trackMany(params: SendEventParams): void {
     this.sendEvents(params).catch((error) =>
@@ -72,8 +73,8 @@ export class Client {
 
   /**
    * Fire-and-forget for a single event. Logs errors instead of throwing.
-   * @param content Single event content.
-   * @param meta Optional metadata.
+   * @param content Single event content
+   * @param meta Optional metadata
    */
   track(content: EventContent, meta?: EventMeta): void {
     this.sendEvent(content, meta).catch((error) =>
@@ -83,18 +84,63 @@ export class Client {
 
   /**
    * Convenience method to track a single View event.
-   * @param name Page path or view name.
-   * @param meta Optional metadata.
+   * @param name Page path or view name
+   * @param meta Optional metadata
    */
   trackView(name: string, meta?: EventMeta): void {
     this.track({ type: 'View', name }, meta)
   }
 
   /**
+   * Sends an error event to the API.
+   * @param error The error to report
+   * @param options Error event options
+   * @param meta Optional metadata
+   */
+  async sendError(error: Error, options?: ErrorEventOptions, meta?: EventMeta): Promise<void> {
+    return this.sendEvent(this.buildErrorContent(error, options), meta)
+  }
+
+  /**
+   * Fire-and-forget error tracking. Logs errors instead of throwing.
+   * @param error The error to report
+   * @param options Error event options
+   * @param meta Optional metadata
+   */
+  trackError(error: Error, options?: ErrorEventOptions, meta?: EventMeta): void {
+    this.sendError(error, options, meta).catch((sendErr) =>
+      this.logger.error('[forge-stats] Failed to send error event', sendErr),
+    )
+  }
+
+  /**
+   * Builds an event content object from an error.
+   * @param error The error to convert
+   * @param options Error event options
+   * @return Event content with fingerprint and error data
+   */
+  private buildErrorContent(error: Error, options?: ErrorEventOptions): EventContent {
+    const fingerprint = generateFingerprint(error, { maxFrames: options?.maxFrames })
+
+    return {
+      type: 'Error',
+      name: fingerprint,
+      data: {
+        ...options?.data,
+        message: error.message || '',
+        errorType: error.name || 'Error',
+        stack: error.stack || '',
+        fingerprint: fingerprint,
+        handled: options?.handled ?? true,
+      },
+    }
+  }
+
+  /**
    * Builds signed request headers for the given path and body.
-   * @param path API path used in the signature.
-   * @param body Request body used in the signature.
-   * @returns Signed headers object.
+   * @param path API path used in the signature
+   * @param body Request body used in the signature
+   * @return Signed headers object
    */
   private async buildHeaders(path: string, body: string | object): Promise<Record<string, string>> {
     return {

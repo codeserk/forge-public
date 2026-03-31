@@ -5,6 +5,7 @@ export type {
   EventContent,
   EventMeta,
   EventData,
+  ErrorEventOptions,
   Logger,
 } from './client/client.types'
 
@@ -16,4 +17,10 @@ export {
   track,
   trackMany,
   trackView,
+  sendError,
+  trackError,
+  captureGlobalErrors,
 } from './client/client.module'
+
+export { generateFingerprint, parseStack, stripDynamicValues } from './errors/error'
+export type { StackFrame, FingerprintOptions } from './errors/error.types'
