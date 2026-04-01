@@ -1,7 +1,7 @@
 import { generateFingerprint } from '../errors/error'
 import { SignatureBuilder } from '../utils/signature'
 import { SignHashFn } from '../utils/signature.types'
-import { EVENTS_PATH, KEY_SEPARATOR, SIGNATURE_APP } from './client.const'
+import { DEFAULT_BASE_URL, EVENTS_PATH, KEY_SEPARATOR, SIGNATURE_APP } from './client.const'
 import type {
   ClientOptions,
   ErrorEventOptions,
@@ -21,7 +21,7 @@ export class Client {
   private defaultMeta: EventMeta = {}
 
   /** @param options client configuration */
-  constructor({ baseUrl, sdk, logger = console, signHashFn }: ClientOptions) {
+  constructor({ baseUrl = DEFAULT_BASE_URL, sdk, logger = console, signHashFn }: ClientOptions) {
     this.baseUrl = baseUrl
     this.logger = logger
     this.signHashFn = signHashFn

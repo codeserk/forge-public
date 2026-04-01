@@ -20,7 +20,7 @@ Import from this package instead of `@codeserk/forge-stats`:
 ```ts
 import { init, trackView, updateMeta } from '@codeserk/forge-stats-react-native'
 
-init({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
+init({ sdk: 'YOUR_SDK_KEY' })
 // deviceOS and deviceOSVersion are already set automatically
 
 // add app metadata
@@ -64,7 +64,7 @@ trackError(new Error('Oops'), { handled: true, data: { screen: 'Checkout' } })
 ```ts
 import { Client } from '@codeserk/forge-stats-react-native'
 
-const client = new Client({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
+const client = new Client({ sdk: 'YOUR_SDK_KEY' })
 
 client.setMeta({ appName: 'MyApp' })
 client.trackView('HomeScreen')

@@ -1,3 +1,6 @@
+/** Default base URL for the Forge Stats API (production). */
+export const DEFAULT_BASE_URL = 'https://api-events.forge.codeserk.es'
+
 /** Separator used to split the SDK key into token and signature secret. */
 export const KEY_SEPARATOR = '___'
 

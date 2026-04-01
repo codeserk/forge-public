@@ -20,7 +20,7 @@ The easiest way to get started. Initialize once - _usually at app startup_ - and
 ```ts
 import { init, track, trackView } from '@codeserk/forge-stats'
 
-init({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
+init({ sdk: 'YOUR_SDK_KEY' })
 
 // track a single event - fire-and-forget, errors are logged
 track({ type: 'View', name: '/home' })
@@ -106,7 +106,7 @@ Prefer to manage the client yourself? Fair enough.
 ```ts
 import { Client } from '@codeserk/forge-stats'
 
-const client = new Client({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
+const client = new Client({ sdk: 'YOUR_SDK_KEY' })
 
 client.setMeta({ appName: 'MyApp' })
 client.trackView('/home')
@@ -133,7 +133,7 @@ Initializes the singleton. Call this before any send/track calls.
 
 | Option       | Type         | Required | Description                                                         |
 | ------------ | ------------ | -------- | ------------------------------------------------------------------- |
-| `baseUrl`    | `string`     | yes      | Base URL of the Forge Stats API                                     |
+| `baseUrl`    | `string`     | no       | Defaults to `https://api-events.forge.codeserk.es`                  |
 | `sdk`        | `string`     | yes      | Base64-encoded SDK key from the Forge dashboard                     |
 | `logger`     | `Logger`     | no       | Defaults to `console`                                               |
 | `signHashFn` | `SignHashFn` | no       | Custom HMAC-SHA256 implementation. Defaults to Web Crypto           |

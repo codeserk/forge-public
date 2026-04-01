@@ -93,8 +93,8 @@ export interface ErrorEventOptions {
 
 /** Options used to initialise a {@link Client} instance. */
 export interface ClientOptions {
-  /** Base URL of the Forge Stats API, e.g. `'https://api-events.forge.codeserk.es'`. */
-  readonly baseUrl: string
+  /** Base URL of the Forge Stats API. @default 'https://api-events.forge.codeserk.es' */
+  readonly baseUrl?: string
   /** Base64-encoded SDK key from the Forge dashboard. Encodes the project token and HMAC secret. */
   readonly sdk: string
   /** Defaults to `console`. */
