@@ -1,4 +1,4 @@
-import { generateFingerprint } from '../errors/error'
+import { extractErrorName, generateFingerprint } from '../errors/error'
 import { SignatureBuilder } from '../utils/signature'
 import { SignHashFn } from '../utils/signature.types'
 import { DEFAULT_BASE_URL, EVENTS_PATH, KEY_SEPARATOR, SIGNATURE_APP } from './client.const'
@@ -160,8 +160,7 @@ export class Client {
    */
   private buildErrorContent(error: Error, options?: ErrorEventOptions): EventContent {
     const fingerprint = generateFingerprint(error, { maxFrames: options?.maxFrames })
-
-    const name = (error.name || error.message || 'Error').slice(0, 15)
+    const name = extractErrorName(error)
 
     return {
       type: 'Error',

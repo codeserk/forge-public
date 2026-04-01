@@ -1,13 +1,40 @@
 import {
   DOUBLE_QUOTED_STRING_PATTERN,
+  ERROR_NAME_MAX_LENGTH,
   FIREFOX_STACK_FRAME_PATTERN,
   HEX_VALUE_PATTERN,
   NUMBER_PATTERN,
   SINGLE_QUOTED_STRING_PATTERN,
+  UNKNOWN_ERROR,
   UUID_PATTERN,
   V8_STACK_FRAME_PATTERN,
 } from './error.const'
 import type { FingerprintOptions, StackFrame } from './error.types'
+
+/**
+ * Extracts a short name from an error for display purposes.
+ * Tries message, first stack frame, error.name, then falls back to unknown.
+ * @param error the error to extract a name from
+ * @returns truncated error name
+ */
+export function extractErrorName(error: Error): string {
+  if (error.message && error.message !== 'Error') {
+    return error.message.slice(0, ERROR_NAME_MAX_LENGTH)
+  }
+
+  if (error.stack) {
+    const frames = parseStack(error.stack)
+    if (frames.length > 0 && frames[0].func) {
+      return `${frames[0].func}`.slice(0, ERROR_NAME_MAX_LENGTH)
+    }
+  }
+
+  if (error.name && error.name !== 'Error') {
+    return error.name.slice(0, ERROR_NAME_MAX_LENGTH)
+  }
+
+  return UNKNOWN_ERROR
+}
 
 /**
  * Parses a stack trace string into normalized frames.

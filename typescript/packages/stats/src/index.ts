@@ -24,7 +24,12 @@ export {
   captureGlobalErrors,
 } from './client/client.module'
 
-export { generateFingerprint, parseStack, stripDynamicValues } from './errors/error'
+export {
+  extractErrorName,
+  generateFingerprint,
+  parseStack,
+  stripDynamicValues,
+} from './errors/error'
 export type { StackFrame, FingerprintOptions } from './errors/error.types'
 
 export { webCryptoHmacSha256 } from './utils/signature'

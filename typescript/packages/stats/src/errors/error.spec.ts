@@ -1,4 +1,4 @@
-import { generateFingerprint, parseStack, stripDynamicValues } from './error'
+import { extractErrorName, generateFingerprint, parseStack, stripDynamicValues } from './error'
 
 describe('error', () => {
   describe('parseStack', () => {
@@ -197,6 +197,87 @@ init@http://example.com/js/app.js:5:1`
 
       // Assert
       expect(result).toMatch(/^Error-[0-9a-f]{8}$/)
+    })
+  })
+
+  describe('extractErrorName', () => {
+    it('should use the message when available', () => {
+      // Arrange
+      const err = new Error('something broke')
+
+      // Act
+      const result = extractErrorName(err)
+
+      // Assert
+      expect(result).toBe('something broke')
+    })
+
+    it('should truncate long messages to 50 chars', () => {
+      // Arrange
+      const err = new Error(
+        'this is a very long error message that exceeds the maximum allowed length for display',
+      )
+
+      // Act
+      const result = extractErrorName(err)
+
+      // Assert
+      expect(result).toBe('this is a very long error message that exceeds the')
+      expect(result).toHaveLength(50)
+    })
+
+    it('should use first stack frame func when message is generic "Error"', () => {
+      // Arrange
+      const err = new Error()
+      err.message = 'Error'
+      err.stack = `Error\n    at fetchData (http://example.com/js/utils.js:42:15)`
+
+      // Act
+      const result = extractErrorName(err)
+
+      // Assert
+      expect(result).toBe('fetchData')
+    })
+
+    it('should use error.name when message is empty and no stack', () => {
+      // Arrange
+      const err = new TypeError()
+      err.message = ''
+      err.stack = undefined
+
+      // Act
+      const result = extractErrorName(err)
+
+      // Assert
+      expect(result).toBe('TypeError')
+    })
+
+    it('should return Unknown Error when nothing is available', () => {
+      // Arrange
+      const err = new Error()
+      err.message = ''
+      err.name = 'Error'
+      err.stack = undefined
+
+      // Act
+      const result = extractErrorName(err)
+
+      // Assert
+      expect(result).toBe('Unknown Error')
+    })
+
+    it('should skip generic "Error" name and fall back correctly', () => {
+      // Arrange
+      const err = new Error()
+      err.message = ''
+      err.name = 'Error'
+      err.stack = `Error\n    at myFunction (app.js:1:1)`
+
+      // Act
+      const result = extractErrorName(err)
+
+      // Assert
+      expect(result).toBe('myFunction')
     })
   })
 })

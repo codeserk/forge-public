@@ -1,3 +1,6 @@
+export const UNKNOWN_ERROR = 'Unknown Error'
+export const ERROR_NAME_MAX_LENGTH = 50
+
 export const V8_STACK_FRAME_PATTERN = /^\s*at\s+(?:(.+?)\s+\()?(.*?)(?::(\d+))?(?::(\d+))?\)?$/
 export const FIREFOX_STACK_FRAME_PATTERN = /^(.*)@(.*?)(?::(\d+))?(?::(\d+))?$/
 
