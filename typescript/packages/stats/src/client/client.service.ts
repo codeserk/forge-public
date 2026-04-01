@@ -1,5 +1,6 @@
 import { generateFingerprint } from '../errors/error'
 import { SignatureBuilder } from '../utils/signature'
+import { SignHashFn } from '../utils/signature.types'
 import { EVENTS_PATH, KEY_SEPARATOR, SIGNATURE_APP } from './client.const'
 import type {
   ClientOptions,
@@ -16,10 +17,12 @@ export class Client {
   private readonly token: string
   private readonly signatureSecret: string
   private readonly logger: Logger
+  private readonly signHashFn?: SignHashFn
 
-  constructor({ baseUrl, sdk, logger = console }: ClientOptions) {
+  constructor({ baseUrl, sdk, logger = console, signHashFn }: ClientOptions) {
     this.baseUrl = baseUrl
     this.logger = logger
+    this.signHashFn = signHashFn
 
     const key = atob(sdk)
     const parts = key.split(KEY_SEPARATOR)
@@ -33,16 +36,31 @@ export class Client {
    */
   async sendEvents({ content, meta }: SendEventParams): Promise<void> {
     const body = {
-      Referrer: meta?.referrer,
-      UserAgent: meta?.userAgent,
-      UserID: meta?.userId,
-      UserData: meta?.userData,
-      ReferrerUTMMedium: meta?.referrerUtmMedium,
-      ReferrerUTMSource: meta?.referrerUtmSource,
-      ReferrerUTMCampaign: meta?.referrerUtmCampaign,
-      ReferrerUTMContent: meta?.referrerUtmContent,
-      ReferrerUTMTerm: meta?.referrerUtmTerm,
-      Content: content,
+      timestamp: meta?.timestamp,
+      timestampEnd: meta?.timestampEnd,
+      userID: meta?.userId,
+      userIp: meta?.userIp,
+      userAgent: meta?.userAgent,
+      userType: meta?.userType,
+      userData: meta?.userData,
+      userCountry: meta?.userCountry,
+      userRegion: meta?.userRegion,
+      userCity: meta?.userCity,
+      deviceType: meta?.deviceType,
+      deviceOS: meta?.deviceOS,
+      deviceOSVersion: meta?.deviceOSVersion,
+      deviceBrowser: meta?.deviceBrowser,
+      appName: meta?.appName,
+      appVersionName: meta?.appVersionName,
+      appVersionID: meta?.appVersionID,
+      referrer: meta?.referrer,
+      referrerEvent: meta?.referrerEvent,
+      referrerUtmMedium: meta?.referrerUtmMedium,
+      referrerUtmSource: meta?.referrerUtmSource,
+      referrerUtmCampaign: meta?.referrerUtmCampaign,
+      referrerUtmContent: meta?.referrerUtmContent,
+      referrerUtmTerm: meta?.referrerUtmTerm,
+      content: content,
     }
 
     await fetch(`${this.baseUrl}${EVENTS_PATH}`, {
@@ -147,7 +165,7 @@ export class Client {
       'Content-Type': 'application/json',
       'x-token': this.token,
       'x-signature-app': SIGNATURE_APP,
-      'x-signature': await new SignatureBuilder(this.signatureSecret)
+      'x-signature': await new SignatureBuilder(this.signatureSecret, this.signHashFn)
         .withUrl(path)
         .withBody(body)
         .build(),

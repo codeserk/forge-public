@@ -2,33 +2,71 @@ export type EventData = Record<string, string | number | boolean>
 
 /** A single piece of content to track in an event. */
 export interface EventContent {
-  /** Event type, e.g. `'View'`. */
+  /** Event type. @example 'View' */
   readonly type: string
-  /** Event name, e.g. the page path. */
+  /** Event name. @example '/home' */
   readonly name: string
+  /** Optional bucket for grouping. */
+  readonly bucket?: string
+  /** Trace ID for distributed tracing. @example 'trace123' */
+  readonly traceID?: string
+  /** Span ID for distributed tracing. @example 'span456' */
+  readonly spanID?: string
+  /** Parent span ID for distributed tracing. @example 'parent789' */
+  readonly parentSpanID?: string
   /** Arbitrary key/value data attached to this content item. */
   readonly data?: EventData
 }
 
 /** Optional metadata sent alongside the event payload. */
 export interface EventMeta {
-  /** Referring URL. */
-  readonly referrer?: string
-  /** User-Agent string. */
-  readonly userAgent?: string
-  /** Application-level user identifier. */
+  /** ISO 8601 timestamp. Defaults to now on the server. @example '2023-10-01T12:34:56Z' */
+  readonly timestamp?: string
+  /** ISO 8601 end timestamp for duration events. @example '2023-10-01T13:35:56Z' */
+  readonly timestampEnd?: string
+  /** Application-level user identifier. @example 'user123' */
   readonly userId?: string
+  /** Client IP override (server resolved by default). @example '192.168.1.1' */
+  readonly userIp?: string
+  /** User-Agent string. @example 'Mozilla/5.0' */
+  readonly userAgent?: string
+  /** User type. @example 'premium' */
+  readonly userType?: string
   /** Arbitrary key/value data attached to the user. */
   readonly userData?: EventData
-  /** UTM medium. */
+  /** User country code. @example 'US' */
+  readonly userCountry?: string
+  /** User region. @example 'California' */
+  readonly userRegion?: string
+  /** User city. @example 'San Francisco' */
+  readonly userCity?: string
+  /** Device type. @example 'mobile' */
+  readonly deviceType?: string
+  /** Device OS. @example 'iOS' */
+  readonly deviceOS?: string
+  /** Device OS version. @example '17.4.1' */
+  readonly deviceOSVersion?: string
+  /** Device browser. @example 'Safari' */
+  readonly deviceBrowser?: string
+  /** Application name. @example 'MyApp' */
+  readonly appName?: string
+  /** Application version name. @example '2.3.1' */
+  readonly appVersionName?: string
+  /** Application version ID / build number. @example '42' */
+  readonly appVersionID?: string
+  /** Referring URL. @example 'https://example.com' */
+  readonly referrer?: string
+  /** Referrer event. @example 'click' */
+  readonly referrerEvent?: string
+  /** UTM medium. @example 'email' */
   readonly referrerUtmMedium?: string
-  /** UTM source. */
+  /** UTM source. @example 'newsletter' */
   readonly referrerUtmSource?: string
-  /** UTM campaign. */
+  /** UTM campaign. @example 'campaign123' */
   readonly referrerUtmCampaign?: string
-  /** UTM content. */
+  /** UTM content. @example 'content123' */
   readonly referrerUtmContent?: string
-  /** UTM term. */
+  /** UTM term. @example 'term123' */
   readonly referrerUtmTerm?: string
 }
 
@@ -61,4 +99,6 @@ export interface ClientOptions {
   readonly sdk: string
   /** Defaults to `console`. */
   readonly logger?: Logger
+  /** Custom hash function for signing. Defaults to Web Crypto HMAC-SHA256. */
+  readonly signHashFn?: (content: string, secret: string) => Promise<string>
 }
