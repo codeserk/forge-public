@@ -1,6 +1,17 @@
 {
   "name": "@codeserk/forge-stats-react-native",
   "version": "0.2.2",
+  "description": "React Native wrapper for Forge Stats. Pure-JS HMAC signing, no native crypto modules needed.",
+  "license": "MIT",
+  "keywords": [
+    "forge",
+    "analytics",
+    "stats",
+    "tracking",
+    "events",
+    "error-tracking",
+    "react-native"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +32,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsdown",

@@ -1,6 +1,16 @@
 {
   "name": "@codeserk/forge-stats",
-  "version": "0.2.1",
+  "version": "0.3.0",
+  "description": "Stats client for Forge. Tracks events, errors, and page views with HMAC-signed requests.",
+  "license": "MIT",
+  "keywords": [
+    "forge",
+    "analytics",
+    "stats",
+    "tracking",
+    "events",
+    "error-tracking"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +31,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "readme": "README.md",
   "scripts": {
