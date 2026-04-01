@@ -6,7 +6,7 @@
     <LangVersion>8.0</LangVersion>
     <RootNamespace>Codeserk.ForgeStats.Unity</RootNamespace>
     <AssemblyName>Codeserk.ForgeStatsUnity</AssemblyName>
-    <Version>0.0.5</Version>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

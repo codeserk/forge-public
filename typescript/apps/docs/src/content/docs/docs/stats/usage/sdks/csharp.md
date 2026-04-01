@@ -42,44 +42,54 @@ dotnet add package Codeserk.ForgeStats
 
 ### Singleton (recommended)
 
-Initialise once at startup, then call `Track` anywhere without managing an instance.
+Initialise once at startup, then call `Track` anywhere without managing an instance. `BaseUrl` defaults to `https://api-events.forge.codeserk.es` (production).
 
 ```csharp
 using Codeserk.ForgeStats;
 
-ForgeStatsModule.Init(new ClientOptions
-{
-    BaseUrl = "https://api-events.forge.codeserk.es",
-    Sdk = "YOUR_SDK_KEY",
-});
+ForgeStatsModule.Init(new ClientOptions { Sdk = "YOUR_SDK_KEY" });
 
 // fire-and-forget - single event
-ForgeStatsModule.Track(
-    new EventContent { Type = "View", Name = "/home" },
-    new EventMeta { Referrer = "https://referrer.example.com" }
-);
+ForgeStatsModule.Track(new EventContent { Type = "View", Name = "/home" });
 
-// fire-and-forget - multiple events
+// with per-call metadata
+ForgeStatsModule.Track(
+    new EventContent { Type = "Click", Name = "cta-button" },
+    new EventMeta { UserId = "user_123" }
+);
+```
+
+### Default metadata
+
+Set default metadata that is merged into every request. Per-call metadata takes precedence.
+
+```csharp
+// replace all defaults
+ForgeStatsModule.SetMeta(new EventMeta { AppName = "MyApp", AppVersionName = "2.3.1" });
+
+// merge into existing defaults
+ForgeStatsModule.UpdateMeta(new EventMeta { UserId = "user_123" });
+```
+
+### Multiple events
+
+```csharp
 ForgeStatsModule.TrackMany(new SendEventParams
 {
-    Content = [
+    Content = new[]
+    {
         new EventContent { Type = "View", Name = "/home" },
         new EventContent { Type = "Click", Name = "cta-button" },
-    ],
-    Meta = new EventMeta { Referrer = "https://referrer.example.com" },
+    },
 });
 ```
+
+### Async variants
 
 Use `SendEvent` / `SendEvents` if you need to await or handle errors yourself:
 
 ```csharp
 await ForgeStatsModule.SendEvent(new EventContent { Type = "View", Name = "/home" });
-
-await ForgeStatsModule.SendEvents(new SendEventParams
-{
-    Content = [new EventContent { Type = "View", Name = "/home" }],
-    Meta = new EventMeta { UserId = "user_123" },
-});
 ```
 
 ### Instance
@@ -87,12 +97,9 @@ await ForgeStatsModule.SendEvents(new SendEventParams
 ```csharp
 using Codeserk.ForgeStats;
 
-var client = new Client(new ClientOptions
-{
-    BaseUrl = "https://api-events.forge.codeserk.es",
-    Sdk = "YOUR_SDK_KEY",
-});
+var client = new Client(new ClientOptions { Sdk = "YOUR_SDK_KEY" });
 
+client.SetMeta(new EventMeta { AppName = "MyApp" });
 client.Track(new EventContent { Type = "View", Name = "/home" });
 ```
 
@@ -103,9 +110,8 @@ By default errors from `Track` are silently swallowed. Pass `OnError` to handle 
 ```csharp
 ForgeStatsModule.Init(new ClientOptions
 {
-    BaseUrl = "https://api-events.forge.codeserk.es",
     Sdk = "YOUR_SDK_KEY",
-    OnError = (msg, ex) => Debug.LogError($"{msg}: {ex.Message}"),
+    OnError = (msg, ex) => Console.Error.WriteLine($"{msg}: {ex.Message}"),
 });
 ```
 
@@ -113,39 +119,26 @@ ForgeStatsModule.Init(new ClientOptions
 
 ### `ForgeStatsModule.Init(options)`
 
-Initialises the singleton client. Must be called before `Track` or `SendEvent`.
+Initialises the singleton client. Must be called before any other method.
 
-| Option    | Type                         | Description                                     |
-| --------- | ---------------------------- | ----------------------------------------------- |
-| `BaseUrl` | `string`                     | Base URL of the Forge Stats API                 |
-| `Sdk`     | `string`                     | Base64-encoded SDK key from the Forge dashboard |
-| `OnError` | `Action<string, Exception>?` | Optional. Called when `Track` fails             |
+| Option    | Type                         | Description                                                        |
+| --------- | ---------------------------- | ------------------------------------------------------------------ |
+| `BaseUrl` | `string`                     | Defaults to `https://api-events.forge.codeserk.es`                 |
+| `Sdk`     | `string`                     | Base64-encoded SDK key from the Forge dashboard                    |
+| `OnError` | `Action<string, Exception>?` | Optional. Called when `Track` fails                                |
 
-### `ForgeStatsModule.Track(content, meta?)`
+### `SetMeta(meta)` / `UpdateMeta(meta)`
 
-Fire-and-forget for a single event. Calls `OnError` on failure instead of throwing.
+Replace or merge default metadata for every request.
 
-### `ForgeStatsModule.TrackMany(params)`
+### `Track(content, meta?)` / `TrackMany(params)`
 
-Fire-and-forget for multiple events in one request.
+Fire-and-forget single or multiple events.
 
-### `ForgeStatsModule.SendEvent(content, meta?)`
+### `SendEvent(content, meta?)` / `SendEvents(params)`
 
-Same as `Track` but returns a `Task` - use this when you need to await or catch errors.
+Same as `Track`/`TrackMany` but returns a `Task`.
 
-### `ForgeStatsModule.SendEvents(params)`
-
-Same as `TrackMany` but returns a `Task`.
-
-### `ForgeStatsModule.GetClient()`
+### `GetClient()`
 
 Returns the singleton `Client` instance. Throws if `Init` has not been called.
-
-### `EventMeta`
-
-Optional metadata attached to any event or batch.
-
-| Field       | Type     | Description         |
-| ----------- | -------- | ------------------- |
-| `Referrer`  | `string` | Referring URL       |
-| `UserAgent` | `string` | User-Agent string   |

@@ -32,6 +32,7 @@ namespace UnityEngine
     public static class SystemInfo
     {
         public static DeviceType deviceType => DeviceType.Desktop;
+        public static string operatingSystem => "Windows 10";
     }
 
     public enum RuntimePlatform
@@ -47,6 +48,8 @@ namespace UnityEngine
     public static class Application
     {
         public static RuntimePlatform platform => RuntimePlatform.WindowsPlayer;
+        public static string productName => "StubApp";
+        public static string version => "1.0.0";
     }
 }
 

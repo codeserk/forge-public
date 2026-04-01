@@ -26,6 +26,12 @@ namespace Codeserk.ForgeStats
             return _client;
         }
 
+        /// <summary>Replaces the default metadata on the singleton client.</summary>
+        public static void SetMeta(EventMeta meta) => GetClient().SetMeta(meta);
+
+        /// <summary>Merges new metadata into the existing defaults on the singleton client.</summary>
+        public static void UpdateMeta(EventMeta meta) => GetClient().UpdateMeta(meta);
+
         /// <summary>Sends a single event using the singleton client.</summary>
         public static Task SendEvent(EventContent content, EventMeta? meta = null) => GetClient().SendEvent(content, meta);
 
@@ -37,5 +43,11 @@ namespace Codeserk.ForgeStats
 
         /// <summary>Fire-and-forget multiple events using the singleton client.</summary>
         public static void TrackMany(SendEventParams eventParams) => GetClient().TrackMany(eventParams);
+
+        /// <summary>Sends an error event using the singleton client.</summary>
+        public static Task SendError(Exception error, bool handled = true, EventMeta? meta = null) => GetClient().SendError(error, handled, meta);
+
+        /// <summary>Fire-and-forget error tracking using the singleton client.</summary>
+        public static void TrackError(Exception error, bool handled = true, EventMeta? meta = null) => GetClient().TrackError(error, handled, meta);
     }
 }
