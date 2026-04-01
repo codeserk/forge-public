@@ -1,6 +1,6 @@
 {
   "name": "@codeserk/forge-stats-react-native",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "React Native wrapper for Forge Stats. Pure-JS HMAC signing, no native crypto modules needed.",
   "license": "MIT",
   "keywords": [
@@ -45,7 +45,7 @@
     "publish:npm": "npm run build && npm publish"
   },
   "dependencies": {
-    "@codeserk/forge-stats": "^0.3.0",
+    "@codeserk/forge-stats": "^0.3.1",
     "js-sha256": "^0.11.0"
   },
   "peerDependencies": {

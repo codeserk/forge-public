@@ -1,6 +1,6 @@
 {
   "name": "@codeserk/forge-stats",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Stats client for Forge. Tracks events, errors, and page views with HMAC-signed requests.",
   "license": "MIT",
   "keywords": [
