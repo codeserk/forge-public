@@ -34,7 +34,7 @@ describe('capture', () => {
 
       // Act
       captureErrors(handler)
-      process.emit('unhandledRejection' as any, 'string reason')
+      process.emit('unhandledRejection' as any, 'string reason' as any)
 
       // Assert
       expect(handler.mock.calls[0][0]).toBeInstanceOf(Error)

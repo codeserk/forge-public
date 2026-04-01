@@ -140,9 +140,12 @@ export class Client {
   private buildErrorContent(error: Error, options?: ErrorEventOptions): EventContent {
     const fingerprint = generateFingerprint(error, { maxFrames: options?.maxFrames })
 
+    const name = (error.name || error.message || 'Error').slice(0, 15)
+
     return {
       type: 'Error',
-      name: fingerprint,
+      name,
+      bucket: fingerprint,
       data: {
         ...options?.data,
         message: error.message || '',

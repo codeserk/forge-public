@@ -1,10 +1,13 @@
+import type { SignHashFn } from './signature.types'
+
 /**
- * Calculates a signature for a given content
- * @param content
- * @param secret
- * @returns signature
+ * Default HMAC-SHA256 implementation using the Web Crypto API.
+ * Works in browsers and Node.js 18+, but not in React Native.
+ * @param content - the content to sign
+ * @param secret - the HMAC secret
+ * @returns Base64-encoded signature
  */
-export async function calculateSignature(content: string, secret: string): Promise<string> {
+export async function webCryptoHmacSha256(content: string, secret: string): Promise<string> {
   const encoder = new TextEncoder()
   const key = await crypto.subtle.importKey(
     'raw',
@@ -25,14 +28,17 @@ export class SignatureBuilder {
   private parts: string[] = []
 
   /**
-   * Constructor
-   * @param secret
+   * @param secret - the HMAC secret
+   * @param signHashFn - hash implementation (defaults to Web Crypto)
    */
-  constructor(private readonly secret: string) {}
+  constructor(
+    private readonly secret: string,
+    private readonly signHashFn: SignHashFn = webCryptoHmacSha256,
+  ) {}
 
   /**
    * Adds string to the parts
-   * @param string
+   * @param part - string or object to add
    * @returns builder
    */
   add(part: string | object): SignatureBuilder {
@@ -44,7 +50,8 @@ export class SignatureBuilder {
 
   /**
    * Adds request.
-   * @param request
+   * @param url - the request URL
+   * @param data - the request body
    * @returns builder
    */
   withRequest(url: string, data: string | object): SignatureBuilder {
@@ -90,7 +97,7 @@ export class SignatureBuilder {
   async build(timeString?: string): Promise<string> {
     const content = this.generateContent(timeString)
 
-    return calculateSignature(content, this.secret)
+    return this.signHashFn(content, this.secret)
   }
 
   /**

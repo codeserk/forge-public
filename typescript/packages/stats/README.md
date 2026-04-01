@@ -1,8 +1,8 @@
 # @codeserk/forge-stats
 
-Stats client for [Forge](https://github.com/codeserk/forge-public). Works in browser, Node.js, and React Native.
+Stats client for [Forge](https://github.com/codeserk/forge-public). Works in browser and Node.js 18+.
 
-> **React Native:** requires a `crypto.subtle` polyfill such as [`react-native-quick-crypto`](https://github.com/margelo/react-native-quick-crypto).
+> **React Native:** use [`@codeserk/forge-stats-react-native`](https://www.npmjs.com/package/@codeserk/forge-stats-react-native) instead - it ships a pure-JS signing implementation that works without `crypto.subtle`.
 
 ## Installation
 
@@ -84,11 +84,12 @@ init({
 
 Initialises the singleton client. Must be called before any send/track calls.
 
-| Option    | Type     | Description                                     |
-| --------- | -------- | ----------------------------------------------- |
-| `baseUrl` | `string` | Base URL of the Forge Stats API                 |
-| `sdk`     | `string` | Base64-encoded SDK key from the Forge dashboard |
-| `logger`  | `Logger` | Optional. Defaults to `console`                 |
+| Option       | Type         | Description                                                    |
+| ------------ | ------------ | -------------------------------------------------------------- |
+| `baseUrl`    | `string`     | Base URL of the Forge Stats API                                |
+| `sdk`        | `string`     | Base64-encoded SDK key from the Forge dashboard                |
+| `logger`     | `Logger`     | Optional. Defaults to `console`                                |
+| `signHashFn` | `SignHashFn` | Optional. Custom HMAC-SHA256 implementation. Defaults to Web Crypto |
 
 ### `track(content, meta?)`
 

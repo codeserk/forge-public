@@ -24,3 +24,6 @@ export {
 
 export { generateFingerprint, parseStack, stripDynamicValues } from './errors/error'
 export type { StackFrame, FingerprintOptions } from './errors/error.types'
+
+export { webCryptoHmacSha256 } from './utils/signature'
+export type { SignHashFn } from './utils/signature.types'

@@ -16,7 +16,7 @@ export function captureErrors(handler: ErrorHandler): void {
  * @param handler Callback invoked when an error is captured
  */
 function captureBrowserErrors(handler: ErrorHandler): void {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || typeof window.addEventListener !== 'function') {
     return
   }
 
@@ -37,7 +37,7 @@ function captureBrowserErrors(handler: ErrorHandler): void {
  * @param handler Callback invoked when an error is captured
  */
 function captureNodeErrors(handler: ErrorHandler): void {
-  if (typeof process === 'undefined' || !process.on) {
+  if (typeof process === 'undefined' || typeof process.on !== 'function') {
     return
   }
 
