@@ -3,8 +3,8 @@ import type { SignHashFn } from './signature.types'
 /**
  * Default HMAC-SHA256 implementation using the Web Crypto API.
  * Works in browsers and Node.js 18+, but not in React Native.
- * @param content - the content to sign
- * @param secret - the HMAC secret
+ * @param content the content to sign
+ * @param secret the HMAC secret
  * @returns Base64-encoded signature
  */
 export async function webCryptoHmacSha256(content: string, secret: string): Promise<string> {
@@ -28,8 +28,8 @@ export class SignatureBuilder {
   private parts: string[] = []
 
   /**
-   * @param secret - the HMAC secret
-   * @param signHashFn - hash implementation (defaults to Web Crypto)
+   * @param secret the HMAC secret
+   * @param signHashFn hash implementation (defaults to Web Crypto)
    */
   constructor(
     private readonly secret: string,
@@ -38,7 +38,7 @@ export class SignatureBuilder {
 
   /**
    * Adds string to the parts
-   * @param part - string or object to add
+   * @param part string or object to add
    * @returns builder
    */
   add(part: string | object): SignatureBuilder {
@@ -50,8 +50,8 @@ export class SignatureBuilder {
 
   /**
    * Adds request.
-   * @param url - the request URL
-   * @param data - the request body
+   * @param url the request URL
+   * @param data the request body
    * @returns builder
    */
   withRequest(url: string, data: string | object): SignatureBuilder {

@@ -11,6 +11,8 @@ export type {
 
 export {
   init,
+  setMeta,
+  updateMeta,
   getClient,
   sendEvent,
   sendEvents,

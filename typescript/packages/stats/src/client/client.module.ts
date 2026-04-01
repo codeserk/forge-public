@@ -19,6 +19,22 @@ export function init(options: ClientOptions): void {
 }
 
 /**
+ * Sets default metadata on the singleton client, merged into every request.
+ * @param meta default metadata
+ */
+export function setMeta(meta: EventMeta): void {
+  getClient().setMeta(meta)
+}
+
+/**
+ * Merges new metadata into the existing default metadata on the singleton client.
+ * @param meta metadata to merge
+ */
+export function updateMeta(meta: EventMeta): void {
+  getClient().updateMeta(meta)
+}
+
+/**
  * Returns the singleton client, throwing if {@link init} has not been called.
  * @return Singleton client instance
  */
