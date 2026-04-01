@@ -6,5 +6,5 @@ export default defineConfig({
   dts: { build: true },
   clean: true,
   sourcemap: true,
-  external: ['react-native-quick-crypto', '@codeserk/forge-stats'],
+  external: ['react-native', '@codeserk/forge-stats'],
 })

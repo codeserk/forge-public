@@ -10,15 +10,16 @@ npm install @codeserk/forge-stats-react-native
 
 ## Usage
 
-Import from this package instead of `@codeserk/forge-stats`. The `init` and `Client` exports automatically use the React Native compatible hash function - nothing else needed.
+Import from this package instead of `@codeserk/forge-stats`. The `init` and `Client` exports automatically use the React Native compatible hash function and set `deviceOS` and `deviceOSVersion` from `Platform` - nothing else needed.
 
 ```ts
-import { init, trackView, setMeta, updateMeta } from '@codeserk/forge-stats-react-native'
+import { init, trackView, updateMeta } from '@codeserk/forge-stats-react-native'
 
 init({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
+// deviceOS and deviceOSVersion are already set automatically
 
-// set app metadata once
-setMeta({ appName: 'MyApp', appVersionName: '2.3.1', deviceOS: 'iOS' })
+// add app metadata
+updateMeta({ appName: 'MyApp', appVersionName: '2.3.1' })
 
 // update later (e.g. after login)
 updateMeta({ userId: 'user_123' })

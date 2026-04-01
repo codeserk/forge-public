@@ -26,6 +26,30 @@ Page views are tracked automatically via `trackView`. The script detects the con
 
 No extra configuration needed for any of these - _it just works_.
 
+## Error tracking
+
+Add `data-errors` to also capture uncaught errors and unhandled rejections:
+
+```html
+<script
+  defer
+  src="https://forge.codeserk.es/cdn/stats.js"
+  data-base-url="https://api-events.forge.codeserk.es"
+  data-sdk="YOUR_SDK_KEY"
+  data-errors
+></script>
+```
+
+## Configuration
+
+All configuration is via `data-*` attributes on the script tag:
+
+| Attribute       | Required | Description                              |
+| --------------- | -------- | ---------------------------------------- |
+| `data-base-url` | yes      | Base URL of the Forge Stats API          |
+| `data-sdk`      | yes      | Base64-encoded SDK key                   |
+| `data-errors`   | no       | Enable global error capture when present |
+
 ## Astro
 
 ```astro
@@ -39,6 +63,7 @@ No extra configuration needed for any of these - _it just works_.
     src="https://forge.codeserk.es/cdn/stats.js"
     data-base-url="https://api-events.forge.codeserk.es"
     data-sdk="YOUR_SDK_KEY"
+    data-errors
   ></script>
 </head>
 ```
