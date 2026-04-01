@@ -13,11 +13,29 @@ npm install @codeserk/forge-stats-react-native
 Import from this package instead of `@codeserk/forge-stats`. The `init` and `Client` exports automatically use the React Native compatible hash function - nothing else needed.
 
 ```ts
-import { init, track, trackView } from '@codeserk/forge-stats-react-native'
+import { init, trackView, setMeta, updateMeta } from '@codeserk/forge-stats-react-native'
 
 init({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
 
+// set app metadata once
+setMeta({ appName: 'MyApp', appVersionName: '2.3.1', deviceOS: 'iOS' })
+
+// update later (e.g. after login)
+updateMeta({ userId: 'user_123' })
+
 trackView('HomeScreen')
+```
+
+### Error tracking
+
+```ts
+import { trackError, captureGlobalErrors } from '@codeserk/forge-stats-react-native'
+
+// capture all uncaught errors (uses React Native's ErrorUtils)
+captureGlobalErrors()
+
+// or track manually
+trackError(new Error('Something went wrong'), { handled: true })
 ```
 
 ### Using `Client` directly
@@ -27,6 +45,7 @@ import { Client } from '@codeserk/forge-stats-react-native'
 
 const client = new Client({ baseUrl: 'https://api-events.forge.codeserk.es', sdk: 'YOUR_SDK_KEY' })
 
+client.setMeta({ appName: 'MyApp' })
 client.trackView('HomeScreen')
 ```
 

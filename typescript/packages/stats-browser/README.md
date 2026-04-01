@@ -1,6 +1,6 @@
 # @codeserk/forge-stats-browser
 
-CDN-ready browser script for [Forge Stats](https://github.com/codeserk/forge-public). Drop a single `<script>` tag into any page — no bundler required.
+CDN-ready browser script for [Forge Stats](https://github.com/codeserk/forge-public). Drop a single `<script>` tag into any page - no bundler required.
 
 Auto-detects the page context and tracks views accordingly:
 
@@ -23,6 +23,20 @@ Add the script tag to your `<head>` with `defer` so it loads in parallel and nev
 
 That's it. Page views are tracked automatically.
 
+### Error tracking
+
+Add `data-errors` to also capture uncaught errors and unhandled rejections:
+
+```html
+<script
+  defer
+  src="https://forge.codeserk.es/cdn/stats.js"
+  data-base-url="https://api-events.forge.codeserk.es"
+  data-sdk="YOUR_SDK_KEY"
+  data-errors
+></script>
+```
+
 ### Astro
 
 ```astro
@@ -36,8 +50,19 @@ That's it. Page views are tracked automatically.
     src="https://forge.codeserk.es/cdn/stats.js"
     data-base-url="https://api-events.forge.codeserk.es"
     data-sdk="YOUR_SDK_KEY"
+    data-errors
   ></script>
 </head>
 ```
 
 > `is:inline` is required to prevent Astro from bundling the script, so that `document.currentScript` works correctly. `defer` still applies and prevents render blocking.
+
+## Configuration
+
+All configuration is via `data-*` attributes on the script tag:
+
+| Attribute       | Required | Description                              |
+| --------------- | -------- | ---------------------------------------- |
+| `data-base-url` | yes      | Base URL of the Forge Stats API          |
+| `data-sdk`      | yes      | Base64-encoded SDK key                   |
+| `data-errors`   | no       | Enable global error capture when present |
