@@ -5,8 +5,14 @@
   "workspaces": [
     "apps/*",
     "packages/stats",
-    "packages/stats-browser"
+    "packages/stats-browser",
+    "packages/api-internal-generated",
+    "packages/api-internal",
+    "packages/mcp"
   ],
+  "overrides": {
+    "zod": "^3.25.76"
+  },
   "devDependencies": {
     "@types/react": "^18.2.52",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
