@@ -38,6 +38,7 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
+    "test": "jest",
     "version:patch": "npm version patch",
     "version:minor": "npm version minor",
     "version:major": "npm version major",
@@ -52,7 +53,10 @@
     "react-native": ">=0.60.0"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/react-native": "^0.72.8",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
     "tsdown": "^0.21.4",
     "typescript": "^5.7.0"
   }

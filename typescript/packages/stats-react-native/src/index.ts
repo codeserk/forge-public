@@ -10,6 +10,8 @@ import { reactNativeSignHash } from './signature'
 
 export { reactNativeSignHash } from './signature'
 export * from '@codeserk/forge-stats'
+// Overrides the base captureGlobalErrors (browser/Node) with the React Native one.
+export { captureGlobalErrors, captureReactNativeErrors } from './capture'
 
 function detectMeta() {
   return {
