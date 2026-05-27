@@ -1,5 +1,19 @@
 import type { SignHashFn } from './types'
 
+/**
+ * Base64 of the UTF-8 bytes of a string. Plain btoa treats the input as Latin1,
+ * so it throws on any code point > 0xFF and would mismatch the Go server (which
+ * base64s the raw UTF-8 bytes). For ASCII this is identical to btoa.
+ */
+function base64Utf8(input: string): string {
+  const bytes = new TextEncoder().encode(input)
+  let binary = ''
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte)
+  }
+  return btoa(binary)
+}
+
 /** Default HMAC-SHA256 using Web Crypto. Works in browsers and Node 18+. */
 export async function webCryptoHmacSha256(content: string, secret: string): Promise<string> {
   const encoder = new TextEncoder()
@@ -31,7 +45,7 @@ export class SignatureBuilder {
   withBody(body: string | object | undefined): SignatureBuilder {
     const bodyString =
       typeof body === 'string' ? (body ?? '') : JSON.stringify(body ?? {})
-    this.parts.push(btoa(bodyString))
+    this.parts.push(base64Utf8(bodyString))
     return this
   }
 
@@ -43,7 +57,7 @@ export class SignatureBuilder {
       now.setMilliseconds(0)
       timePart = now.toISOString()
     }
-    const content = btoa([...this.parts, timePart].join('_').trim())
+    const content = base64Utf8([...this.parts, timePart].join('_').trim())
 
     return this.signHashFn(content, this.secret)
   }

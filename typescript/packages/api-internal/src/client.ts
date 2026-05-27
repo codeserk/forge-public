@@ -4,6 +4,7 @@ import {
   EventsApi,
   EventUsersApi,
   FunnelsApi,
+  InsightsApi,
   InvitationsApi,
   JourneysApi,
   OrganizationApi,
@@ -32,6 +33,7 @@ export class ForgeInternalClient {
   readonly sessions: SessionsApi
   readonly journeys: JourneysApi
   readonly funnels: FunnelsApi
+  readonly insights: InsightsApi
   readonly personalAccessTokens: PersonalAccessTokensApi
 
   private readonly http: AxiosInstance
@@ -59,6 +61,7 @@ export class ForgeInternalClient {
     this.sessions = new SessionsApi(config, baseUrl, this.http)
     this.journeys = new JourneysApi(config, baseUrl, this.http)
     this.funnels = new FunnelsApi(config, baseUrl, this.http)
+    this.insights = new InsightsApi(config, baseUrl, this.http)
     this.personalAccessTokens = new PersonalAccessTokensApi(config, baseUrl, this.http)
   }
 

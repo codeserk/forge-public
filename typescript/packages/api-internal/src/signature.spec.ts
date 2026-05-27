@@ -22,6 +22,16 @@ describe('SignatureBuilder', () => {
     expect(a).not.toBe(b)
   })
 
+  it('should sign a body with non-ASCII characters without throwing', async () => {
+    const time = '2030-05-24T12:00:00.000Z'
+    const sig = await new SignatureBuilder('secret')
+      .withUrl('/x')
+      .withBody({ name: 'Oracle consultation → contribution ☕' })
+      .build(time)
+    expect(typeof sig).toBe('string')
+    expect(sig.length).toBeGreaterThan(0)
+  })
+
   it('should accept a custom signHashFn', async () => {
     const fake = jest.fn().mockResolvedValue('faked-signature')
     const builder = new SignatureBuilder('secret', fake)
