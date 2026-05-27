@@ -43,9 +43,6 @@ export interface AuthVerifyEmailRequest {
     'email': string;
     'token': string;
 }
-export interface CmdApiInternalModulesHealthHealthResponse {
-    'ok'?: boolean;
-}
 export interface ControllerHTTPError {
     'code'?: string;
     'message'?: string;
@@ -68,32 +65,85 @@ export interface EntityEventQueryCondition {
     'predicate': string;
     'value': string;
 }
+export interface EntityInsightsViewConfig {
+    'bar'?: EntityInsightsViewConfigBar;
+    'common'?: EntityInsightsViewConfigCommon;
+    'line'?: EntityInsightsViewConfigLine;
+    'number'?: EntityInsightsViewConfigNumber;
+}
+export interface EntityInsightsViewConfigBar {
+    'barStyle'?: EntityInsightsViewConfigBarBarStyleEnum;
+}
 
-export const EntityPersonalAccessTokenScope = {
-    PersonalAccessTokenScopeRead: 'read',
-    PersonalAccessTokenScopeCreate: 'create',
-    PersonalAccessTokenScopeUpdate: 'update',
-    PersonalAccessTokenScopeDelete: 'delete',
+export const EntityInsightsViewConfigBarBarStyleEnum = {
+    Group: 'group',
+    Stack: 'stack',
+    Normalized: 'normalized',
 } as const;
 
-export type EntityPersonalAccessTokenScope = typeof EntityPersonalAccessTokenScope[keyof typeof EntityPersonalAccessTokenScope];
+export type EntityInsightsViewConfigBarBarStyleEnum = typeof EntityInsightsViewConfigBarBarStyleEnum[keyof typeof EntityInsightsViewConfigBarBarStyleEnum];
 
+export interface EntityInsightsViewConfigCommon {
+    'decimals'?: number;
+    'goodDirection'?: EntityInsightsViewConfigCommonGoodDirectionEnum;
+    'legend'?: EntityInsightsViewConfigCommonLegendEnum;
+    'showDelta'?: boolean;
+    'sort'?: EntityInsightsViewConfigCommonSortEnum;
+    'topN'?: number;
+    'valueFormat'?: EntityInsightsViewConfigCommonValueFormatEnum;
+}
 
-
-export const EntityUserRole = {
-    UserRoleAdmin: 'Admin',
-    UserRoleUser: 'User',
+export const EntityInsightsViewConfigCommonGoodDirectionEnum = {
+    Up: 'up',
+    Down: 'down',
+    Neutral: 'neutral',
 } as const;
 
-export type EntityUserRole = typeof EntityUserRole[keyof typeof EntityUserRole];
+export type EntityInsightsViewConfigCommonGoodDirectionEnum = typeof EntityInsightsViewConfigCommonGoodDirectionEnum[keyof typeof EntityInsightsViewConfigCommonGoodDirectionEnum];
+export const EntityInsightsViewConfigCommonLegendEnum = {
+    Auto: 'auto',
+    On: 'on',
+    Off: 'off',
+} as const;
 
+export type EntityInsightsViewConfigCommonLegendEnum = typeof EntityInsightsViewConfigCommonLegendEnum[keyof typeof EntityInsightsViewConfigCommonLegendEnum];
+export const EntityInsightsViewConfigCommonSortEnum = {
+    Value: 'value',
+    Name: 'name',
+} as const;
 
+export type EntityInsightsViewConfigCommonSortEnum = typeof EntityInsightsViewConfigCommonSortEnum[keyof typeof EntityInsightsViewConfigCommonSortEnum];
+export const EntityInsightsViewConfigCommonValueFormatEnum = {
+    Number: 'number',
+    Percent: 'percent',
+    Duration: 'duration',
+    Bytes: 'bytes',
+} as const;
+
+export type EntityInsightsViewConfigCommonValueFormatEnum = typeof EntityInsightsViewConfigCommonValueFormatEnum[keyof typeof EntityInsightsViewConfigCommonValueFormatEnum];
+
+export interface EntityInsightsViewConfigLine {
+    'area'?: boolean;
+    'dotsMode'?: EntityInsightsViewConfigLineDotsModeEnum;
+}
+
+export const EntityInsightsViewConfigLineDotsModeEnum = {
+    Auto: 'auto',
+    Always: 'always',
+    Never: 'never',
+} as const;
+
+export type EntityInsightsViewConfigLineDotsModeEnum = typeof EntityInsightsViewConfigLineDotsModeEnum[keyof typeof EntityInsightsViewConfigLineDotsModeEnum];
+
+export interface EntityInsightsViewConfigNumber {
+    'showSparkline'?: boolean;
+}
 export interface EventsEventResponse {
     'appName'?: string;
     'appVersionID'?: string;
     'appVersionName'?: string;
     'bucket'?: string;
-    'data'?: { [key: string]: object; };
+    'data'?: object;
     'deviceBrowser'?: string;
     'deviceOS'?: string;
     'deviceOSVersion'?: string;
@@ -228,6 +278,311 @@ export interface FunnelUpdateFunnelRequest {
     'name': string;
     'steps': Array<FunnelFunnelStepRequest>;
 }
+export interface HealthHealthResponse {
+    'ok'?: boolean;
+}
+export interface InsightsAggregationResponse {
+    'field'?: string;
+    'func'?: string;
+    'name'?: string;
+}
+export interface InsightsConditionResponse {
+    'operation'?: string;
+    'predicate'?: string;
+    'value'?: string;
+}
+export interface InsightsCreateAggregationRequest {
+    'field'?: string;
+    'func': InsightsCreateAggregationRequestFuncEnum;
+    'name': string;
+}
+
+export const InsightsCreateAggregationRequestFuncEnum = {
+    Count: 'count',
+    Uniq: 'uniq',
+    Sum: 'sum',
+    Avg: 'avg',
+    Min: 'min',
+    Max: 'max',
+} as const;
+
+export type InsightsCreateAggregationRequestFuncEnum = typeof InsightsCreateAggregationRequestFuncEnum[keyof typeof InsightsCreateAggregationRequestFuncEnum];
+
+export interface InsightsCreateConditionRequest {
+    'operation': InsightsCreateConditionRequestOperationEnum;
+    'predicate': string;
+    'value': string;
+}
+
+export const InsightsCreateConditionRequestOperationEnum = {
+    Eq: 'eq',
+    Neq: 'neq',
+} as const;
+
+export type InsightsCreateConditionRequestOperationEnum = typeof InsightsCreateConditionRequestOperationEnum[keyof typeof InsightsCreateConditionRequestOperationEnum];
+
+export interface InsightsCreateMetricRequest {
+    'description'?: string;
+    'expression': string;
+    'name': string;
+    'organizationID': string;
+    'projectID': string;
+}
+export interface InsightsCreateQueryRequest {
+    'aggregations': Array<InsightsCreateAggregationRequest>;
+    'breakdownKeys'?: Array<string>;
+    'conditions'?: Array<InsightsCreateConditionRequest>;
+    'description'?: string;
+    'eventType': string;
+    'granularity'?: InsightsCreateQueryRequestGranularityEnum;
+    'name': string;
+    'organizationID': string;
+    'projectID': string;
+    'slug'?: string;
+    'source': InsightsCreateQueryRequestSourceEnum;
+}
+
+export const InsightsCreateQueryRequestGranularityEnum = {
+    Hourly: 'hourly',
+    Daily: 'daily',
+} as const;
+
+export type InsightsCreateQueryRequestGranularityEnum = typeof InsightsCreateQueryRequestGranularityEnum[keyof typeof InsightsCreateQueryRequestGranularityEnum];
+export const InsightsCreateQueryRequestSourceEnum = {
+    Events: 'events',
+    Aggregated: 'aggregated',
+} as const;
+
+export type InsightsCreateQueryRequestSourceEnum = typeof InsightsCreateQueryRequestSourceEnum[keyof typeof InsightsCreateQueryRequestSourceEnum];
+
+export interface InsightsCreateViewRequest {
+    'chartType': InsightsCreateViewRequestChartTypeEnum;
+    'config'?: EntityInsightsViewConfig;
+    'order'?: number;
+    'organizationID': string;
+    'projectID': string;
+    'showOnDashboard'?: boolean;
+    'size': InsightsCreateViewRequestSizeEnum;
+    'sourceID': string;
+    'sourceType': InsightsCreateViewRequestSourceTypeEnum;
+    'title'?: string;
+}
+
+export const InsightsCreateViewRequestChartTypeEnum = {
+    Number: 'number',
+    Line: 'line',
+    Bar: 'bar',
+} as const;
+
+export type InsightsCreateViewRequestChartTypeEnum = typeof InsightsCreateViewRequestChartTypeEnum[keyof typeof InsightsCreateViewRequestChartTypeEnum];
+export const InsightsCreateViewRequestSizeEnum = {
+    _1x1: '1x1',
+    _2x1: '2x1',
+    _2x2: '2x2',
+} as const;
+
+export type InsightsCreateViewRequestSizeEnum = typeof InsightsCreateViewRequestSizeEnum[keyof typeof InsightsCreateViewRequestSizeEnum];
+export const InsightsCreateViewRequestSourceTypeEnum = {
+    Query: 'query',
+    Metric: 'metric',
+} as const;
+
+export type InsightsCreateViewRequestSourceTypeEnum = typeof InsightsCreateViewRequestSourceTypeEnum[keyof typeof InsightsCreateViewRequestSourceTypeEnum];
+
+export interface InsightsDeleteWithCascadeResponse {
+    'removedViews'?: number;
+}
+export interface InsightsEvaluateAggregationRequest {
+    'field'?: string;
+    'func': InsightsEvaluateAggregationRequestFuncEnum;
+    'name': string;
+}
+
+export const InsightsEvaluateAggregationRequestFuncEnum = {
+    Count: 'count',
+    Uniq: 'uniq',
+    Sum: 'sum',
+    Avg: 'avg',
+    Min: 'min',
+    Max: 'max',
+} as const;
+
+export type InsightsEvaluateAggregationRequestFuncEnum = typeof InsightsEvaluateAggregationRequestFuncEnum[keyof typeof InsightsEvaluateAggregationRequestFuncEnum];
+
+export interface InsightsEvaluateConditionRequest {
+    'operation': InsightsEvaluateConditionRequestOperationEnum;
+    'predicate': string;
+    'value': string;
+}
+
+export const InsightsEvaluateConditionRequestOperationEnum = {
+    Eq: 'eq',
+    Neq: 'neq',
+} as const;
+
+export type InsightsEvaluateConditionRequestOperationEnum = typeof InsightsEvaluateConditionRequestOperationEnum[keyof typeof InsightsEvaluateConditionRequestOperationEnum];
+
+export interface InsightsEvaluateMetricRequest {
+    'compareToPrevious'?: boolean;
+    'expression': string;
+    'from': string;
+    'projectID': string;
+    'to': string;
+}
+export interface InsightsEvaluateQueryPeriodResponse {
+    'rows'?: Array<InsightsEvaluateRowResponse>;
+    'total'?: InsightsEvaluateRowResponse;
+}
+export interface InsightsEvaluateQueryRequest {
+    'aggregations': Array<InsightsEvaluateAggregationRequest>;
+    'breakdownKeys'?: Array<string>;
+    'compareToPrevious'?: boolean;
+    'conditions'?: Array<InsightsEvaluateConditionRequest>;
+    'eventType': string;
+    'from': string;
+    'granularity'?: InsightsEvaluateQueryRequestGranularityEnum;
+    'projectID': string;
+    'to': string;
+}
+
+export const InsightsEvaluateQueryRequestGranularityEnum = {
+    Hourly: 'hourly',
+    Daily: 'daily',
+} as const;
+
+export type InsightsEvaluateQueryRequestGranularityEnum = typeof InsightsEvaluateQueryRequestGranularityEnum[keyof typeof InsightsEvaluateQueryRequestGranularityEnum];
+
+export interface InsightsEvaluateQueryResponse {
+    'previous'?: InsightsEvaluateQueryPeriodResponse;
+    'rows'?: Array<InsightsEvaluateRowResponse>;
+    'total'?: InsightsEvaluateRowResponse;
+}
+export interface InsightsEvaluateRowResponse {
+    'breakdownValue'?: string;
+    'timeBucket'?: string;
+    'values'?: { [key: string]: number; };
+}
+export interface InsightsFieldResponse {
+    'category'?: string;
+    'key'?: string;
+    'type'?: string;
+}
+export interface InsightsFieldsResponse {
+    'fields'?: Array<InsightsFieldResponse>;
+}
+export interface InsightsMetricDataPeriodResponse {
+    'rows'?: Array<InsightsMetricDataRowResponse>;
+}
+export interface InsightsMetricDataResponse {
+    'granularity'?: string;
+    'previous'?: InsightsMetricDataPeriodResponse;
+    'rows'?: Array<InsightsMetricDataRowResponse>;
+}
+export interface InsightsMetricDataRowResponse {
+    'timeBucket'?: string;
+    'value'?: number;
+}
+export interface InsightsMetricResponse {
+    'createdAt'?: string;
+    'description'?: string;
+    'expression'?: string;
+    'id'?: string;
+    'name'?: string;
+    'organizationID'?: string;
+    'pinned'?: boolean;
+    'projectID'?: string;
+    'supersededBy'?: string;
+    'updatedAt'?: string;
+}
+export interface InsightsQueryResponse {
+    'aggregations'?: Array<InsightsAggregationResponse>;
+    'breakdownKeys'?: Array<string>;
+    'conditions'?: Array<InsightsConditionResponse>;
+    'createdAt'?: string;
+    'description'?: string;
+    'eventType'?: string;
+    'granularity'?: string;
+    'id'?: string;
+    'name'?: string;
+    'organizationID'?: string;
+    'pinned'?: boolean;
+    'projectID'?: string;
+    'slug'?: string;
+    'source'?: string;
+    'supersededBy'?: string;
+    'updatedAt'?: string;
+}
+export interface InsightsUpdateMetricRequest {
+    'description'?: string;
+    'expression': string;
+    'name': string;
+    'pinned'?: boolean;
+}
+export interface InsightsUpdateQueryRequest {
+    'aggregations': Array<InsightsCreateAggregationRequest>;
+    'breakdownKeys'?: Array<string>;
+    'conditions'?: Array<InsightsCreateConditionRequest>;
+    'description'?: string;
+    'eventType': string;
+    'granularity'?: InsightsUpdateQueryRequestGranularityEnum;
+    'name': string;
+    'pinned'?: boolean;
+}
+
+export const InsightsUpdateQueryRequestGranularityEnum = {
+    Hourly: 'hourly',
+    Daily: 'daily',
+} as const;
+
+export type InsightsUpdateQueryRequestGranularityEnum = typeof InsightsUpdateQueryRequestGranularityEnum[keyof typeof InsightsUpdateQueryRequestGranularityEnum];
+
+export interface InsightsUpdateViewRequest {
+    'chartType'?: InsightsUpdateViewRequestChartTypeEnum;
+    'config'?: EntityInsightsViewConfig;
+    'order'?: number;
+    'showOnDashboard'?: boolean;
+    'size'?: InsightsUpdateViewRequestSizeEnum;
+    'sourceID'?: string;
+    'sourceType'?: InsightsUpdateViewRequestSourceTypeEnum;
+    'title'?: string;
+}
+
+export const InsightsUpdateViewRequestChartTypeEnum = {
+    Number: 'number',
+    Line: 'line',
+    Bar: 'bar',
+} as const;
+
+export type InsightsUpdateViewRequestChartTypeEnum = typeof InsightsUpdateViewRequestChartTypeEnum[keyof typeof InsightsUpdateViewRequestChartTypeEnum];
+export const InsightsUpdateViewRequestSizeEnum = {
+    _1x1: '1x1',
+    _2x1: '2x1',
+    _2x2: '2x2',
+} as const;
+
+export type InsightsUpdateViewRequestSizeEnum = typeof InsightsUpdateViewRequestSizeEnum[keyof typeof InsightsUpdateViewRequestSizeEnum];
+export const InsightsUpdateViewRequestSourceTypeEnum = {
+    Query: 'query',
+    Metric: 'metric',
+} as const;
+
+export type InsightsUpdateViewRequestSourceTypeEnum = typeof InsightsUpdateViewRequestSourceTypeEnum[keyof typeof InsightsUpdateViewRequestSourceTypeEnum];
+
+export interface InsightsViewResponse {
+    'chartType'?: string;
+    'config'?: EntityInsightsViewConfig;
+    'createdAt'?: string;
+    'id'?: string;
+    'order'?: number;
+    'organizationID'?: string;
+    'projectID'?: string;
+    'showOnDashboard'?: boolean;
+    'size'?: string;
+    'sourceID'?: string;
+    'sourceType'?: string;
+    'title'?: string;
+    'updatedAt'?: string;
+}
 export interface InvitationInviteUserRequest {
     'organizationID'?: string;
     'projectID'?: Array<string>;
@@ -306,7 +661,7 @@ export type OrganizationUpdateStatsSubscriptionRequestTierEnum = typeof Organiza
 export interface PatCreateRequest {
     'expiresAt'?: string;
     'name': string;
-    'scopes'?: Array<EntityPersonalAccessTokenScope>;
+    'scopes'?: Array<string>;
 }
 export interface PatCreateResponse {
     'sdkKey': string;
@@ -320,7 +675,7 @@ export interface PatResponse {
     'name': string;
     'prefix': string;
     'revokedAt'?: string;
-    'scopes': Array<EntityPersonalAccessTokenScope>;
+    'scopes': Array<string>;
 }
 export interface ProjectAggregationDimensionKeyRequest {
     'key': string;
@@ -479,10 +834,16 @@ export interface ResponseUser {
     'name': string;
     'organizations'?: Array<ResponseUserOrganization>;
     'projects'?: Array<ResponseUserProject>;
-    'role': EntityUserRole;
+    'role': ResponseUserRoleEnum;
     'updatedAt': string;
 }
 
+export const ResponseUserRoleEnum = {
+    Admin: 'Admin',
+    User: 'User',
+} as const;
+
+export type ResponseUserRoleEnum = typeof ResponseUserRoleEnum[keyof typeof ResponseUserRoleEnum];
 
 export interface ResponseUserOrganization {
     'id': string;
@@ -549,6 +910,15 @@ export interface StatsActiveSessionsResponse {
     'count': number;
     'projectID': number;
 }
+export interface StatsAggregationCardinalitiesResponse {
+    'cardinalities': Array<StatsAggregationCardinalityResponse>;
+    'projectID': number;
+}
+export interface StatsAggregationCardinalityResponse {
+    'aggregation': Array<string>;
+    'cardinality': number;
+    'keys': Array<string>;
+}
 export interface StatsAggregationDimensionKeyRequest {
     'key': string;
     'maxValues'?: number;
@@ -562,15 +932,6 @@ export interface StatsAggregationResponse {
     'keys': Array<string>;
     'values': Array<string>;
 }
-export interface StatsCardinalitiesResponse {
-    'cardinalities': Array<StatsCardinalityResponse>;
-    'projectID': number;
-}
-export interface StatsCardinalityResponse {
-    'aggregation': Array<string>;
-    'cardinality': number;
-    'keys': Array<string>;
-}
 export interface StatsDimensionBreakdownResponse {
     'keys': Array<string>;
     'projectID': number;
@@ -581,44 +942,34 @@ export interface StatsDimensionBreakdownRowResponse {
     'users': number;
     'values': Array<string>;
 }
-export interface StatsEventTimeStatsAggregationResponse {
-    'aggregation'?: StatsAggregationResponse;
-    'current'?: Array<StatsEventTimeStatsRowResponse>;
-    'previous'?: Array<StatsEventTimeStatsRowResponse>;
-}
-export interface StatsEventTimeStatsResponse {
-    'aggregations'?: Array<StatsEventTimeStatsAggregationResponse>;
-    'granularity'?: string;
-    'projectID'?: number;
-}
-export interface StatsEventTimeStatsRowResponse {
-    'count': number;
-    'estimatedCount': number;
-    'key': string;
-    'users': number;
-}
-export interface StatsEventTotalStatsResponse {
-    /**
-     * stats
-     */
-    'current': StatsEventTotalStatsValuesResponse;
+export interface StatsEventOverviewResponse {
+    'current': StatsEventOverviewValuesResponse;
     'granularity': string;
-    'previous'?: StatsEventTotalStatsValuesResponse;
+    'previous'?: StatsEventOverviewValuesResponse;
     /**
      * keys
      */
     'projectID': number;
 }
-export interface StatsEventTotalStatsValuesResponse {
-    /**
-     * stats
-     */
+export interface StatsEventOverviewValuesResponse {
     'events': ResponsesStatsDistributionResponse;
     'users': ResponsesStatsDistributionResponse;
 }
-export interface StatsEventTypeSummariesResponse {
-    'items': Array<StatsEventTypeSummaryResponse>;
-    'projectID': string;
+export interface StatsEventTimeseriesAggregationResponse {
+    'aggregation'?: StatsAggregationResponse;
+    'current'?: Array<StatsEventTimeseriesRowResponse>;
+    'previous'?: Array<StatsEventTimeseriesRowResponse>;
+}
+export interface StatsEventTimeseriesResponse {
+    'aggregations'?: Array<StatsEventTimeseriesAggregationResponse>;
+    'granularity'?: string;
+    'projectID'?: number;
+}
+export interface StatsEventTimeseriesRowResponse {
+    'count': number;
+    'estimatedCount': number;
+    'key': string;
+    'users': number;
 }
 export interface StatsEventTypeSummaryResponse {
     'config'?: ResponseEventTypeConfigResponse;
@@ -626,16 +977,29 @@ export interface StatsEventTypeSummaryResponse {
     'total': number;
     'type': string;
 }
-export interface StatsGetEventQueryStatsRequest {
+export interface StatsEventTypesResponse {
+    'items': Array<StatsEventTypeSummaryResponse>;
+    'projectID': string;
+}
+export interface StatsPutEventTypeConfigRequest {
+    'aggregationDimensions'?: Array<StatsAggregationDimensionRequest>;
+    'color'?: string;
+    'icon'?: string;
+    'projectID': string;
+    'showInDashboard'?: boolean;
+    'title'?: string;
+    'type': string;
+}
+export interface StatsQueryEventsRequest {
     'comparisonTimeRange'?: string;
-    'granularity': StatsGetEventQueryStatsRequestGranularityEnum;
-    'period': StatsGetEventQueryStatsRequestPeriodEnum;
+    'granularity': StatsQueryEventsRequestGranularityEnum;
+    'period': StatsQueryEventsRequestPeriodEnum;
     'projectID': string;
     'query': EntityEventQuery;
     'timeRange'?: string;
 }
 
-export const StatsGetEventQueryStatsRequestGranularityEnum = {
+export const StatsQueryEventsRequestGranularityEnum = {
     Hourly: 'hourly',
     Daily: 'daily',
     Weekly: 'weekly',
@@ -643,8 +1007,8 @@ export const StatsGetEventQueryStatsRequestGranularityEnum = {
     Yearly: 'yearly',
 } as const;
 
-export type StatsGetEventQueryStatsRequestGranularityEnum = typeof StatsGetEventQueryStatsRequestGranularityEnum[keyof typeof StatsGetEventQueryStatsRequestGranularityEnum];
-export const StatsGetEventQueryStatsRequestPeriodEnum = {
+export type StatsQueryEventsRequestGranularityEnum = typeof StatsQueryEventsRequestGranularityEnum[keyof typeof StatsQueryEventsRequestGranularityEnum];
+export const StatsQueryEventsRequestPeriodEnum = {
     Realtime: 'realtime',
     Day: 'day',
     _7days: '7days',
@@ -655,54 +1019,36 @@ export const StatsGetEventQueryStatsRequestPeriodEnum = {
     All: 'all',
 } as const;
 
-export type StatsGetEventQueryStatsRequestPeriodEnum = typeof StatsGetEventQueryStatsRequestPeriodEnum[keyof typeof StatsGetEventQueryStatsRequestPeriodEnum];
+export type StatsQueryEventsRequestPeriodEnum = typeof StatsQueryEventsRequestPeriodEnum[keyof typeof StatsQueryEventsRequestPeriodEnum];
 
-export interface StatsPutEventTypeConfigRequest {
-    'aggregationDimensions'?: Array<StatsAggregationDimensionRequest>;
-    'color'?: string;
-    'icon'?: string;
-    'projectID': string;
-    'showInDashboard'?: boolean;
-    'title'?: string;
-    'type': string;
-}
-export interface StatsSessionTimeStatsResponse {
-    'comparison': Array<StatsSessionTimeStatsRowResponse>;
-    'current': Array<StatsSessionTimeStatsRowResponse>;
+export interface StatsSessionOverviewResponse {
+    'current': StatsSessionOverviewValuesResponse;
     'granularity': string;
-    'projectID': number;
-}
-export interface StatsSessionTimeStatsRowResponse {
-    'bounceRate': ResponsesStatsDistributionResponse;
-    'duration': ResponsesStatsDistributionResponse;
-    'events': ResponsesStatsDistributionResponse;
-    'key': string;
-    /**
-     * stats
-     */
-    'sessions': ResponsesStatsDistributionResponse;
-    'users': ResponsesStatsDistributionResponse;
-}
-export interface StatsSessionTotalStatsResponse {
-    /**
-     * stats
-     */
-    'current': StatsSessionTotalStatsValuesResponse;
-    'granularity': string;
-    'previous'?: StatsSessionTotalStatsValuesResponse;
+    'previous'?: StatsSessionOverviewValuesResponse;
     /**
      * keys
      */
     'projectID': number;
 }
-export interface StatsSessionTotalStatsValuesResponse {
+export interface StatsSessionOverviewValuesResponse {
     'bounceRate': ResponsesStatsDistributionResponse;
     'duration': ResponsesStatsDistributionResponse;
     'events': ResponsesStatsDistributionResponse;
     'eventsBySession': ResponsesStatsDistributionResponse;
-    /**
-     * stats
-     */
+    'sessions': ResponsesStatsDistributionResponse;
+    'users': ResponsesStatsDistributionResponse;
+}
+export interface StatsSessionTimeseriesResponse {
+    'comparison': Array<StatsSessionTimeseriesRowResponse>;
+    'current': Array<StatsSessionTimeseriesRowResponse>;
+    'granularity': string;
+    'projectID': number;
+}
+export interface StatsSessionTimeseriesRowResponse {
+    'bounceRate': ResponsesStatsDistributionResponse;
+    'duration': ResponsesStatsDistributionResponse;
+    'events': ResponsesStatsDistributionResponse;
+    'key': string;
     'sessions': ResponsesStatsDistributionResponse;
     'users': ResponsesStatsDistributionResponse;
 }
@@ -2681,7 +3027,7 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async health(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CmdApiInternalModulesHealthHealthResponse>> {
+        async health(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HealthHealthResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.health(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.health']?.[localVarOperationServerIndex]?.url;
@@ -2702,7 +3048,7 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        health(options?: RawAxiosRequestConfig): AxiosPromise<CmdApiInternalModulesHealthHealthResponse> {
+        health(options?: RawAxiosRequestConfig): AxiosPromise<HealthHealthResponse> {
             return localVarFp.health(options).then((request) => request(axios, basePath));
         },
     };
@@ -2720,6 +3066,1724 @@ export class HealthApi extends BaseAPI {
      */
     public health(options?: RawAxiosRequestConfig) {
         return HealthApiFp(this.configuration).health(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * InsightsApi - axios parameter creator
+ */
+export const InsightsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a new saved insights metric. The expression must reference queries in {query_name}.{agg_name} form.
+         * @summary Create insights metric
+         * @param {InsightsCreateMetricRequest} request Create metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInsightsMetric: async (request: InsightsCreateMetricRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('createInsightsMetric', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/metrics`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new saved insights query (live or aggregated)
+         * @summary Create insights query
+         * @param {InsightsCreateQueryRequest} request Create query body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInsightsQuery: async (request: InsightsCreateQueryRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('createInsightsQuery', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/queries`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a chart placement for an existing query or metric on the Insights board.
+         * @summary Create insights view
+         * @param {InsightsCreateViewRequest} request Create view body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInsightsView: async (request: InsightsCreateViewRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('createInsightsView', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/views`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a saved insights metric. Dependent views are cascade-deleted.
+         * @summary Delete insights metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteInsightsMetric: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteInsightsMetric', 'id', id)
+            const localVarPath = `/api/v1/stats/insights/metrics/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a saved insights query. Fails with 409 if any active metric still references the query by name. Dependent views are cascade-deleted.
+         * @summary Delete insights query
+         * @param {string} id Query ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteInsightsQuery: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteInsightsQuery', 'id', id)
+            const localVarPath = `/api/v1/stats/insights/queries/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a chart placement from the Insights board.
+         * @summary Delete insights view
+         * @param {string} id View ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteInsightsView: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteInsightsView', 'id', id)
+            const localVarPath = `/api/v1/stats/insights/views/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Evaluate an arbitrary metric expression over a time range without persisting it. Used by the metric builder preview.
+         * @summary Evaluate an insights metric expression
+         * @param {InsightsEvaluateMetricRequest} request Evaluate metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        evaluateInsightsMetric: async (request: InsightsEvaluateMetricRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('evaluateInsightsMetric', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/metrics/evaluate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Run an insights query definition live against the events table. Used for builder preview and source=events queries.
+         * @summary Evaluate insights query
+         * @param {InsightsEvaluateQueryRequest} request Evaluate query body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        evaluateInsightsQuery: async (request: InsightsEvaluateQueryRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('evaluateInsightsQuery', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/queries/evaluate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the catalog of fields available for use in conditions, breakdowns, and aggregations: built-in event columns plus custom event attributes discovered from recent events. Custom attributes are namespace-prefixed (data.<key> / user.<key>) and must be referenced with that prefix; bare custom keys are rejected. Discovery is an authoring aid only and never gates query creation.
+         * @summary Get insights field catalog
+         * @param {string} projectID Project ID
+         * @param {string} [type] Event type to scope discovery to
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsFields: async (projectID: string, type?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectID' is not null or undefined
+            assertParamExists('getInsightsFields', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/insights/fields`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (projectID !== undefined) {
+                localVarQueryParameter['projectID'] = projectID;
+            }
+
+            if (type !== undefined) {
+                localVarQueryParameter['type'] = type;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a saved insights metric by ID
+         * @summary Get insights metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsMetric: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getInsightsMetric', 'id', id)
+            const localVarPath = `/api/v1/stats/insights/metrics/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Evaluate a metric over a time range. Returns a per-bucket series of values (nil where division-by-zero occurs).
+         * @summary Get insights metric data
+         * @param {string} id Metric ID
+         * @param {string} from Start of time range (RFC3339)
+         * @param {string} to End of time range (RFC3339)
+         * @param {boolean} [compareToPrevious] If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsMetricData: async (id: string, from: string, to: string, compareToPrevious?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getInsightsMetricData', 'id', id)
+            // verify required parameter 'from' is not null or undefined
+            assertParamExists('getInsightsMetricData', 'from', from)
+            // verify required parameter 'to' is not null or undefined
+            assertParamExists('getInsightsMetricData', 'to', to)
+            const localVarPath = `/api/v1/stats/insights/metrics/{id}/data`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (from !== undefined) {
+                localVarQueryParameter['from'] = from;
+            }
+
+            if (to !== undefined) {
+                localVarQueryParameter['to'] = to;
+            }
+
+            if (compareToPrevious !== undefined) {
+                localVarQueryParameter['compareToPrevious'] = compareToPrevious;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List saved insights metrics for a project
+         * @summary List insights metrics
+         * @param {string} projectID Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsMetrics: async (projectID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectID' is not null or undefined
+            assertParamExists('getInsightsMetrics', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/insights/metrics`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (projectID !== undefined) {
+                localVarQueryParameter['projectID'] = projectID;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List saved insights queries for a project, optionally filtered by source
+         * @summary List insights queries
+         * @param {string} projectID Project ID
+         * @param {string} [source] Source filter: events or aggregated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsQueries: async (projectID: string, source?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectID' is not null or undefined
+            assertParamExists('getInsightsQueries', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/insights/queries`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (projectID !== undefined) {
+                localVarQueryParameter['projectID'] = projectID;
+            }
+
+            if (source !== undefined) {
+                localVarQueryParameter['source'] = source;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a saved insights query by ID
+         * @summary Get insights query
+         * @param {string} id Query ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsQuery: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getInsightsQuery', 'id', id)
+            const localVarPath = `/api/v1/stats/insights/queries/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Fetch the data for a saved query. Live (events) queries evaluate against the events table; aggregated queries are served from the materialized stats table (Phase 3 onwards).
+         * @summary Get insights query data
+         * @param {string} id Query ID
+         * @param {string} from Start of time range (RFC3339)
+         * @param {string} to End of time range (RFC3339)
+         * @param {boolean} [compareToPrevious] If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsQueryData: async (id: string, from: string, to: string, compareToPrevious?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getInsightsQueryData', 'id', id)
+            // verify required parameter 'from' is not null or undefined
+            assertParamExists('getInsightsQueryData', 'from', from)
+            // verify required parameter 'to' is not null or undefined
+            assertParamExists('getInsightsQueryData', 'to', to)
+            const localVarPath = `/api/v1/stats/insights/queries/{id}/data`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (from !== undefined) {
+                localVarQueryParameter['from'] = from;
+            }
+
+            if (to !== undefined) {
+                localVarQueryParameter['to'] = to;
+            }
+
+            if (compareToPrevious !== undefined) {
+                localVarQueryParameter['compareToPrevious'] = compareToPrevious;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List insights views (chart placements) for a project
+         * @summary List insights views
+         * @param {string} projectID Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsViews: async (projectID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectID' is not null or undefined
+            assertParamExists('getInsightsViews', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/insights/views`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (projectID !== undefined) {
+                localVarQueryParameter['projectID'] = projectID;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update a saved insights metric.
+         * @summary Update insights metric
+         * @param {string} id Metric ID
+         * @param {InsightsUpdateMetricRequest} request Update metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateInsightsMetric: async (id: string, request: InsightsUpdateMetricRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateInsightsMetric', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('updateInsightsMetric', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/metrics/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update a saved insights query (source is immutable; use \"save as new\" to change it)
+         * @summary Update insights query
+         * @param {string} id Query ID
+         * @param {InsightsUpdateQueryRequest} request Update query body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateInsightsQuery: async (id: string, request: InsightsUpdateQueryRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateInsightsQuery', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('updateInsightsQuery', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/queries/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update a chart placement on the Insights board.
+         * @summary Update insights view
+         * @param {string} id View ID
+         * @param {InsightsUpdateViewRequest} request Update view body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateInsightsView: async (id: string, request: InsightsUpdateViewRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateInsightsView', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('updateInsightsView', 'request', request)
+            const localVarPath = `/api/v1/stats/insights/views/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * InsightsApi - functional programming interface
+ */
+export const InsightsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = InsightsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a new saved insights metric. The expression must reference queries in {query_name}.{agg_name} form.
+         * @summary Create insights metric
+         * @param {InsightsCreateMetricRequest} request Create metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createInsightsMetric(request: InsightsCreateMetricRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsMetricResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createInsightsMetric(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.createInsightsMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Create a new saved insights query (live or aggregated)
+         * @summary Create insights query
+         * @param {InsightsCreateQueryRequest} request Create query body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createInsightsQuery(request: InsightsCreateQueryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsQueryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createInsightsQuery(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.createInsightsQuery']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Create a chart placement for an existing query or metric on the Insights board.
+         * @summary Create insights view
+         * @param {InsightsCreateViewRequest} request Create view body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createInsightsView(request: InsightsCreateViewRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsViewResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createInsightsView(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.createInsightsView']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete a saved insights metric. Dependent views are cascade-deleted.
+         * @summary Delete insights metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteInsightsMetric(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsDeleteWithCascadeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInsightsMetric(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.deleteInsightsMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete a saved insights query. Fails with 409 if any active metric still references the query by name. Dependent views are cascade-deleted.
+         * @summary Delete insights query
+         * @param {string} id Query ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteInsightsQuery(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsDeleteWithCascadeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInsightsQuery(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.deleteInsightsQuery']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete a chart placement from the Insights board.
+         * @summary Delete insights view
+         * @param {string} id View ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteInsightsView(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInsightsView(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.deleteInsightsView']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Evaluate an arbitrary metric expression over a time range without persisting it. Used by the metric builder preview.
+         * @summary Evaluate an insights metric expression
+         * @param {InsightsEvaluateMetricRequest} request Evaluate metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async evaluateInsightsMetric(request: InsightsEvaluateMetricRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsMetricDataResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.evaluateInsightsMetric(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.evaluateInsightsMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Run an insights query definition live against the events table. Used for builder preview and source=events queries.
+         * @summary Evaluate insights query
+         * @param {InsightsEvaluateQueryRequest} request Evaluate query body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async evaluateInsightsQuery(request: InsightsEvaluateQueryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsEvaluateQueryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.evaluateInsightsQuery(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.evaluateInsightsQuery']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the catalog of fields available for use in conditions, breakdowns, and aggregations: built-in event columns plus custom event attributes discovered from recent events. Custom attributes are namespace-prefixed (data.<key> / user.<key>) and must be referenced with that prefix; bare custom keys are rejected. Discovery is an authoring aid only and never gates query creation.
+         * @summary Get insights field catalog
+         * @param {string} projectID Project ID
+         * @param {string} [type] Event type to scope discovery to
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsFields(projectID: string, type?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsFieldsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsFields(projectID, type, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsFields']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get a saved insights metric by ID
+         * @summary Get insights metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsMetric(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsMetricResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsMetric(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Evaluate a metric over a time range. Returns a per-bucket series of values (nil where division-by-zero occurs).
+         * @summary Get insights metric data
+         * @param {string} id Metric ID
+         * @param {string} from Start of time range (RFC3339)
+         * @param {string} to End of time range (RFC3339)
+         * @param {boolean} [compareToPrevious] If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsMetricData(id: string, from: string, to: string, compareToPrevious?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsMetricDataResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsMetricData(id, from, to, compareToPrevious, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsMetricData']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List saved insights metrics for a project
+         * @summary List insights metrics
+         * @param {string} projectID Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsMetrics(projectID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InsightsMetricResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsMetrics(projectID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsMetrics']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List saved insights queries for a project, optionally filtered by source
+         * @summary List insights queries
+         * @param {string} projectID Project ID
+         * @param {string} [source] Source filter: events or aggregated
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsQueries(projectID: string, source?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InsightsQueryResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsQueries(projectID, source, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsQueries']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get a saved insights query by ID
+         * @summary Get insights query
+         * @param {string} id Query ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsQuery(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsQueryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsQuery(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsQuery']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Fetch the data for a saved query. Live (events) queries evaluate against the events table; aggregated queries are served from the materialized stats table (Phase 3 onwards).
+         * @summary Get insights query data
+         * @param {string} id Query ID
+         * @param {string} from Start of time range (RFC3339)
+         * @param {string} to End of time range (RFC3339)
+         * @param {boolean} [compareToPrevious] If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsQueryData(id: string, from: string, to: string, compareToPrevious?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsEvaluateQueryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsQueryData(id, from, to, compareToPrevious, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsQueryData']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List insights views (chart placements) for a project
+         * @summary List insights views
+         * @param {string} projectID Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInsightsViews(projectID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InsightsViewResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsViews(projectID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsViews']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update a saved insights metric.
+         * @summary Update insights metric
+         * @param {string} id Metric ID
+         * @param {InsightsUpdateMetricRequest} request Update metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateInsightsMetric(id: string, request: InsightsUpdateMetricRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsMetricResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateInsightsMetric(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.updateInsightsMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update a saved insights query (source is immutable; use \"save as new\" to change it)
+         * @summary Update insights query
+         * @param {string} id Query ID
+         * @param {InsightsUpdateQueryRequest} request Update query body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateInsightsQuery(id: string, request: InsightsUpdateQueryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsQueryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateInsightsQuery(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.updateInsightsQuery']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update a chart placement on the Insights board.
+         * @summary Update insights view
+         * @param {string} id View ID
+         * @param {InsightsUpdateViewRequest} request Update view body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateInsightsView(id: string, request: InsightsUpdateViewRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsViewResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateInsightsView(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InsightsApi.updateInsightsView']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * InsightsApi - factory interface
+ */
+export const InsightsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = InsightsApiFp(configuration)
+    return {
+        /**
+         * Create a new saved insights metric. The expression must reference queries in {query_name}.{agg_name} form.
+         * @summary Create insights metric
+         * @param {InsightsApiCreateInsightsMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInsightsMetric(requestParameters: InsightsApiCreateInsightsMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsMetricResponse> {
+            return localVarFp.createInsightsMetric(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new saved insights query (live or aggregated)
+         * @summary Create insights query
+         * @param {InsightsApiCreateInsightsQueryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInsightsQuery(requestParameters: InsightsApiCreateInsightsQueryRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsQueryResponse> {
+            return localVarFp.createInsightsQuery(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a chart placement for an existing query or metric on the Insights board.
+         * @summary Create insights view
+         * @param {InsightsApiCreateInsightsViewRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInsightsView(requestParameters: InsightsApiCreateInsightsViewRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsViewResponse> {
+            return localVarFp.createInsightsView(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a saved insights metric. Dependent views are cascade-deleted.
+         * @summary Delete insights metric
+         * @param {InsightsApiDeleteInsightsMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteInsightsMetric(requestParameters: InsightsApiDeleteInsightsMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsDeleteWithCascadeResponse> {
+            return localVarFp.deleteInsightsMetric(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a saved insights query. Fails with 409 if any active metric still references the query by name. Dependent views are cascade-deleted.
+         * @summary Delete insights query
+         * @param {InsightsApiDeleteInsightsQueryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteInsightsQuery(requestParameters: InsightsApiDeleteInsightsQueryRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsDeleteWithCascadeResponse> {
+            return localVarFp.deleteInsightsQuery(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a chart placement from the Insights board.
+         * @summary Delete insights view
+         * @param {InsightsApiDeleteInsightsViewRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteInsightsView(requestParameters: InsightsApiDeleteInsightsViewRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteInsightsView(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Evaluate an arbitrary metric expression over a time range without persisting it. Used by the metric builder preview.
+         * @summary Evaluate an insights metric expression
+         * @param {InsightsApiEvaluateInsightsMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        evaluateInsightsMetric(requestParameters: InsightsApiEvaluateInsightsMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsMetricDataResponse> {
+            return localVarFp.evaluateInsightsMetric(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Run an insights query definition live against the events table. Used for builder preview and source=events queries.
+         * @summary Evaluate insights query
+         * @param {InsightsApiEvaluateInsightsQueryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        evaluateInsightsQuery(requestParameters: InsightsApiEvaluateInsightsQueryRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsEvaluateQueryResponse> {
+            return localVarFp.evaluateInsightsQuery(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the catalog of fields available for use in conditions, breakdowns, and aggregations: built-in event columns plus custom event attributes discovered from recent events. Custom attributes are namespace-prefixed (data.<key> / user.<key>) and must be referenced with that prefix; bare custom keys are rejected. Discovery is an authoring aid only and never gates query creation.
+         * @summary Get insights field catalog
+         * @param {InsightsApiGetInsightsFieldsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsFields(requestParameters: InsightsApiGetInsightsFieldsRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsFieldsResponse> {
+            return localVarFp.getInsightsFields(requestParameters.projectID, requestParameters.type, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a saved insights metric by ID
+         * @summary Get insights metric
+         * @param {InsightsApiGetInsightsMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsMetric(requestParameters: InsightsApiGetInsightsMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsMetricResponse> {
+            return localVarFp.getInsightsMetric(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Evaluate a metric over a time range. Returns a per-bucket series of values (nil where division-by-zero occurs).
+         * @summary Get insights metric data
+         * @param {InsightsApiGetInsightsMetricDataRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsMetricData(requestParameters: InsightsApiGetInsightsMetricDataRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsMetricDataResponse> {
+            return localVarFp.getInsightsMetricData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List saved insights metrics for a project
+         * @summary List insights metrics
+         * @param {InsightsApiGetInsightsMetricsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsMetrics(requestParameters: InsightsApiGetInsightsMetricsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<InsightsMetricResponse>> {
+            return localVarFp.getInsightsMetrics(requestParameters.projectID, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List saved insights queries for a project, optionally filtered by source
+         * @summary List insights queries
+         * @param {InsightsApiGetInsightsQueriesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsQueries(requestParameters: InsightsApiGetInsightsQueriesRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<InsightsQueryResponse>> {
+            return localVarFp.getInsightsQueries(requestParameters.projectID, requestParameters.source, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a saved insights query by ID
+         * @summary Get insights query
+         * @param {InsightsApiGetInsightsQueryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsQuery(requestParameters: InsightsApiGetInsightsQueryRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsQueryResponse> {
+            return localVarFp.getInsightsQuery(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Fetch the data for a saved query. Live (events) queries evaluate against the events table; aggregated queries are served from the materialized stats table (Phase 3 onwards).
+         * @summary Get insights query data
+         * @param {InsightsApiGetInsightsQueryDataRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsQueryData(requestParameters: InsightsApiGetInsightsQueryDataRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsEvaluateQueryResponse> {
+            return localVarFp.getInsightsQueryData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List insights views (chart placements) for a project
+         * @summary List insights views
+         * @param {InsightsApiGetInsightsViewsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInsightsViews(requestParameters: InsightsApiGetInsightsViewsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<InsightsViewResponse>> {
+            return localVarFp.getInsightsViews(requestParameters.projectID, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a saved insights metric.
+         * @summary Update insights metric
+         * @param {InsightsApiUpdateInsightsMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateInsightsMetric(requestParameters: InsightsApiUpdateInsightsMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsMetricResponse> {
+            return localVarFp.updateInsightsMetric(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a saved insights query (source is immutable; use \"save as new\" to change it)
+         * @summary Update insights query
+         * @param {InsightsApiUpdateInsightsQueryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateInsightsQuery(requestParameters: InsightsApiUpdateInsightsQueryRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsQueryResponse> {
+            return localVarFp.updateInsightsQuery(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a chart placement on the Insights board.
+         * @summary Update insights view
+         * @param {InsightsApiUpdateInsightsViewRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateInsightsView(requestParameters: InsightsApiUpdateInsightsViewRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsViewResponse> {
+            return localVarFp.updateInsightsView(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for createInsightsMetric operation in InsightsApi.
+ */
+export interface InsightsApiCreateInsightsMetricRequest {
+    /**
+     * Create metric body
+     */
+    readonly request: InsightsCreateMetricRequest
+}
+
+/**
+ * Request parameters for createInsightsQuery operation in InsightsApi.
+ */
+export interface InsightsApiCreateInsightsQueryRequest {
+    /**
+     * Create query body
+     */
+    readonly request: InsightsCreateQueryRequest
+}
+
+/**
+ * Request parameters for createInsightsView operation in InsightsApi.
+ */
+export interface InsightsApiCreateInsightsViewRequest {
+    /**
+     * Create view body
+     */
+    readonly request: InsightsCreateViewRequest
+}
+
+/**
+ * Request parameters for deleteInsightsMetric operation in InsightsApi.
+ */
+export interface InsightsApiDeleteInsightsMetricRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for deleteInsightsQuery operation in InsightsApi.
+ */
+export interface InsightsApiDeleteInsightsQueryRequest {
+    /**
+     * Query ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for deleteInsightsView operation in InsightsApi.
+ */
+export interface InsightsApiDeleteInsightsViewRequest {
+    /**
+     * View ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for evaluateInsightsMetric operation in InsightsApi.
+ */
+export interface InsightsApiEvaluateInsightsMetricRequest {
+    /**
+     * Evaluate metric body
+     */
+    readonly request: InsightsEvaluateMetricRequest
+}
+
+/**
+ * Request parameters for evaluateInsightsQuery operation in InsightsApi.
+ */
+export interface InsightsApiEvaluateInsightsQueryRequest {
+    /**
+     * Evaluate query body
+     */
+    readonly request: InsightsEvaluateQueryRequest
+}
+
+/**
+ * Request parameters for getInsightsFields operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsFieldsRequest {
+    /**
+     * Project ID
+     */
+    readonly projectID: string
+
+    /**
+     * Event type to scope discovery to
+     */
+    readonly type?: string
+}
+
+/**
+ * Request parameters for getInsightsMetric operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsMetricRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getInsightsMetricData operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsMetricDataRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+
+    /**
+     * Start of time range (RFC3339)
+     */
+    readonly from: string
+
+    /**
+     * End of time range (RFC3339)
+     */
+    readonly to: string
+
+    /**
+     * If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+     */
+    readonly compareToPrevious?: boolean
+}
+
+/**
+ * Request parameters for getInsightsMetrics operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsMetricsRequest {
+    /**
+     * Project ID
+     */
+    readonly projectID: string
+}
+
+/**
+ * Request parameters for getInsightsQueries operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsQueriesRequest {
+    /**
+     * Project ID
+     */
+    readonly projectID: string
+
+    /**
+     * Source filter: events or aggregated
+     */
+    readonly source?: string
+}
+
+/**
+ * Request parameters for getInsightsQuery operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsQueryRequest {
+    /**
+     * Query ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getInsightsQueryData operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsQueryDataRequest {
+    /**
+     * Query ID
+     */
+    readonly id: string
+
+    /**
+     * Start of time range (RFC3339)
+     */
+    readonly from: string
+
+    /**
+     * End of time range (RFC3339)
+     */
+    readonly to: string
+
+    /**
+     * If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+     */
+    readonly compareToPrevious?: boolean
+}
+
+/**
+ * Request parameters for getInsightsViews operation in InsightsApi.
+ */
+export interface InsightsApiGetInsightsViewsRequest {
+    /**
+     * Project ID
+     */
+    readonly projectID: string
+}
+
+/**
+ * Request parameters for updateInsightsMetric operation in InsightsApi.
+ */
+export interface InsightsApiUpdateInsightsMetricRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+
+    /**
+     * Update metric body
+     */
+    readonly request: InsightsUpdateMetricRequest
+}
+
+/**
+ * Request parameters for updateInsightsQuery operation in InsightsApi.
+ */
+export interface InsightsApiUpdateInsightsQueryRequest {
+    /**
+     * Query ID
+     */
+    readonly id: string
+
+    /**
+     * Update query body
+     */
+    readonly request: InsightsUpdateQueryRequest
+}
+
+/**
+ * Request parameters for updateInsightsView operation in InsightsApi.
+ */
+export interface InsightsApiUpdateInsightsViewRequest {
+    /**
+     * View ID
+     */
+    readonly id: string
+
+    /**
+     * Update view body
+     */
+    readonly request: InsightsUpdateViewRequest
+}
+
+/**
+ * InsightsApi - object-oriented interface
+ */
+export class InsightsApi extends BaseAPI {
+    /**
+     * Create a new saved insights metric. The expression must reference queries in {query_name}.{agg_name} form.
+     * @summary Create insights metric
+     * @param {InsightsApiCreateInsightsMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public createInsightsMetric(requestParameters: InsightsApiCreateInsightsMetricRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).createInsightsMetric(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a new saved insights query (live or aggregated)
+     * @summary Create insights query
+     * @param {InsightsApiCreateInsightsQueryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public createInsightsQuery(requestParameters: InsightsApiCreateInsightsQueryRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).createInsightsQuery(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a chart placement for an existing query or metric on the Insights board.
+     * @summary Create insights view
+     * @param {InsightsApiCreateInsightsViewRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public createInsightsView(requestParameters: InsightsApiCreateInsightsViewRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).createInsightsView(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete a saved insights metric. Dependent views are cascade-deleted.
+     * @summary Delete insights metric
+     * @param {InsightsApiDeleteInsightsMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public deleteInsightsMetric(requestParameters: InsightsApiDeleteInsightsMetricRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).deleteInsightsMetric(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete a saved insights query. Fails with 409 if any active metric still references the query by name. Dependent views are cascade-deleted.
+     * @summary Delete insights query
+     * @param {InsightsApiDeleteInsightsQueryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public deleteInsightsQuery(requestParameters: InsightsApiDeleteInsightsQueryRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).deleteInsightsQuery(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete a chart placement from the Insights board.
+     * @summary Delete insights view
+     * @param {InsightsApiDeleteInsightsViewRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public deleteInsightsView(requestParameters: InsightsApiDeleteInsightsViewRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).deleteInsightsView(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Evaluate an arbitrary metric expression over a time range without persisting it. Used by the metric builder preview.
+     * @summary Evaluate an insights metric expression
+     * @param {InsightsApiEvaluateInsightsMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public evaluateInsightsMetric(requestParameters: InsightsApiEvaluateInsightsMetricRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).evaluateInsightsMetric(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Run an insights query definition live against the events table. Used for builder preview and source=events queries.
+     * @summary Evaluate insights query
+     * @param {InsightsApiEvaluateInsightsQueryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public evaluateInsightsQuery(requestParameters: InsightsApiEvaluateInsightsQueryRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).evaluateInsightsQuery(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the catalog of fields available for use in conditions, breakdowns, and aggregations: built-in event columns plus custom event attributes discovered from recent events. Custom attributes are namespace-prefixed (data.<key> / user.<key>) and must be referenced with that prefix; bare custom keys are rejected. Discovery is an authoring aid only and never gates query creation.
+     * @summary Get insights field catalog
+     * @param {InsightsApiGetInsightsFieldsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsFields(requestParameters: InsightsApiGetInsightsFieldsRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsFields(requestParameters.projectID, requestParameters.type, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a saved insights metric by ID
+     * @summary Get insights metric
+     * @param {InsightsApiGetInsightsMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsMetric(requestParameters: InsightsApiGetInsightsMetricRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsMetric(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Evaluate a metric over a time range. Returns a per-bucket series of values (nil where division-by-zero occurs).
+     * @summary Get insights metric data
+     * @param {InsightsApiGetInsightsMetricDataRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsMetricData(requestParameters: InsightsApiGetInsightsMetricDataRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsMetricData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List saved insights metrics for a project
+     * @summary List insights metrics
+     * @param {InsightsApiGetInsightsMetricsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsMetrics(requestParameters: InsightsApiGetInsightsMetricsRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsMetrics(requestParameters.projectID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List saved insights queries for a project, optionally filtered by source
+     * @summary List insights queries
+     * @param {InsightsApiGetInsightsQueriesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsQueries(requestParameters: InsightsApiGetInsightsQueriesRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsQueries(requestParameters.projectID, requestParameters.source, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a saved insights query by ID
+     * @summary Get insights query
+     * @param {InsightsApiGetInsightsQueryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsQuery(requestParameters: InsightsApiGetInsightsQueryRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsQuery(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fetch the data for a saved query. Live (events) queries evaluate against the events table; aggregated queries are served from the materialized stats table (Phase 3 onwards).
+     * @summary Get insights query data
+     * @param {InsightsApiGetInsightsQueryDataRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsQueryData(requestParameters: InsightsApiGetInsightsQueryDataRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsQueryData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List insights views (chart placements) for a project
+     * @summary List insights views
+     * @param {InsightsApiGetInsightsViewsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInsightsViews(requestParameters: InsightsApiGetInsightsViewsRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).getInsightsViews(requestParameters.projectID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update a saved insights metric.
+     * @summary Update insights metric
+     * @param {InsightsApiUpdateInsightsMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public updateInsightsMetric(requestParameters: InsightsApiUpdateInsightsMetricRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).updateInsightsMetric(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update a saved insights query (source is immutable; use \"save as new\" to change it)
+     * @summary Update insights query
+     * @param {InsightsApiUpdateInsightsQueryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public updateInsightsQuery(requestParameters: InsightsApiUpdateInsightsQueryRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).updateInsightsQuery(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update a chart placement on the Insights board.
+     * @summary Update insights view
+     * @param {InsightsApiUpdateInsightsViewRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public updateInsightsView(requestParameters: InsightsApiUpdateInsightsViewRequest, options?: RawAxiosRequestConfig) {
+        return InsightsApiFp(this.configuration).updateInsightsView(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5498,15 +7562,15 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * Endpoint to get cardinalities
-         * @summary Get cardinalities
+         * @summary Get aggregation cardinalities
          * @param {string} projectID 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCardinalities: async (projectID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAggregationCardinalities: async (projectID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectID' is not null or undefined
-            assertParamExists('getCardinalities', 'projectID', projectID)
-            const localVarPath = `/api/v1/stats/cardinalities`;
+            assertParamExists('getAggregationCardinalities', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/aggregation-cardinalities`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5618,16 +7682,23 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Gets event time stats
-         * @summary Get event time stats
-         * @param {StatsGetEventQueryStatsRequest} request Get event time stats request
+         * Endpoint to get event overview
+         * @summary Get event overview
+         * @param {GetEventOverviewGranularityEnum} granularity 
+         * @param {GetEventOverviewPeriodEnum} period 
+         * @param {string} projectID 
+         * @param {string} [date] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEventQueryStats: async (request: StatsGetEventQueryStatsRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'request' is not null or undefined
-            assertParamExists('getEventQueryStats', 'request', request)
-            const localVarPath = `/api/v1/stats/event/query`;
+        getEventOverview: async (granularity: GetEventOverviewGranularityEnum, period: GetEventOverviewPeriodEnum, projectID: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'granularity' is not null or undefined
+            assertParamExists('getEventOverview', 'granularity', granularity)
+            // verify required parameter 'period' is not null or undefined
+            assertParamExists('getEventOverview', 'period', period)
+            // verify required parameter 'projectID' is not null or undefined
+            assertParamExists('getEventOverview', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/event/overview`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5635,20 +7706,31 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication ApiKeyAuth required
-            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+            if (date !== undefined) {
+                localVarQueryParameter['date'] = date;
+            }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json';
+            if (granularity !== undefined) {
+                localVarQueryParameter['granularity'] = granularity;
+            }
+
+            if (period !== undefined) {
+                localVarQueryParameter['period'] = period;
+            }
+
+            if (projectID !== undefined) {
+                localVarQueryParameter['projectID'] = projectID;
+            }
+
             localVarHeaderParameter['Accept'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5656,10 +7738,10 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Gets event time stats
-         * @summary Get event time stats
-         * @param {GetEventTimeStatsGranularityEnum} granularity 
-         * @param {GetEventTimeStatsPeriodEnum} period 
+         * Gets event timeseries
+         * @summary Get event timeseries
+         * @param {GetEventTimeseriesGranularityEnum} granularity 
+         * @param {GetEventTimeseriesPeriodEnum} period 
          * @param {string} projectID 
          * @param {string} [comparisonTimeRange] 
          * @param {string} [date] 
@@ -5669,14 +7751,14 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEventTimeStats: async (granularity: GetEventTimeStatsGranularityEnum, period: GetEventTimeStatsPeriodEnum, projectID: string, comparisonTimeRange?: string, date?: string, keys?: Array<string>, timeRange?: string, values?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getEventTimeseries: async (granularity: GetEventTimeseriesGranularityEnum, period: GetEventTimeseriesPeriodEnum, projectID: string, comparisonTimeRange?: string, date?: string, keys?: Array<string>, timeRange?: string, values?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'granularity' is not null or undefined
-            assertParamExists('getEventTimeStats', 'granularity', granularity)
+            assertParamExists('getEventTimeseries', 'granularity', granularity)
             // verify required parameter 'period' is not null or undefined
-            assertParamExists('getEventTimeStats', 'period', period)
+            assertParamExists('getEventTimeseries', 'period', period)
             // verify required parameter 'projectID' is not null or undefined
-            assertParamExists('getEventTimeStats', 'projectID', projectID)
-            const localVarPath = `/api/v1/stats/event/time`;
+            assertParamExists('getEventTimeseries', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/event/timeseries`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5735,23 +7817,60 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Endpoint to get event total stats
-         * @summary Get event total stats
-         * @param {GetEventTotalStatsGranularityEnum} granularity 
-         * @param {GetEventTotalStatsPeriodEnum} period 
+         * Endpoint to get event types with optional config per type
+         * @summary Get event types
+         * @param {string} projectID 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEventTypes: async (projectID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectID' is not null or undefined
+            assertParamExists('getEventTypes', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/event/types`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (projectID !== undefined) {
+                localVarQueryParameter['projectID'] = projectID;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Endpoint to get session overview
+         * @summary Get session overview
+         * @param {GetSessionOverviewGranularityEnum} granularity 
+         * @param {GetSessionOverviewPeriodEnum} period 
          * @param {string} projectID 
          * @param {string} [date] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEventTotalStats: async (granularity: GetEventTotalStatsGranularityEnum, period: GetEventTotalStatsPeriodEnum, projectID: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getSessionOverview: async (granularity: GetSessionOverviewGranularityEnum, period: GetSessionOverviewPeriodEnum, projectID: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'granularity' is not null or undefined
-            assertParamExists('getEventTotalStats', 'granularity', granularity)
+            assertParamExists('getSessionOverview', 'granularity', granularity)
             // verify required parameter 'period' is not null or undefined
-            assertParamExists('getEventTotalStats', 'period', period)
+            assertParamExists('getSessionOverview', 'period', period)
             // verify required parameter 'projectID' is not null or undefined
-            assertParamExists('getEventTotalStats', 'projectID', projectID)
-            const localVarPath = `/api/v1/stats/event/total`;
+            assertParamExists('getSessionOverview', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/session/overview`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5774,43 +7893,6 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             if (period !== undefined) {
                 localVarQueryParameter['period'] = period;
             }
-
-            if (projectID !== undefined) {
-                localVarQueryParameter['projectID'] = projectID;
-            }
-
-            localVarHeaderParameter['Accept'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Endpoint to get event type summaries with optional config per type
-         * @summary Get event type summaries
-         * @param {string} projectID 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getEventTypeSummaries: async (projectID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectID' is not null or undefined
-            assertParamExists('getEventTypeSummaries', 'projectID', projectID)
-            const localVarPath = `/api/v1/stats/event/type-summaries`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
             if (projectID !== undefined) {
                 localVarQueryParameter['projectID'] = projectID;
@@ -5829,22 +7911,22 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * Endpoint to get event time stats
-         * @summary Get sessions time stats
-         * @param {GetSessionTimeStatsGranularityEnum} granularity 
-         * @param {GetSessionTimeStatsPeriodEnum} period 
+         * @summary Get session timeseries
+         * @param {GetSessionTimeseriesGranularityEnum} granularity 
+         * @param {GetSessionTimeseriesPeriodEnum} period 
          * @param {string} projectID 
          * @param {string} [date] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSessionTimeStats: async (granularity: GetSessionTimeStatsGranularityEnum, period: GetSessionTimeStatsPeriodEnum, projectID: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getSessionTimeseries: async (granularity: GetSessionTimeseriesGranularityEnum, period: GetSessionTimeseriesPeriodEnum, projectID: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'granularity' is not null or undefined
-            assertParamExists('getSessionTimeStats', 'granularity', granularity)
+            assertParamExists('getSessionTimeseries', 'granularity', granularity)
             // verify required parameter 'period' is not null or undefined
-            assertParamExists('getSessionTimeStats', 'period', period)
+            assertParamExists('getSessionTimeseries', 'period', period)
             // verify required parameter 'projectID' is not null or undefined
-            assertParamExists('getSessionTimeStats', 'projectID', projectID)
-            const localVarPath = `/api/v1/stats/session/time`;
+            assertParamExists('getSessionTimeseries', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/session/timeseries`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5858,62 +7940,6 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
 
             // authentication ApiKeyAuth required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
-
-            if (date !== undefined) {
-                localVarQueryParameter['date'] = date;
-            }
-
-            if (granularity !== undefined) {
-                localVarQueryParameter['granularity'] = granularity;
-            }
-
-            if (period !== undefined) {
-                localVarQueryParameter['period'] = period;
-            }
-
-            if (projectID !== undefined) {
-                localVarQueryParameter['projectID'] = projectID;
-            }
-
-            localVarHeaderParameter['Accept'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Endpoint to get session total stats
-         * @summary Get session total stats
-         * @param {GetSessionTotalStatsGranularityEnum} granularity 
-         * @param {GetSessionTotalStatsPeriodEnum} period 
-         * @param {string} projectID 
-         * @param {string} [date] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSessionTotalStats: async (granularity: GetSessionTotalStatsGranularityEnum, period: GetSessionTotalStatsPeriodEnum, projectID: string, date?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'granularity' is not null or undefined
-            assertParamExists('getSessionTotalStats', 'granularity', granularity)
-            // verify required parameter 'period' is not null or undefined
-            assertParamExists('getSessionTotalStats', 'period', period)
-            // verify required parameter 'projectID' is not null or undefined
-            assertParamExists('getSessionTotalStats', 'projectID', projectID)
-            const localVarPath = `/api/v1/stats/session/total`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
             if (date !== undefined) {
                 localVarQueryParameter['date'] = date;
@@ -5983,10 +8009,10 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Endpoint to get top stats
-         * @summary Get top stats
-         * @param {GetTopStatsGranularityEnum} granularity 
-         * @param {GetTopStatsPeriodEnum} period 
+         * Endpoint to get top by dimension
+         * @summary Get top by dimension
+         * @param {GetTopByDimensionGranularityEnum} granularity 
+         * @param {GetTopByDimensionPeriodEnum} period 
          * @param {string} projectID 
          * @param {Array<string>} [aggregation] 
          * @param {string} [date] 
@@ -5995,14 +8021,14 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTopStats: async (granularity: GetTopStatsGranularityEnum, period: GetTopStatsPeriodEnum, projectID: string, aggregation?: Array<string>, date?: string, keys?: Array<string>, values?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getTopByDimension: async (granularity: GetTopByDimensionGranularityEnum, period: GetTopByDimensionPeriodEnum, projectID: string, aggregation?: Array<string>, date?: string, keys?: Array<string>, values?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'granularity' is not null or undefined
-            assertParamExists('getTopStats', 'granularity', granularity)
+            assertParamExists('getTopByDimension', 'granularity', granularity)
             // verify required parameter 'period' is not null or undefined
-            assertParamExists('getTopStats', 'period', period)
+            assertParamExists('getTopByDimension', 'period', period)
             // verify required parameter 'projectID' is not null or undefined
-            assertParamExists('getTopStats', 'projectID', projectID)
-            const localVarPath = `/api/v1/stats/top`;
+            assertParamExists('getTopByDimension', 'projectID', projectID)
+            const localVarPath = `/api/v1/stats/top-by-dimension`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6094,6 +8120,44 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Query events with custom filters and aggregations
+         * @summary Query events
+         * @param {StatsQueryEventsRequest} request Query events request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        queryEvents: async (request: StatsQueryEventsRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('queryEvents', 'request', request)
+            const localVarPath = `/api/v1/stats/event/query`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -6118,15 +8182,15 @@ export const StatsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Endpoint to get cardinalities
-         * @summary Get cardinalities
+         * @summary Get aggregation cardinalities
          * @param {string} projectID 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCardinalities(projectID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsCardinalitiesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCardinalities(projectID, options);
+        async getAggregationCardinalities(projectID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsAggregationCardinalitiesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAggregationCardinalities(projectID, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getCardinalities']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.getAggregationCardinalities']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6150,23 +8214,26 @@ export const StatsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Gets event time stats
-         * @summary Get event time stats
-         * @param {StatsGetEventQueryStatsRequest} request Get event time stats request
+         * Endpoint to get event overview
+         * @summary Get event overview
+         * @param {GetEventOverviewGranularityEnum} granularity 
+         * @param {GetEventOverviewPeriodEnum} period 
+         * @param {string} projectID 
+         * @param {string} [date] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEventQueryStats(request: StatsGetEventQueryStatsRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventTimeStatsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventQueryStats(request, options);
+        async getEventOverview(granularity: GetEventOverviewGranularityEnum, period: GetEventOverviewPeriodEnum, projectID: string, date?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventOverviewResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventOverview(granularity, period, projectID, date, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getEventQueryStats']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.getEventOverview']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Gets event time stats
-         * @summary Get event time stats
-         * @param {GetEventTimeStatsGranularityEnum} granularity 
-         * @param {GetEventTimeStatsPeriodEnum} period 
+         * Gets event timeseries
+         * @summary Get event timeseries
+         * @param {GetEventTimeseriesGranularityEnum} granularity 
+         * @param {GetEventTimeseriesPeriodEnum} period 
          * @param {string} projectID 
          * @param {string} [comparisonTimeRange] 
          * @param {string} [date] 
@@ -6176,71 +8243,55 @@ export const StatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEventTimeStats(granularity: GetEventTimeStatsGranularityEnum, period: GetEventTimeStatsPeriodEnum, projectID: string, comparisonTimeRange?: string, date?: string, keys?: Array<string>, timeRange?: string, values?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventTimeStatsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventTimeStats(granularity, period, projectID, comparisonTimeRange, date, keys, timeRange, values, options);
+        async getEventTimeseries(granularity: GetEventTimeseriesGranularityEnum, period: GetEventTimeseriesPeriodEnum, projectID: string, comparisonTimeRange?: string, date?: string, keys?: Array<string>, timeRange?: string, values?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventTimeseriesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventTimeseries(granularity, period, projectID, comparisonTimeRange, date, keys, timeRange, values, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getEventTimeStats']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.getEventTimeseries']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Endpoint to get event total stats
-         * @summary Get event total stats
-         * @param {GetEventTotalStatsGranularityEnum} granularity 
-         * @param {GetEventTotalStatsPeriodEnum} period 
+         * Endpoint to get event types with optional config per type
+         * @summary Get event types
+         * @param {string} projectID 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEventTypes(projectID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventTypesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventTypes(projectID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.getEventTypes']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Endpoint to get session overview
+         * @summary Get session overview
+         * @param {GetSessionOverviewGranularityEnum} granularity 
+         * @param {GetSessionOverviewPeriodEnum} period 
          * @param {string} projectID 
          * @param {string} [date] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEventTotalStats(granularity: GetEventTotalStatsGranularityEnum, period: GetEventTotalStatsPeriodEnum, projectID: string, date?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventTotalStatsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventTotalStats(granularity, period, projectID, date, options);
+        async getSessionOverview(granularity: GetSessionOverviewGranularityEnum, period: GetSessionOverviewPeriodEnum, projectID: string, date?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsSessionOverviewResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSessionOverview(granularity, period, projectID, date, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getEventTotalStats']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Endpoint to get event type summaries with optional config per type
-         * @summary Get event type summaries
-         * @param {string} projectID 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getEventTypeSummaries(projectID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventTypeSummariesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventTypeSummaries(projectID, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getEventTypeSummaries']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.getSessionOverview']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Endpoint to get event time stats
-         * @summary Get sessions time stats
-         * @param {GetSessionTimeStatsGranularityEnum} granularity 
-         * @param {GetSessionTimeStatsPeriodEnum} period 
+         * @summary Get session timeseries
+         * @param {GetSessionTimeseriesGranularityEnum} granularity 
+         * @param {GetSessionTimeseriesPeriodEnum} period 
          * @param {string} projectID 
          * @param {string} [date] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSessionTimeStats(granularity: GetSessionTimeStatsGranularityEnum, period: GetSessionTimeStatsPeriodEnum, projectID: string, date?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsSessionTimeStatsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSessionTimeStats(granularity, period, projectID, date, options);
+        async getSessionTimeseries(granularity: GetSessionTimeseriesGranularityEnum, period: GetSessionTimeseriesPeriodEnum, projectID: string, date?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsSessionTimeseriesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSessionTimeseries(granularity, period, projectID, date, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getSessionTimeStats']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Endpoint to get session total stats
-         * @summary Get session total stats
-         * @param {GetSessionTotalStatsGranularityEnum} granularity 
-         * @param {GetSessionTotalStatsPeriodEnum} period 
-         * @param {string} projectID 
-         * @param {string} [date] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getSessionTotalStats(granularity: GetSessionTotalStatsGranularityEnum, period: GetSessionTotalStatsPeriodEnum, projectID: string, date?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsSessionTotalStatsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSessionTotalStats(granularity, period, projectID, date, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getSessionTotalStats']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.getSessionTimeseries']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6257,10 +8308,10 @@ export const StatsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Endpoint to get top stats
-         * @summary Get top stats
-         * @param {GetTopStatsGranularityEnum} granularity 
-         * @param {GetTopStatsPeriodEnum} period 
+         * Endpoint to get top by dimension
+         * @summary Get top by dimension
+         * @param {GetTopByDimensionGranularityEnum} granularity 
+         * @param {GetTopByDimensionPeriodEnum} period 
          * @param {string} projectID 
          * @param {Array<string>} [aggregation] 
          * @param {string} [date] 
@@ -6269,10 +8320,10 @@ export const StatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTopStats(granularity: GetTopStatsGranularityEnum, period: GetTopStatsPeriodEnum, projectID: string, aggregation?: Array<string>, date?: string, keys?: Array<string>, values?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsTopResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTopStats(granularity, period, projectID, aggregation, date, keys, values, options);
+        async getTopByDimension(granularity: GetTopByDimensionGranularityEnum, period: GetTopByDimensionPeriodEnum, projectID: string, aggregation?: Array<string>, date?: string, keys?: Array<string>, values?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsTopResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTopByDimension(granularity, period, projectID, aggregation, date, keys, values, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StatsApi.getTopStats']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.getTopByDimension']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6286,6 +8337,19 @@ export const StatsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.putEventTypeConfig(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['StatsApi.putEventTypeConfig']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Query events with custom filters and aggregations
+         * @summary Query events
+         * @param {StatsQueryEventsRequest} request Query events request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async queryEvents(request: StatsQueryEventsRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsEventTimeseriesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.queryEvents(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StatsApi.queryEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -6309,13 +8373,13 @@ export const StatsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * Endpoint to get cardinalities
-         * @summary Get cardinalities
-         * @param {StatsApiGetCardinalitiesRequest} requestParameters Request parameters.
+         * @summary Get aggregation cardinalities
+         * @param {StatsApiGetAggregationCardinalitiesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCardinalities(requestParameters: StatsApiGetCardinalitiesRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsCardinalitiesResponse> {
-            return localVarFp.getCardinalities(requestParameters.projectID, options).then((request) => request(axios, basePath));
+        getAggregationCardinalities(requestParameters: StatsApiGetAggregationCardinalitiesRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsAggregationCardinalitiesResponse> {
+            return localVarFp.getAggregationCardinalities(requestParameters.projectID, options).then((request) => request(axios, basePath));
         },
         /**
          * Top-N value combinations for a configured aggregation dimension group, scoped by date range and optional type filter.
@@ -6328,64 +8392,54 @@ export const StatsApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.getDimensionBreakdown(requestParameters.granularity, requestParameters.keys, requestParameters.period, requestParameters.projectID, requestParameters.date, requestParameters.filter, requestParameters.limit, requestParameters.type, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets event time stats
-         * @summary Get event time stats
-         * @param {StatsApiGetEventQueryStatsRequest} requestParameters Request parameters.
+         * Endpoint to get event overview
+         * @summary Get event overview
+         * @param {StatsApiGetEventOverviewRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEventQueryStats(requestParameters: StatsApiGetEventQueryStatsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventTimeStatsResponse> {
-            return localVarFp.getEventQueryStats(requestParameters.request, options).then((request) => request(axios, basePath));
+        getEventOverview(requestParameters: StatsApiGetEventOverviewRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventOverviewResponse> {
+            return localVarFp.getEventOverview(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets event time stats
-         * @summary Get event time stats
-         * @param {StatsApiGetEventTimeStatsRequest} requestParameters Request parameters.
+         * Gets event timeseries
+         * @summary Get event timeseries
+         * @param {StatsApiGetEventTimeseriesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEventTimeStats(requestParameters: StatsApiGetEventTimeStatsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventTimeStatsResponse> {
-            return localVarFp.getEventTimeStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.comparisonTimeRange, requestParameters.date, requestParameters.keys, requestParameters.timeRange, requestParameters.values, options).then((request) => request(axios, basePath));
+        getEventTimeseries(requestParameters: StatsApiGetEventTimeseriesRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventTimeseriesResponse> {
+            return localVarFp.getEventTimeseries(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.comparisonTimeRange, requestParameters.date, requestParameters.keys, requestParameters.timeRange, requestParameters.values, options).then((request) => request(axios, basePath));
         },
         /**
-         * Endpoint to get event total stats
-         * @summary Get event total stats
-         * @param {StatsApiGetEventTotalStatsRequest} requestParameters Request parameters.
+         * Endpoint to get event types with optional config per type
+         * @summary Get event types
+         * @param {StatsApiGetEventTypesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEventTotalStats(requestParameters: StatsApiGetEventTotalStatsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventTotalStatsResponse> {
-            return localVarFp.getEventTotalStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(axios, basePath));
+        getEventTypes(requestParameters: StatsApiGetEventTypesRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventTypesResponse> {
+            return localVarFp.getEventTypes(requestParameters.projectID, options).then((request) => request(axios, basePath));
         },
         /**
-         * Endpoint to get event type summaries with optional config per type
-         * @summary Get event type summaries
-         * @param {StatsApiGetEventTypeSummariesRequest} requestParameters Request parameters.
+         * Endpoint to get session overview
+         * @summary Get session overview
+         * @param {StatsApiGetSessionOverviewRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEventTypeSummaries(requestParameters: StatsApiGetEventTypeSummariesRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventTypeSummariesResponse> {
-            return localVarFp.getEventTypeSummaries(requestParameters.projectID, options).then((request) => request(axios, basePath));
+        getSessionOverview(requestParameters: StatsApiGetSessionOverviewRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsSessionOverviewResponse> {
+            return localVarFp.getSessionOverview(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(axios, basePath));
         },
         /**
          * Endpoint to get event time stats
-         * @summary Get sessions time stats
-         * @param {StatsApiGetSessionTimeStatsRequest} requestParameters Request parameters.
+         * @summary Get session timeseries
+         * @param {StatsApiGetSessionTimeseriesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSessionTimeStats(requestParameters: StatsApiGetSessionTimeStatsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsSessionTimeStatsResponse> {
-            return localVarFp.getSessionTimeStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Endpoint to get session total stats
-         * @summary Get session total stats
-         * @param {StatsApiGetSessionTotalStatsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSessionTotalStats(requestParameters: StatsApiGetSessionTotalStatsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsSessionTotalStatsResponse> {
-            return localVarFp.getSessionTotalStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(axios, basePath));
+        getSessionTimeseries(requestParameters: StatsApiGetSessionTimeseriesRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsSessionTimeseriesResponse> {
+            return localVarFp.getSessionTimeseries(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(axios, basePath));
         },
         /**
          * Get stats config for a project, including aggregation dimensions.
@@ -6398,14 +8452,14 @@ export const StatsApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.getStatsConfig(requestParameters.projectID, options).then((request) => request(axios, basePath));
         },
         /**
-         * Endpoint to get top stats
-         * @summary Get top stats
-         * @param {StatsApiGetTopStatsRequest} requestParameters Request parameters.
+         * Endpoint to get top by dimension
+         * @summary Get top by dimension
+         * @param {StatsApiGetTopByDimensionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTopStats(requestParameters: StatsApiGetTopStatsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsTopResponse> {
-            return localVarFp.getTopStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.aggregation, requestParameters.date, requestParameters.keys, requestParameters.values, options).then((request) => request(axios, basePath));
+        getTopByDimension(requestParameters: StatsApiGetTopByDimensionRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsTopResponse> {
+            return localVarFp.getTopByDimension(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.aggregation, requestParameters.date, requestParameters.keys, requestParameters.values, options).then((request) => request(axios, basePath));
         },
         /**
          * Upsert config for a given event type. Only provided fields are updated.
@@ -6416,6 +8470,16 @@ export const StatsApiFactory = function (configuration?: Configuration, basePath
          */
         putEventTypeConfig(requestParameters: StatsApiPutEventTypeConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseEventTypeConfigResponse> {
             return localVarFp.putEventTypeConfig(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Query events with custom filters and aggregations
+         * @summary Query events
+         * @param {StatsApiQueryEventsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        queryEvents(requestParameters: StatsApiQueryEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StatsEventTimeseriesResponse> {
+            return localVarFp.queryEvents(requestParameters.request, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6428,9 +8492,9 @@ export interface StatsApiGetActiveSessionsRequest {
 }
 
 /**
- * Request parameters for getCardinalities operation in StatsApi.
+ * Request parameters for getAggregationCardinalities operation in StatsApi.
  */
-export interface StatsApiGetCardinalitiesRequest {
+export interface StatsApiGetAggregationCardinalitiesRequest {
     readonly projectID: string
 }
 
@@ -6465,22 +8529,25 @@ export interface StatsApiGetDimensionBreakdownRequest {
 }
 
 /**
- * Request parameters for getEventQueryStats operation in StatsApi.
+ * Request parameters for getEventOverview operation in StatsApi.
  */
-export interface StatsApiGetEventQueryStatsRequest {
-    /**
-     * Get event time stats request
-     */
-    readonly request: StatsGetEventQueryStatsRequest
+export interface StatsApiGetEventOverviewRequest {
+    readonly granularity: GetEventOverviewGranularityEnum
+
+    readonly period: GetEventOverviewPeriodEnum
+
+    readonly projectID: string
+
+    readonly date?: string
 }
 
 /**
- * Request parameters for getEventTimeStats operation in StatsApi.
+ * Request parameters for getEventTimeseries operation in StatsApi.
  */
-export interface StatsApiGetEventTimeStatsRequest {
-    readonly granularity: GetEventTimeStatsGranularityEnum
+export interface StatsApiGetEventTimeseriesRequest {
+    readonly granularity: GetEventTimeseriesGranularityEnum
 
-    readonly period: GetEventTimeStatsPeriodEnum
+    readonly period: GetEventTimeseriesPeriodEnum
 
     readonly projectID: string
 
@@ -6496,12 +8563,19 @@ export interface StatsApiGetEventTimeStatsRequest {
 }
 
 /**
- * Request parameters for getEventTotalStats operation in StatsApi.
+ * Request parameters for getEventTypes operation in StatsApi.
  */
-export interface StatsApiGetEventTotalStatsRequest {
-    readonly granularity: GetEventTotalStatsGranularityEnum
+export interface StatsApiGetEventTypesRequest {
+    readonly projectID: string
+}
 
-    readonly period: GetEventTotalStatsPeriodEnum
+/**
+ * Request parameters for getSessionOverview operation in StatsApi.
+ */
+export interface StatsApiGetSessionOverviewRequest {
+    readonly granularity: GetSessionOverviewGranularityEnum
+
+    readonly period: GetSessionOverviewPeriodEnum
 
     readonly projectID: string
 
@@ -6509,32 +8583,12 @@ export interface StatsApiGetEventTotalStatsRequest {
 }
 
 /**
- * Request parameters for getEventTypeSummaries operation in StatsApi.
+ * Request parameters for getSessionTimeseries operation in StatsApi.
  */
-export interface StatsApiGetEventTypeSummariesRequest {
-    readonly projectID: string
-}
+export interface StatsApiGetSessionTimeseriesRequest {
+    readonly granularity: GetSessionTimeseriesGranularityEnum
 
-/**
- * Request parameters for getSessionTimeStats operation in StatsApi.
- */
-export interface StatsApiGetSessionTimeStatsRequest {
-    readonly granularity: GetSessionTimeStatsGranularityEnum
-
-    readonly period: GetSessionTimeStatsPeriodEnum
-
-    readonly projectID: string
-
-    readonly date?: string
-}
-
-/**
- * Request parameters for getSessionTotalStats operation in StatsApi.
- */
-export interface StatsApiGetSessionTotalStatsRequest {
-    readonly granularity: GetSessionTotalStatsGranularityEnum
-
-    readonly period: GetSessionTotalStatsPeriodEnum
+    readonly period: GetSessionTimeseriesPeriodEnum
 
     readonly projectID: string
 
@@ -6552,12 +8606,12 @@ export interface StatsApiGetStatsConfigRequest {
 }
 
 /**
- * Request parameters for getTopStats operation in StatsApi.
+ * Request parameters for getTopByDimension operation in StatsApi.
  */
-export interface StatsApiGetTopStatsRequest {
-    readonly granularity: GetTopStatsGranularityEnum
+export interface StatsApiGetTopByDimensionRequest {
+    readonly granularity: GetTopByDimensionGranularityEnum
 
-    readonly period: GetTopStatsPeriodEnum
+    readonly period: GetTopByDimensionPeriodEnum
 
     readonly projectID: string
 
@@ -6581,6 +8635,16 @@ export interface StatsApiPutEventTypeConfigRequest {
 }
 
 /**
+ * Request parameters for queryEvents operation in StatsApi.
+ */
+export interface StatsApiQueryEventsRequest {
+    /**
+     * Query events request
+     */
+    readonly request: StatsQueryEventsRequest
+}
+
+/**
  * StatsApi - object-oriented interface
  */
 export class StatsApi extends BaseAPI {
@@ -6597,13 +8661,13 @@ export class StatsApi extends BaseAPI {
 
     /**
      * Endpoint to get cardinalities
-     * @summary Get cardinalities
-     * @param {StatsApiGetCardinalitiesRequest} requestParameters Request parameters.
+     * @summary Get aggregation cardinalities
+     * @param {StatsApiGetAggregationCardinalitiesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getCardinalities(requestParameters: StatsApiGetCardinalitiesRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getCardinalities(requestParameters.projectID, options).then((request) => request(this.axios, this.basePath));
+    public getAggregationCardinalities(requestParameters: StatsApiGetAggregationCardinalitiesRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).getAggregationCardinalities(requestParameters.projectID, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6618,69 +8682,58 @@ export class StatsApi extends BaseAPI {
     }
 
     /**
-     * Gets event time stats
-     * @summary Get event time stats
-     * @param {StatsApiGetEventQueryStatsRequest} requestParameters Request parameters.
+     * Endpoint to get event overview
+     * @summary Get event overview
+     * @param {StatsApiGetEventOverviewRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getEventQueryStats(requestParameters: StatsApiGetEventQueryStatsRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getEventQueryStats(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    public getEventOverview(requestParameters: StatsApiGetEventOverviewRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).getEventOverview(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Gets event time stats
-     * @summary Get event time stats
-     * @param {StatsApiGetEventTimeStatsRequest} requestParameters Request parameters.
+     * Gets event timeseries
+     * @summary Get event timeseries
+     * @param {StatsApiGetEventTimeseriesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getEventTimeStats(requestParameters: StatsApiGetEventTimeStatsRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getEventTimeStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.comparisonTimeRange, requestParameters.date, requestParameters.keys, requestParameters.timeRange, requestParameters.values, options).then((request) => request(this.axios, this.basePath));
+    public getEventTimeseries(requestParameters: StatsApiGetEventTimeseriesRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).getEventTimeseries(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.comparisonTimeRange, requestParameters.date, requestParameters.keys, requestParameters.timeRange, requestParameters.values, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Endpoint to get event total stats
-     * @summary Get event total stats
-     * @param {StatsApiGetEventTotalStatsRequest} requestParameters Request parameters.
+     * Endpoint to get event types with optional config per type
+     * @summary Get event types
+     * @param {StatsApiGetEventTypesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getEventTotalStats(requestParameters: StatsApiGetEventTotalStatsRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getEventTotalStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(this.axios, this.basePath));
+    public getEventTypes(requestParameters: StatsApiGetEventTypesRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).getEventTypes(requestParameters.projectID, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Endpoint to get event type summaries with optional config per type
-     * @summary Get event type summaries
-     * @param {StatsApiGetEventTypeSummariesRequest} requestParameters Request parameters.
+     * Endpoint to get session overview
+     * @summary Get session overview
+     * @param {StatsApiGetSessionOverviewRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getEventTypeSummaries(requestParameters: StatsApiGetEventTypeSummariesRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getEventTypeSummaries(requestParameters.projectID, options).then((request) => request(this.axios, this.basePath));
+    public getSessionOverview(requestParameters: StatsApiGetSessionOverviewRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).getSessionOverview(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Endpoint to get event time stats
-     * @summary Get sessions time stats
-     * @param {StatsApiGetSessionTimeStatsRequest} requestParameters Request parameters.
+     * @summary Get session timeseries
+     * @param {StatsApiGetSessionTimeseriesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getSessionTimeStats(requestParameters: StatsApiGetSessionTimeStatsRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getSessionTimeStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Endpoint to get session total stats
-     * @summary Get session total stats
-     * @param {StatsApiGetSessionTotalStatsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    public getSessionTotalStats(requestParameters: StatsApiGetSessionTotalStatsRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getSessionTotalStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(this.axios, this.basePath));
+    public getSessionTimeseries(requestParameters: StatsApiGetSessionTimeseriesRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).getSessionTimeseries(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.date, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6695,14 +8748,14 @@ export class StatsApi extends BaseAPI {
     }
 
     /**
-     * Endpoint to get top stats
-     * @summary Get top stats
-     * @param {StatsApiGetTopStatsRequest} requestParameters Request parameters.
+     * Endpoint to get top by dimension
+     * @summary Get top by dimension
+     * @param {StatsApiGetTopByDimensionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getTopStats(requestParameters: StatsApiGetTopStatsRequest, options?: RawAxiosRequestConfig) {
-        return StatsApiFp(this.configuration).getTopStats(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.aggregation, requestParameters.date, requestParameters.keys, requestParameters.values, options).then((request) => request(this.axios, this.basePath));
+    public getTopByDimension(requestParameters: StatsApiGetTopByDimensionRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).getTopByDimension(requestParameters.granularity, requestParameters.period, requestParameters.projectID, requestParameters.aggregation, requestParameters.date, requestParameters.keys, requestParameters.values, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6714,6 +8767,17 @@ export class StatsApi extends BaseAPI {
      */
     public putEventTypeConfig(requestParameters: StatsApiPutEventTypeConfigRequest, options?: RawAxiosRequestConfig) {
         return StatsApiFp(this.configuration).putEventTypeConfig(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Query events with custom filters and aggregations
+     * @summary Query events
+     * @param {StatsApiQueryEventsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public queryEvents(requestParameters: StatsApiQueryEventsRequest, options?: RawAxiosRequestConfig) {
+        return StatsApiFp(this.configuration).queryEvents(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -6736,15 +8800,15 @@ export const GetDimensionBreakdownPeriodEnum = {
     All: 'all',
 } as const;
 export type GetDimensionBreakdownPeriodEnum = typeof GetDimensionBreakdownPeriodEnum[keyof typeof GetDimensionBreakdownPeriodEnum];
-export const GetEventTimeStatsGranularityEnum = {
+export const GetEventOverviewGranularityEnum = {
     Hourly: 'hourly',
     Daily: 'daily',
     Weekly: 'weekly',
     Monthly: 'monthly',
     Yearly: 'yearly',
 } as const;
-export type GetEventTimeStatsGranularityEnum = typeof GetEventTimeStatsGranularityEnum[keyof typeof GetEventTimeStatsGranularityEnum];
-export const GetEventTimeStatsPeriodEnum = {
+export type GetEventOverviewGranularityEnum = typeof GetEventOverviewGranularityEnum[keyof typeof GetEventOverviewGranularityEnum];
+export const GetEventOverviewPeriodEnum = {
     Realtime: 'realtime',
     Day: 'day',
     _7days: '7days',
@@ -6754,16 +8818,16 @@ export const GetEventTimeStatsPeriodEnum = {
     Year: 'year',
     All: 'all',
 } as const;
-export type GetEventTimeStatsPeriodEnum = typeof GetEventTimeStatsPeriodEnum[keyof typeof GetEventTimeStatsPeriodEnum];
-export const GetEventTotalStatsGranularityEnum = {
+export type GetEventOverviewPeriodEnum = typeof GetEventOverviewPeriodEnum[keyof typeof GetEventOverviewPeriodEnum];
+export const GetEventTimeseriesGranularityEnum = {
     Hourly: 'hourly',
     Daily: 'daily',
     Weekly: 'weekly',
     Monthly: 'monthly',
     Yearly: 'yearly',
 } as const;
-export type GetEventTotalStatsGranularityEnum = typeof GetEventTotalStatsGranularityEnum[keyof typeof GetEventTotalStatsGranularityEnum];
-export const GetEventTotalStatsPeriodEnum = {
+export type GetEventTimeseriesGranularityEnum = typeof GetEventTimeseriesGranularityEnum[keyof typeof GetEventTimeseriesGranularityEnum];
+export const GetEventTimeseriesPeriodEnum = {
     Realtime: 'realtime',
     Day: 'day',
     _7days: '7days',
@@ -6773,16 +8837,16 @@ export const GetEventTotalStatsPeriodEnum = {
     Year: 'year',
     All: 'all',
 } as const;
-export type GetEventTotalStatsPeriodEnum = typeof GetEventTotalStatsPeriodEnum[keyof typeof GetEventTotalStatsPeriodEnum];
-export const GetSessionTimeStatsGranularityEnum = {
+export type GetEventTimeseriesPeriodEnum = typeof GetEventTimeseriesPeriodEnum[keyof typeof GetEventTimeseriesPeriodEnum];
+export const GetSessionOverviewGranularityEnum = {
     Hourly: 'hourly',
     Daily: 'daily',
     Weekly: 'weekly',
     Monthly: 'monthly',
     Yearly: 'yearly',
 } as const;
-export type GetSessionTimeStatsGranularityEnum = typeof GetSessionTimeStatsGranularityEnum[keyof typeof GetSessionTimeStatsGranularityEnum];
-export const GetSessionTimeStatsPeriodEnum = {
+export type GetSessionOverviewGranularityEnum = typeof GetSessionOverviewGranularityEnum[keyof typeof GetSessionOverviewGranularityEnum];
+export const GetSessionOverviewPeriodEnum = {
     Realtime: 'realtime',
     Day: 'day',
     _7days: '7days',
@@ -6792,16 +8856,16 @@ export const GetSessionTimeStatsPeriodEnum = {
     Year: 'year',
     All: 'all',
 } as const;
-export type GetSessionTimeStatsPeriodEnum = typeof GetSessionTimeStatsPeriodEnum[keyof typeof GetSessionTimeStatsPeriodEnum];
-export const GetSessionTotalStatsGranularityEnum = {
+export type GetSessionOverviewPeriodEnum = typeof GetSessionOverviewPeriodEnum[keyof typeof GetSessionOverviewPeriodEnum];
+export const GetSessionTimeseriesGranularityEnum = {
     Hourly: 'hourly',
     Daily: 'daily',
     Weekly: 'weekly',
     Monthly: 'monthly',
     Yearly: 'yearly',
 } as const;
-export type GetSessionTotalStatsGranularityEnum = typeof GetSessionTotalStatsGranularityEnum[keyof typeof GetSessionTotalStatsGranularityEnum];
-export const GetSessionTotalStatsPeriodEnum = {
+export type GetSessionTimeseriesGranularityEnum = typeof GetSessionTimeseriesGranularityEnum[keyof typeof GetSessionTimeseriesGranularityEnum];
+export const GetSessionTimeseriesPeriodEnum = {
     Realtime: 'realtime',
     Day: 'day',
     _7days: '7days',
@@ -6811,16 +8875,16 @@ export const GetSessionTotalStatsPeriodEnum = {
     Year: 'year',
     All: 'all',
 } as const;
-export type GetSessionTotalStatsPeriodEnum = typeof GetSessionTotalStatsPeriodEnum[keyof typeof GetSessionTotalStatsPeriodEnum];
-export const GetTopStatsGranularityEnum = {
+export type GetSessionTimeseriesPeriodEnum = typeof GetSessionTimeseriesPeriodEnum[keyof typeof GetSessionTimeseriesPeriodEnum];
+export const GetTopByDimensionGranularityEnum = {
     Hourly: 'hourly',
     Daily: 'daily',
     Weekly: 'weekly',
     Monthly: 'monthly',
     Yearly: 'yearly',
 } as const;
-export type GetTopStatsGranularityEnum = typeof GetTopStatsGranularityEnum[keyof typeof GetTopStatsGranularityEnum];
-export const GetTopStatsPeriodEnum = {
+export type GetTopByDimensionGranularityEnum = typeof GetTopByDimensionGranularityEnum[keyof typeof GetTopByDimensionGranularityEnum];
+export const GetTopByDimensionPeriodEnum = {
     Realtime: 'realtime',
     Day: 'day',
     _7days: '7days',
@@ -6830,7 +8894,7 @@ export const GetTopStatsPeriodEnum = {
     Year: 'year',
     All: 'all',
 } as const;
-export type GetTopStatsPeriodEnum = typeof GetTopStatsPeriodEnum[keyof typeof GetTopStatsPeriodEnum];
+export type GetTopByDimensionPeriodEnum = typeof GetTopByDimensionPeriodEnum[keyof typeof GetTopByDimensionPeriodEnum];
 
 
 /**

@@ -1217,7 +1217,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/cmd_api-internal_modules_health.healthResponse"
+                            "$ref": "#/definitions/health.healthResponse"
                         }
                     },
                     "400": {
@@ -2100,6 +2100,12 @@
                             "$ref": "#/definitions/controller.HTTPError"
                         }
                     },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -2156,6 +2162,12 @@
                             "$ref": "#/definitions/controller.HTTPError"
                         }
                     },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -2208,6 +2220,12 @@
                     },
                     "401": {
                         "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
                         "schema": {
                             "$ref": "#/definitions/controller.HTTPError"
                         }
@@ -3002,7 +3020,7 @@
                 }
             }
         },
-        "/api/v1/stats/cardinalities": {
+        "/api/v1/stats/aggregation-cardinalities": {
             "get": {
                 "security": [
                     {
@@ -3019,8 +3037,8 @@
                 "tags": [
                     "stats"
                 ],
-                "summary": "Get cardinalities",
-                "operationId": "getCardinalities",
+                "summary": "Get aggregation cardinalities",
+                "operationId": "getAggregationCardinalities",
                 "parameters": [
                     {
                         "type": "string",
@@ -3033,7 +3051,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stats.cardinalitiesResponse"
+                            "$ref": "#/definitions/stats.aggregationCardinalitiesResponse"
                         }
                     },
                     "400": {
@@ -3154,7 +3172,6 @@
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv",
                         "description": "Keys defines the dim group to read, e.g. [\"Type\",\"appVersion\"]. Required.",
                         "name": "keys",
                         "in": "query",
@@ -3223,14 +3240,9 @@
                 }
             }
         },
-        "/api/v1/stats/event/query": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Gets event time stats",
+        "/api/v1/stats/event/overview": {
+            "get": {
+                "description": "Endpoint to get event overview",
                 "consumes": [
                     "application/json"
                 ],
@@ -3240,16 +3252,99 @@
                 "tags": [
                     "stats"
                 ],
-                "summary": "Get event time stats",
-                "operationId": "getEventQueryStats",
+                "summary": "Get event overview",
+                "operationId": "getEventOverview",
                 "parameters": [
                     {
-                        "description": "Get event time stats request",
+                        "type": "string",
+                        "name": "date",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "hourly",
+                            "daily",
+                            "weekly",
+                            "monthly",
+                            "yearly"
+                        ],
+                        "type": "string",
+                        "name": "granularity",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "realtime",
+                            "day",
+                            "7days",
+                            "14days",
+                            "week",
+                            "month",
+                            "year",
+                            "all"
+                        ],
+                        "type": "string",
+                        "name": "period",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "projectID",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/stats.eventOverviewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/event/query": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Query events with custom filters and aggregations",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stats"
+                ],
+                "summary": "Query events",
+                "operationId": "queryEvents",
+                "parameters": [
+                    {
+                        "description": "Query events request",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/stats.getEventQueryStatsRequest"
+                            "$ref": "#/definitions/stats.queryEventsRequest"
                         }
                     }
                 ],
@@ -3257,7 +3352,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stats.eventTimeStatsResponse"
+                            "$ref": "#/definitions/stats.eventTimeseriesResponse"
                         }
                     },
                     "400": {
@@ -3281,14 +3376,14 @@
                 }
             }
         },
-        "/api/v1/stats/event/time": {
+        "/api/v1/stats/event/timeseries": {
             "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Gets event time stats",
+                "description": "Gets event timeseries",
                 "consumes": [
                     "application/json"
                 ],
@@ -3298,8 +3393,8 @@
                 "tags": [
                     "stats"
                 ],
-                "summary": "Get event time stats",
-                "operationId": "getEventTimeStats",
+                "summary": "Get event timeseries",
+                "operationId": "getEventTimeseries",
                 "parameters": [
                     {
                         "type": "string",
@@ -3329,7 +3424,6 @@
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv",
                         "name": "keys",
                         "in": "query"
                     },
@@ -3365,7 +3459,6 @@
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv",
                         "name": "values",
                         "in": "query"
                     }
@@ -3374,7 +3467,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stats.eventTimeStatsResponse"
+                            "$ref": "#/definitions/stats.eventTimeseriesResponse"
                         }
                     },
                     "400": {
@@ -3385,84 +3478,6 @@
                     },
                     "401": {
                         "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/controller.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.HTTPError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/stats/event/total": {
-            "get": {
-                "description": "Endpoint to get event total stats",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "stats"
-                ],
-                "summary": "Get event total stats",
-                "operationId": "getEventTotalStats",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "date",
-                        "in": "query"
-                    },
-                    {
-                        "enum": [
-                            "hourly",
-                            "daily",
-                            "weekly",
-                            "monthly",
-                            "yearly"
-                        ],
-                        "type": "string",
-                        "name": "granularity",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "enum": [
-                            "realtime",
-                            "day",
-                            "7days",
-                            "14days",
-                            "week",
-                            "month",
-                            "year",
-                            "all"
-                        ],
-                        "type": "string",
-                        "name": "period",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/stats.eventTotalStatsResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/controller.HTTPError"
                         }
@@ -3534,9 +3549,9 @@
                 }
             }
         },
-        "/api/v1/stats/event/type-summaries": {
+        "/api/v1/stats/event/types": {
             "get": {
-                "description": "Endpoint to get event type summaries with optional config per type",
+                "description": "Endpoint to get event types with optional config per type",
                 "consumes": [
                     "application/json"
                 ],
@@ -3546,8 +3561,8 @@
                 "tags": [
                     "stats"
                 ],
-                "summary": "Get event type summaries",
-                "operationId": "getEventTypeSummaries",
+                "summary": "Get event types",
+                "operationId": "getEventTypes",
                 "parameters": [
                     {
                         "type": "string",
@@ -3560,11 +3575,1181 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stats.eventTypeSummariesResponse"
+                            "$ref": "#/definitions/stats.eventTypesResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/fields": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns the catalog of fields available for use in conditions, breakdowns, and aggregations: built-in event columns plus custom event attributes discovered from recent events. Custom attributes are namespace-prefixed (data.\u003ckey\u003e / user.\u003ckey\u003e) and must be referenced with that prefix; bare custom keys are rejected. Discovery is an authoring aid only and never gates query creation.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Get insights field catalog",
+                "operationId": "getInsightsFields",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Event type to scope discovery to",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.FieldsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/metrics": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List saved insights metrics for a project",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "List insights metrics",
+                "operationId": "getInsightsMetrics",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/insights.MetricResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a new saved insights metric. The expression must reference queries in {query_name}.{agg_name} form.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Create insights metric",
+                "operationId": "createInsightsMetric",
+                "parameters": [
+                    {
+                        "description": "Create metric body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.CreateMetricRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.MetricResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/metrics/evaluate": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Evaluate an arbitrary metric expression over a time range without persisting it. Used by the metric builder preview.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Evaluate an insights metric expression",
+                "operationId": "evaluateInsightsMetric",
+                "parameters": [
+                    {
+                        "description": "Evaluate metric body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.EvaluateMetricRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.MetricDataResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/metrics/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a saved insights metric by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Get insights metric",
+                "operationId": "getInsightsMetric",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Metric ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.MetricResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete a saved insights metric. Dependent views are cascade-deleted.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Delete insights metric",
+                "operationId": "deleteInsightsMetric",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Metric ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.DeleteWithCascadeResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update a saved insights metric.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Update insights metric",
+                "operationId": "updateInsightsMetric",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Metric ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update metric body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.UpdateMetricRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.MetricResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/metrics/{id}/data": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Evaluate a metric over a time range. Returns a per-bucket series of values (nil where division-by-zero occurs).",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Get insights metric data",
+                "operationId": "getInsightsMetricData",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Metric ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Start of time range (RFC3339)",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "End of time range (RFC3339)",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "If true, also evaluates the same-length immediately-preceding range and returns it as `previous`",
+                        "name": "compareToPrevious",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.MetricDataResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/queries": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List saved insights queries for a project, optionally filtered by source",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "List insights queries",
+                "operationId": "getInsightsQueries",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Source filter: events or aggregated",
+                        "name": "source",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/insights.QueryResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a new saved insights query (live or aggregated)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Create insights query",
+                "operationId": "createInsightsQuery",
+                "parameters": [
+                    {
+                        "description": "Create query body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.CreateQueryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.QueryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/queries/evaluate": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Run an insights query definition live against the events table. Used for builder preview and source=events queries.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Evaluate insights query",
+                "operationId": "evaluateInsightsQuery",
+                "parameters": [
+                    {
+                        "description": "Evaluate query body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.EvaluateQueryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.EvaluateQueryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/queries/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a saved insights query by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Get insights query",
+                "operationId": "getInsightsQuery",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Query ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.QueryResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete a saved insights query. Fails with 409 if any active metric still references the query by name. Dependent views are cascade-deleted.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Delete insights query",
+                "operationId": "deleteInsightsQuery",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Query ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.DeleteWithCascadeResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update a saved insights query (source is immutable; use \"save as new\" to change it)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Update insights query",
+                "operationId": "updateInsightsQuery",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Query ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update query body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.UpdateQueryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.QueryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/queries/{id}/data": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Fetch the data for a saved query. Live (events) queries evaluate against the events table; aggregated queries are served from the materialized stats table (Phase 3 onwards).",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Get insights query data",
+                "operationId": "getInsightsQueryData",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Query ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Start of time range (RFC3339)",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "End of time range (RFC3339)",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "If true, also evaluates the same-length immediately-preceding range and returns it as `previous`",
+                        "name": "compareToPrevious",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.EvaluateQueryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/views": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List insights views (chart placements) for a project",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "List insights views",
+                "operationId": "getInsightsViews",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/insights.ViewResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a chart placement for an existing query or metric on the Insights board.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Create insights view",
+                "operationId": "createInsightsView",
+                "parameters": [
+                    {
+                        "description": "Create view body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.CreateViewRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.ViewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/insights/views/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete a chart placement from the Insights board.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Delete insights view",
+                "operationId": "deleteInsightsView",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "View ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update a chart placement on the Insights board.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "insights"
+                ],
+                "summary": "Update insights view",
+                "operationId": "updateInsightsView",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "View ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update view body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insights.UpdateViewRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/insights.ViewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/controller.HTTPError"
                         }
@@ -3627,7 +4812,85 @@
                 }
             }
         },
-        "/api/v1/stats/session/time": {
+        "/api/v1/stats/session/overview": {
+            "get": {
+                "description": "Endpoint to get session overview",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stats"
+                ],
+                "summary": "Get session overview",
+                "operationId": "getSessionOverview",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "date",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "hourly",
+                            "daily",
+                            "weekly",
+                            "monthly",
+                            "yearly"
+                        ],
+                        "type": "string",
+                        "name": "granularity",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "realtime",
+                            "day",
+                            "7days",
+                            "14days",
+                            "week",
+                            "month",
+                            "year",
+                            "all"
+                        ],
+                        "type": "string",
+                        "name": "period",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "projectID",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/stats.sessionOverviewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controller.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stats/session/timeseries": {
             "get": {
                 "security": [
                     {
@@ -3644,8 +4907,8 @@
                 "tags": [
                     "stats"
                 ],
-                "summary": "Get sessions time stats",
-                "operationId": "getSessionTimeStats",
+                "summary": "Get session timeseries",
+                "operationId": "getSessionTimeseries",
                 "parameters": [
                     {
                         "type": "string",
@@ -3692,7 +4955,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stats.sessionTimeStatsResponse"
+                            "$ref": "#/definitions/stats.sessionTimeseriesResponse"
                         }
                     },
                     "400": {
@@ -3710,92 +4973,14 @@
                 }
             }
         },
-        "/api/v1/stats/session/total": {
-            "get": {
-                "description": "Endpoint to get session total stats",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "stats"
-                ],
-                "summary": "Get session total stats",
-                "operationId": "getSessionTotalStats",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "date",
-                        "in": "query"
-                    },
-                    {
-                        "enum": [
-                            "hourly",
-                            "daily",
-                            "weekly",
-                            "monthly",
-                            "yearly"
-                        ],
-                        "type": "string",
-                        "name": "granularity",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "enum": [
-                            "realtime",
-                            "day",
-                            "7days",
-                            "14days",
-                            "week",
-                            "month",
-                            "year",
-                            "all"
-                        ],
-                        "type": "string",
-                        "name": "period",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/stats.sessionTotalStatsResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/controller.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/controller.HTTPError"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/stats/top": {
+        "/api/v1/stats/top-by-dimension": {
             "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Endpoint to get top stats",
+                "description": "Endpoint to get top by dimension",
                 "consumes": [
                     "application/json"
                 ],
@@ -3805,15 +4990,14 @@
                 "tags": [
                     "stats"
                 ],
-                "summary": "Get top stats",
-                "operationId": "getTopStats",
+                "summary": "Get top by dimension",
+                "operationId": "getTopByDimension",
                 "parameters": [
                     {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv",
                         "name": "aggregation",
                         "in": "query"
                     },
@@ -3840,7 +5024,6 @@
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv",
                         "name": "keys",
                         "in": "query"
                     },
@@ -3871,7 +5054,6 @@
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv",
                         "name": "values",
                         "in": "query"
                     }
@@ -4039,14 +5221,6 @@
                 }
             }
         },
-        "cmd_api-internal_modules_health.healthResponse": {
-            "type": "object",
-            "properties": {
-                "ok": {
-                    "type": "boolean"
-                }
-            }
-        },
         "controller.HTTPError": {
             "type": "object",
             "properties": {
@@ -4103,31 +5277,105 @@
                 }
             }
         },
-        "entity.PersonalAccessTokenScope": {
-            "type": "string",
-            "enum": [
-                "read",
-                "create",
-                "update",
-                "delete"
-            ],
-            "x-enum-varnames": [
-                "PersonalAccessTokenScopeRead",
-                "PersonalAccessTokenScopeCreate",
-                "PersonalAccessTokenScopeUpdate",
-                "PersonalAccessTokenScopeDelete"
-            ]
+        "entity.InsightsViewConfig": {
+            "type": "object",
+            "properties": {
+                "bar": {
+                    "$ref": "#/definitions/entity.InsightsViewConfigBar"
+                },
+                "common": {
+                    "$ref": "#/definitions/entity.InsightsViewConfigCommon"
+                },
+                "line": {
+                    "$ref": "#/definitions/entity.InsightsViewConfigLine"
+                },
+                "number": {
+                    "$ref": "#/definitions/entity.InsightsViewConfigNumber"
+                }
+            }
         },
-        "entity.UserRole": {
-            "type": "string",
-            "enum": [
-                "Admin",
-                "User"
-            ],
-            "x-enum-varnames": [
-                "UserRoleAdmin",
-                "UserRoleUser"
-            ]
+        "entity.InsightsViewConfigBar": {
+            "type": "object",
+            "properties": {
+                "barStyle": {
+                    "type": "string",
+                    "enum": [
+                        "group",
+                        "stack",
+                        "normalized"
+                    ]
+                }
+            }
+        },
+        "entity.InsightsViewConfigCommon": {
+            "type": "object",
+            "properties": {
+                "decimals": {
+                    "type": "integer"
+                },
+                "goodDirection": {
+                    "type": "string",
+                    "enum": [
+                        "up",
+                        "down",
+                        "neutral"
+                    ]
+                },
+                "legend": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "on",
+                        "off"
+                    ]
+                },
+                "showDelta": {
+                    "type": "boolean"
+                },
+                "sort": {
+                    "type": "string",
+                    "enum": [
+                        "value",
+                        "name"
+                    ]
+                },
+                "topN": {
+                    "type": "integer"
+                },
+                "valueFormat": {
+                    "type": "string",
+                    "enum": [
+                        "number",
+                        "percent",
+                        "duration",
+                        "bytes"
+                    ]
+                }
+            }
+        },
+        "entity.InsightsViewConfigLine": {
+            "type": "object",
+            "properties": {
+                "area": {
+                    "type": "boolean"
+                },
+                "dotsMode": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "always",
+                        "never"
+                    ]
+                }
+            }
+        },
+        "entity.InsightsViewConfigNumber": {
+            "type": "object",
+            "properties": {
+                "showSparkline": {
+                    "type": "boolean"
+                }
+            }
         },
         "events.EventResponse": {
             "type": "object",
@@ -4153,7 +5401,9 @@
                 },
                 "data": {
                     "type": "object",
-                    "additionalProperties": {}
+                    "additionalProperties": {
+                        "type": "any"
+                    }
                 },
                 "deviceBrowser": {
                     "type": "string"
@@ -4675,6 +5925,758 @@
                 }
             }
         },
+        "health.healthResponse": {
+            "type": "object",
+            "properties": {
+                "ok": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "insights.CreateAggregationRequest": {
+            "type": "object",
+            "required": [
+                "func",
+                "name"
+            ],
+            "properties": {
+                "field": {
+                    "type": "string"
+                },
+                "func": {
+                    "type": "string",
+                    "enum": [
+                        "count",
+                        "uniq",
+                        "sum",
+                        "avg",
+                        "min",
+                        "max"
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.CreateConditionRequest": {
+            "type": "object",
+            "required": [
+                "operation",
+                "predicate",
+                "value"
+            ],
+            "properties": {
+                "operation": {
+                    "type": "string",
+                    "enum": [
+                        "eq",
+                        "neq"
+                    ]
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.CreateMetricRequest": {
+            "type": "object",
+            "required": [
+                "expression",
+                "name",
+                "organizationID",
+                "projectID"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "expression": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 120
+                },
+                "organizationID": {
+                    "type": "string"
+                },
+                "projectID": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.CreateQueryRequest": {
+            "type": "object",
+            "required": [
+                "aggregations",
+                "eventType",
+                "name",
+                "organizationID",
+                "projectID",
+                "source"
+            ],
+            "properties": {
+                "aggregations": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/insights.CreateAggregationRequest"
+                    }
+                },
+                "breakdownKeys": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.CreateConditionRequest"
+                    }
+                },
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "eventType": {
+                    "type": "string"
+                },
+                "granularity": {
+                    "type": "string",
+                    "enum": [
+                        "hourly",
+                        "daily"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 120
+                },
+                "organizationID": {
+                    "type": "string"
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "source": {
+                    "type": "string",
+                    "enum": [
+                        "events",
+                        "aggregated"
+                    ]
+                }
+            }
+        },
+        "insights.CreateViewRequest": {
+            "type": "object",
+            "required": [
+                "chartType",
+                "organizationID",
+                "projectID",
+                "size",
+                "sourceID",
+                "sourceType"
+            ],
+            "properties": {
+                "chartType": {
+                    "type": "string",
+                    "enum": [
+                        "number",
+                        "line",
+                        "bar"
+                    ]
+                },
+                "config": {
+                    "$ref": "#/definitions/entity.InsightsViewConfig"
+                },
+                "order": {
+                    "type": "integer"
+                },
+                "organizationID": {
+                    "type": "string"
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "showOnDashboard": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "type": "string",
+                    "enum": [
+                        "1x1",
+                        "2x1",
+                        "2x2"
+                    ]
+                },
+                "sourceID": {
+                    "type": "string"
+                },
+                "sourceType": {
+                    "type": "string",
+                    "enum": [
+                        "query",
+                        "metric"
+                    ]
+                },
+                "title": {
+                    "type": "string",
+                    "maxLength": 120
+                }
+            }
+        },
+        "insights.DeleteWithCascadeResponse": {
+            "type": "object",
+            "properties": {
+                "removedViews": {
+                    "type": "integer"
+                }
+            }
+        },
+        "insights.EvaluateAggregationRequest": {
+            "type": "object",
+            "required": [
+                "func",
+                "name"
+            ],
+            "properties": {
+                "field": {
+                    "type": "string"
+                },
+                "func": {
+                    "type": "string",
+                    "enum": [
+                        "count",
+                        "uniq",
+                        "sum",
+                        "avg",
+                        "min",
+                        "max"
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.EvaluateConditionRequest": {
+            "type": "object",
+            "required": [
+                "operation",
+                "predicate",
+                "value"
+            ],
+            "properties": {
+                "operation": {
+                    "type": "string",
+                    "enum": [
+                        "eq",
+                        "neq"
+                    ]
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.EvaluateMetricRequest": {
+            "type": "object",
+            "required": [
+                "expression",
+                "from",
+                "projectID",
+                "to"
+            ],
+            "properties": {
+                "compareToPrevious": {
+                    "type": "boolean"
+                },
+                "expression": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.EvaluateQueryPeriodResponse": {
+            "type": "object",
+            "properties": {
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.evaluateRowResponse"
+                    }
+                },
+                "total": {
+                    "$ref": "#/definitions/insights.evaluateRowResponse"
+                }
+            }
+        },
+        "insights.EvaluateQueryRequest": {
+            "type": "object",
+            "required": [
+                "aggregations",
+                "eventType",
+                "from",
+                "projectID",
+                "to"
+            ],
+            "properties": {
+                "aggregations": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/insights.EvaluateAggregationRequest"
+                    }
+                },
+                "breakdownKeys": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "compareToPrevious": {
+                    "type": "boolean"
+                },
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.EvaluateConditionRequest"
+                    }
+                },
+                "eventType": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "granularity": {
+                    "type": "string",
+                    "enum": [
+                        "hourly",
+                        "daily"
+                    ]
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.EvaluateQueryResponse": {
+            "type": "object",
+            "properties": {
+                "previous": {
+                    "$ref": "#/definitions/insights.EvaluateQueryPeriodResponse"
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.evaluateRowResponse"
+                    }
+                },
+                "total": {
+                    "$ref": "#/definitions/insights.evaluateRowResponse"
+                }
+            }
+        },
+        "insights.FieldResponse": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.FieldsResponse": {
+            "type": "object",
+            "properties": {
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.FieldResponse"
+                    }
+                }
+            }
+        },
+        "insights.MetricDataPeriodResponse": {
+            "type": "object",
+            "properties": {
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.metricDataRowResponse"
+                    }
+                }
+            }
+        },
+        "insights.MetricDataResponse": {
+            "type": "object",
+            "properties": {
+                "granularity": {
+                    "type": "string"
+                },
+                "previous": {
+                    "$ref": "#/definitions/insights.MetricDataPeriodResponse"
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.metricDataRowResponse"
+                    }
+                }
+            }
+        },
+        "insights.MetricResponse": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "expression": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "organizationID": {
+                    "type": "string"
+                },
+                "pinned": {
+                    "type": "boolean"
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "supersededBy": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.QueryResponse": {
+            "type": "object",
+            "properties": {
+                "aggregations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.aggregationResponse"
+                    }
+                },
+                "breakdownKeys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.conditionResponse"
+                    }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "eventType": {
+                    "type": "string"
+                },
+                "granularity": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "organizationID": {
+                    "type": "string"
+                },
+                "pinned": {
+                    "type": "boolean"
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "supersededBy": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.UpdateMetricRequest": {
+            "type": "object",
+            "required": [
+                "expression",
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "expression": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 120
+                },
+                "pinned": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "insights.UpdateQueryRequest": {
+            "type": "object",
+            "required": [
+                "aggregations",
+                "eventType",
+                "name"
+            ],
+            "properties": {
+                "aggregations": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/insights.CreateAggregationRequest"
+                    }
+                },
+                "breakdownKeys": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/insights.CreateConditionRequest"
+                    }
+                },
+                "description": {
+                    "type": "string",
+                    "maxLength": 500
+                },
+                "eventType": {
+                    "type": "string"
+                },
+                "granularity": {
+                    "type": "string",
+                    "enum": [
+                        "hourly",
+                        "daily"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 120
+                },
+                "pinned": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "insights.UpdateViewRequest": {
+            "type": "object",
+            "properties": {
+                "chartType": {
+                    "type": "string",
+                    "enum": [
+                        "number",
+                        "line",
+                        "bar"
+                    ]
+                },
+                "config": {
+                    "$ref": "#/definitions/entity.InsightsViewConfig"
+                },
+                "order": {
+                    "type": "integer"
+                },
+                "showOnDashboard": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "type": "string",
+                    "enum": [
+                        "1x1",
+                        "2x1",
+                        "2x2"
+                    ]
+                },
+                "sourceID": {
+                    "type": "string"
+                },
+                "sourceType": {
+                    "type": "string",
+                    "enum": [
+                        "query",
+                        "metric"
+                    ]
+                },
+                "title": {
+                    "type": "string",
+                    "maxLength": 120
+                }
+            }
+        },
+        "insights.ViewResponse": {
+            "type": "object",
+            "properties": {
+                "chartType": {
+                    "type": "string"
+                },
+                "config": {
+                    "$ref": "#/definitions/entity.InsightsViewConfig"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "order": {
+                    "type": "integer"
+                },
+                "organizationID": {
+                    "type": "string"
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "showOnDashboard": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "sourceID": {
+                    "type": "string"
+                },
+                "sourceType": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.aggregationResponse": {
+            "type": "object",
+            "properties": {
+                "field": {
+                    "type": "string"
+                },
+                "func": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.conditionResponse": {
+            "type": "object",
+            "properties": {
+                "operation": {
+                    "type": "string"
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "insights.evaluateRowResponse": {
+            "type": "object",
+            "properties": {
+                "breakdownValue": {
+                    "type": "string"
+                },
+                "timeBucket": {
+                    "type": "string"
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "insights.metricDataRowResponse": {
+            "type": "object",
+            "properties": {
+                "timeBucket": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
         "invitation.inviteUserRequest": {
             "type": "object",
             "required": [
@@ -4965,7 +6967,7 @@
                 "scopes": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/entity.PersonalAccessTokenScope"
+                        "type": "string"
                     }
                 }
             }
@@ -4987,7 +6989,7 @@
                 "scopes": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/entity.PersonalAccessTokenScope"
+                        "type": "string"
                     }
                 }
             }
@@ -5473,14 +7475,10 @@
                     }
                 },
                 "role": {
+                    "type": "string",
                     "enum": [
                         "Admin",
                         "User"
-                    ],
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/entity.UserRole"
-                        }
                     ]
                 },
                 "updatedAt": {
@@ -5760,6 +7758,49 @@
                 }
             }
         },
+        "stats.aggregationCardinalitiesResponse": {
+            "type": "object",
+            "required": [
+                "cardinalities",
+                "projectID"
+            ],
+            "properties": {
+                "cardinalities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/stats.aggregationCardinalityResponse"
+                    }
+                },
+                "projectID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "stats.aggregationCardinalityResponse": {
+            "type": "object",
+            "required": [
+                "aggregation",
+                "cardinality",
+                "keys"
+            ],
+            "properties": {
+                "aggregation": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "cardinality": {
+                    "type": "integer"
+                },
+                "keys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
         "stats.aggregationDimensionKeyRequest": {
             "type": "object",
             "required": [
@@ -5788,49 +7829,6 @@
                     "minItems": 1,
                     "items": {
                         "$ref": "#/definitions/stats.aggregationDimensionKeyRequest"
-                    }
-                }
-            }
-        },
-        "stats.cardinalitiesResponse": {
-            "type": "object",
-            "required": [
-                "cardinalities",
-                "projectID"
-            ],
-            "properties": {
-                "cardinalities": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/stats.cardinalityResponse"
-                    }
-                },
-                "projectID": {
-                    "type": "integer"
-                }
-            }
-        },
-        "stats.cardinalityResponse": {
-            "type": "object",
-            "required": [
-                "aggregation",
-                "cardinality",
-                "keys"
-            ],
-            "properties": {
-                "aggregation": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "cardinality": {
-                    "type": "integer"
-                },
-                "keys": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
                     }
                 }
             }
@@ -5882,7 +7880,47 @@
                 }
             }
         },
-        "stats.eventTimeStatsAggregationResponse": {
+        "stats.eventOverviewResponse": {
+            "type": "object",
+            "required": [
+                "current",
+                "granularity",
+                "projectID"
+            ],
+            "properties": {
+                "current": {
+                    "description": "stats",
+                    "$ref": "#/definitions/stats.eventOverviewValuesResponse"
+                },
+                "granularity": {
+                    "type": "string"
+                },
+                "previous": {
+                    "$ref": "#/definitions/stats.eventOverviewValuesResponse"
+                },
+                "projectID": {
+                    "description": "keys",
+                    "type": "integer"
+                }
+            }
+        },
+        "stats.eventOverviewValuesResponse": {
+            "type": "object",
+            "required": [
+                "events",
+                "users"
+            ],
+            "properties": {
+                "events": {
+                    "description": "stats",
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                },
+                "users": {
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                }
+            }
+        },
+        "stats.eventTimeseriesAggregationResponse": {
             "type": "object",
             "properties": {
                 "aggregation": {
@@ -5891,24 +7929,24 @@
                 "current": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/stats.eventTimeStatsRowResponse"
+                        "$ref": "#/definitions/stats.eventTimeseriesRowResponse"
                     }
                 },
                 "previous": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/stats.eventTimeStatsRowResponse"
+                        "$ref": "#/definitions/stats.eventTimeseriesRowResponse"
                     }
                 }
             }
         },
-        "stats.eventTimeStatsResponse": {
+        "stats.eventTimeseriesResponse": {
             "type": "object",
             "properties": {
                 "aggregations": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/stats.eventTimeStatsAggregationResponse"
+                        "$ref": "#/definitions/stats.eventTimeseriesAggregationResponse"
                     }
                 },
                 "granularity": {
@@ -5919,7 +7957,7 @@
                 }
             }
         },
-        "stats.eventTimeStatsRowResponse": {
+        "stats.eventTimeseriesRowResponse": {
             "type": "object",
             "required": [
                 "count",
@@ -5939,72 +7977,6 @@
                 },
                 "users": {
                     "type": "integer"
-                }
-            }
-        },
-        "stats.eventTotalStatsResponse": {
-            "type": "object",
-            "required": [
-                "current",
-                "granularity",
-                "projectID"
-            ],
-            "properties": {
-                "current": {
-                    "description": "stats",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/stats.eventTotalStatsValuesResponse"
-                        }
-                    ]
-                },
-                "granularity": {
-                    "type": "string"
-                },
-                "previous": {
-                    "$ref": "#/definitions/stats.eventTotalStatsValuesResponse"
-                },
-                "projectID": {
-                    "description": "keys",
-                    "type": "integer"
-                }
-            }
-        },
-        "stats.eventTotalStatsValuesResponse": {
-            "type": "object",
-            "required": [
-                "events",
-                "users"
-            ],
-            "properties": {
-                "events": {
-                    "description": "stats",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/responses.StatsDistributionResponse"
-                        }
-                    ]
-                },
-                "users": {
-                    "$ref": "#/definitions/responses.StatsDistributionResponse"
-                }
-            }
-        },
-        "stats.eventTypeSummariesResponse": {
-            "type": "object",
-            "required": [
-                "items",
-                "projectID"
-            ],
-            "properties": {
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/stats.eventTypeSummaryResponse"
-                    }
-                },
-                "projectID": {
-                    "type": "string"
                 }
             }
         },
@@ -6030,7 +8002,58 @@
                 }
             }
         },
-        "stats.getEventQueryStatsRequest": {
+        "stats.eventTypesResponse": {
+            "type": "object",
+            "required": [
+                "items",
+                "projectID"
+            ],
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/stats.eventTypeSummaryResponse"
+                    }
+                },
+                "projectID": {
+                    "type": "string"
+                }
+            }
+        },
+        "stats.putEventTypeConfigRequest": {
+            "type": "object",
+            "required": [
+                "projectID",
+                "type"
+            ],
+            "properties": {
+                "aggregationDimensions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/stats.aggregationDimensionRequest"
+                    }
+                },
+                "color": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "projectID": {
+                    "type": "string"
+                },
+                "showInDashboard": {
+                    "type": "boolean"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "stats.queryEventsRequest": {
             "type": "object",
             "required": [
                 "granularity",
@@ -6076,40 +8099,63 @@
                 }
             }
         },
-        "stats.putEventTypeConfigRequest": {
+        "stats.sessionOverviewResponse": {
             "type": "object",
             "required": [
-                "projectID",
-                "type"
+                "current",
+                "granularity",
+                "projectID"
             ],
             "properties": {
-                "aggregationDimensions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/stats.aggregationDimensionRequest"
-                    }
+                "current": {
+                    "description": "stats",
+                    "$ref": "#/definitions/stats.sessionOverviewValuesResponse"
                 },
-                "color": {
+                "granularity": {
                     "type": "string"
                 },
-                "icon": {
-                    "type": "string"
+                "previous": {
+                    "$ref": "#/definitions/stats.sessionOverviewValuesResponse"
                 },
                 "projectID": {
-                    "type": "string"
-                },
-                "showInDashboard": {
-                    "type": "boolean"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
+                    "description": "keys",
+                    "type": "integer"
                 }
             }
         },
-        "stats.sessionTimeStatsResponse": {
+        "stats.sessionOverviewValuesResponse": {
+            "type": "object",
+            "required": [
+                "bounceRate",
+                "duration",
+                "events",
+                "eventsBySession",
+                "sessions",
+                "users"
+            ],
+            "properties": {
+                "bounceRate": {
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                },
+                "duration": {
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                },
+                "events": {
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                },
+                "eventsBySession": {
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                },
+                "sessions": {
+                    "description": "stats",
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                },
+                "users": {
+                    "$ref": "#/definitions/responses.StatsDistributionResponse"
+                }
+            }
+        },
+        "stats.sessionTimeseriesResponse": {
             "type": "object",
             "required": [
                 "comparison",
@@ -6121,13 +8167,13 @@
                 "comparison": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/stats.sessionTimeStatsRowResponse"
+                        "$ref": "#/definitions/stats.sessionTimeseriesRowResponse"
                     }
                 },
                 "current": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/stats.sessionTimeStatsRowResponse"
+                        "$ref": "#/definitions/stats.sessionTimeseriesRowResponse"
                     }
                 },
                 "granularity": {
@@ -6138,7 +8184,7 @@
                 }
             }
         },
-        "stats.sessionTimeStatsRowResponse": {
+        "stats.sessionTimeseriesRowResponse": {
             "type": "object",
             "required": [
                 "bounceRate",
@@ -6164,75 +8210,7 @@
                 },
                 "sessions": {
                     "description": "stats",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/responses.StatsDistributionResponse"
-                        }
-                    ]
-                },
-                "users": {
                     "$ref": "#/definitions/responses.StatsDistributionResponse"
-                }
-            }
-        },
-        "stats.sessionTotalStatsResponse": {
-            "type": "object",
-            "required": [
-                "current",
-                "granularity",
-                "projectID"
-            ],
-            "properties": {
-                "current": {
-                    "description": "stats",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/stats.sessionTotalStatsValuesResponse"
-                        }
-                    ]
-                },
-                "granularity": {
-                    "type": "string"
-                },
-                "previous": {
-                    "$ref": "#/definitions/stats.sessionTotalStatsValuesResponse"
-                },
-                "projectID": {
-                    "description": "keys",
-                    "type": "integer"
-                }
-            }
-        },
-        "stats.sessionTotalStatsValuesResponse": {
-            "type": "object",
-            "required": [
-                "bounceRate",
-                "duration",
-                "events",
-                "eventsBySession",
-                "sessions",
-                "users"
-            ],
-            "properties": {
-                "bounceRate": {
-                    "$ref": "#/definitions/responses.StatsDistributionResponse"
-                },
-                "duration": {
-                    "$ref": "#/definitions/responses.StatsDistributionResponse"
-                },
-                "events": {
-                    "$ref": "#/definitions/responses.StatsDistributionResponse"
-                },
-                "eventsBySession": {
-                    "$ref": "#/definitions/responses.StatsDistributionResponse"
-                },
-                "sessions": {
-                    "description": "stats",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/responses.StatsDistributionResponse"
-                        }
-                    ]
                 },
                 "users": {
                     "$ref": "#/definitions/responses.StatsDistributionResponse"

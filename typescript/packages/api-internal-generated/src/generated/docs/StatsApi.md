@@ -5,17 +5,17 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**getActiveSessions**](#getactivesessions) | **GET** /api/v1/stats/session/active | Get active sessions|
-|[**getCardinalities**](#getcardinalities) | **GET** /api/v1/stats/cardinalities | Get cardinalities|
+|[**getAggregationCardinalities**](#getaggregationcardinalities) | **GET** /api/v1/stats/aggregation-cardinalities | Get aggregation cardinalities|
 |[**getDimensionBreakdown**](#getdimensionbreakdown) | **GET** /api/v1/stats/event/dimension-breakdown | Get dimension breakdown|
-|[**getEventQueryStats**](#geteventquerystats) | **POST** /api/v1/stats/event/query | Get event time stats|
-|[**getEventTimeStats**](#geteventtimestats) | **GET** /api/v1/stats/event/time | Get event time stats|
-|[**getEventTotalStats**](#geteventtotalstats) | **GET** /api/v1/stats/event/total | Get event total stats|
-|[**getEventTypeSummaries**](#geteventtypesummaries) | **GET** /api/v1/stats/event/type-summaries | Get event type summaries|
-|[**getSessionTimeStats**](#getsessiontimestats) | **GET** /api/v1/stats/session/time | Get sessions time stats|
-|[**getSessionTotalStats**](#getsessiontotalstats) | **GET** /api/v1/stats/session/total | Get session total stats|
+|[**getEventOverview**](#geteventoverview) | **GET** /api/v1/stats/event/overview | Get event overview|
+|[**getEventTimeseries**](#geteventtimeseries) | **GET** /api/v1/stats/event/timeseries | Get event timeseries|
+|[**getEventTypes**](#geteventtypes) | **GET** /api/v1/stats/event/types | Get event types|
+|[**getSessionOverview**](#getsessionoverview) | **GET** /api/v1/stats/session/overview | Get session overview|
+|[**getSessionTimeseries**](#getsessiontimeseries) | **GET** /api/v1/stats/session/timeseries | Get session timeseries|
 |[**getStatsConfig**](#getstatsconfig) | **GET** /api/v1/stats/config | Get stats config|
-|[**getTopStats**](#gettopstats) | **GET** /api/v1/stats/top | Get top stats|
+|[**getTopByDimension**](#gettopbydimension) | **GET** /api/v1/stats/top-by-dimension | Get top by dimension|
 |[**putEventTypeConfig**](#puteventtypeconfig) | **PUT** /api/v1/stats/event/type-config | Put event type config|
+|[**queryEvents**](#queryevents) | **POST** /api/v1/stats/event/query | Query events|
 
 # **getActiveSessions**
 > StatsActiveSessionsResponse getActiveSessions()
@@ -70,8 +70,8 @@ const { status, data } = await apiInstance.getActiveSessions(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getCardinalities**
-> StatsCardinalitiesResponse getCardinalities()
+# **getAggregationCardinalities**
+> StatsAggregationCardinalitiesResponse getAggregationCardinalities()
 
 Endpoint to get cardinalities
 
@@ -88,7 +88,7 @@ const apiInstance = new StatsApi(configuration);
 
 let projectID: string; // (default to undefined)
 
-const { status, data } = await apiInstance.getCardinalities(
+const { status, data } = await apiInstance.getAggregationCardinalities(
     projectID
 );
 ```
@@ -102,7 +102,7 @@ const { status, data } = await apiInstance.getCardinalities(
 
 ### Return type
 
-**StatsCardinalitiesResponse**
+**StatsAggregationCardinalitiesResponse**
 
 ### Authorization
 
@@ -198,27 +198,32 @@ const { status, data } = await apiInstance.getDimensionBreakdown(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getEventQueryStats**
-> StatsEventTimeStatsResponse getEventQueryStats(request)
+# **getEventOverview**
+> StatsEventOverviewResponse getEventOverview()
 
-Gets event time stats
+Endpoint to get event overview
 
 ### Example
 
 ```typescript
 import {
     StatsApi,
-    Configuration,
-    StatsGetEventQueryStatsRequest
+    Configuration
 } from './api';
 
 const configuration = new Configuration();
 const apiInstance = new StatsApi(configuration);
 
-let request: StatsGetEventQueryStatsRequest; //Get event time stats request
+let granularity: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'; // (default to undefined)
+let period: 'realtime' | 'day' | '7days' | '14days' | 'week' | 'month' | 'year' | 'all'; // (default to undefined)
+let projectID: string; // (default to undefined)
+let date: string; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.getEventQueryStats(
-    request
+const { status, data } = await apiInstance.getEventOverview(
+    granularity,
+    period,
+    projectID,
+    date
 );
 ```
 
@@ -226,20 +231,23 @@ const { status, data } = await apiInstance.getEventQueryStats(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **request** | **StatsGetEventQueryStatsRequest**| Get event time stats request | |
+| **granularity** | [**&#39;hourly&#39; | &#39;daily&#39; | &#39;weekly&#39; | &#39;monthly&#39; | &#39;yearly&#39;**]**Array<&#39;hourly&#39; &#124; &#39;daily&#39; &#124; &#39;weekly&#39; &#124; &#39;monthly&#39; &#124; &#39;yearly&#39;>** |  | defaults to undefined|
+| **period** | [**&#39;realtime&#39; | &#39;day&#39; | &#39;7days&#39; | &#39;14days&#39; | &#39;week&#39; | &#39;month&#39; | &#39;year&#39; | &#39;all&#39;**]**Array<&#39;realtime&#39; &#124; &#39;day&#39; &#124; &#39;7days&#39; &#124; &#39;14days&#39; &#124; &#39;week&#39; &#124; &#39;month&#39; &#124; &#39;year&#39; &#124; &#39;all&#39;>** |  | defaults to undefined|
+| **projectID** | [**string**] |  | defaults to undefined|
+| **date** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**StatsEventTimeStatsResponse**
+**StatsEventOverviewResponse**
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 
@@ -248,15 +256,14 @@ const { status, data } = await apiInstance.getEventQueryStats(
 |-------------|-------------|------------------|
 |**200** | OK |  -  |
 |**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
 |**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getEventTimeStats**
-> StatsEventTimeStatsResponse getEventTimeStats()
+# **getEventTimeseries**
+> StatsEventTimeseriesResponse getEventTimeseries()
 
-Gets event time stats
+Gets event timeseries
 
 ### Example
 
@@ -278,7 +285,7 @@ let keys: Array<string>; // (optional) (default to undefined)
 let timeRange: string; // (optional) (default to undefined)
 let values: Array<string>; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.getEventTimeStats(
+const { status, data } = await apiInstance.getEventTimeseries(
     granularity,
     period,
     projectID,
@@ -306,7 +313,7 @@ const { status, data } = await apiInstance.getEventTimeStats(
 
 ### Return type
 
-**StatsEventTimeStatsResponse**
+**StatsEventTimeseriesResponse**
 
 ### Authorization
 
@@ -328,10 +335,63 @@ const { status, data } = await apiInstance.getEventTimeStats(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getEventTotalStats**
-> StatsEventTotalStatsResponse getEventTotalStats()
+# **getEventTypes**
+> StatsEventTypesResponse getEventTypes()
 
-Endpoint to get event total stats
+Endpoint to get event types with optional config per type
+
+### Example
+
+```typescript
+import {
+    StatsApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new StatsApi(configuration);
+
+let projectID: string; // (default to undefined)
+
+const { status, data } = await apiInstance.getEventTypes(
+    projectID
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **projectID** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+**StatsEventTypesResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getSessionOverview**
+> StatsSessionOverviewResponse getSessionOverview()
+
+Endpoint to get session overview
 
 ### Example
 
@@ -349,7 +409,7 @@ let period: 'realtime' | 'day' | '7days' | '14days' | 'week' | 'month' | 'year' 
 let projectID: string; // (default to undefined)
 let date: string; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.getEventTotalStats(
+const { status, data } = await apiInstance.getSessionOverview(
     granularity,
     period,
     projectID,
@@ -369,7 +429,7 @@ const { status, data } = await apiInstance.getEventTotalStats(
 
 ### Return type
 
-**StatsEventTotalStatsResponse**
+**StatsSessionOverviewResponse**
 
 ### Authorization
 
@@ -390,61 +450,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getEventTypeSummaries**
-> StatsEventTypeSummariesResponse getEventTypeSummaries()
-
-Endpoint to get event type summaries with optional config per type
-
-### Example
-
-```typescript
-import {
-    StatsApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new StatsApi(configuration);
-
-let projectID: string; // (default to undefined)
-
-const { status, data } = await apiInstance.getEventTypeSummaries(
-    projectID
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **projectID** | [**string**] |  | defaults to undefined|
-
-
-### Return type
-
-**StatsEventTypeSummariesResponse**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getSessionTimeStats**
-> StatsSessionTimeStatsResponse getSessionTimeStats()
+# **getSessionTimeseries**
+> StatsSessionTimeseriesResponse getSessionTimeseries()
 
 Endpoint to get event time stats
 
@@ -464,7 +471,7 @@ let period: 'realtime' | 'day' | '7days' | '14days' | 'week' | 'month' | 'year' 
 let projectID: string; // (default to undefined)
 let date: string; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.getSessionTimeStats(
+const { status, data } = await apiInstance.getSessionTimeseries(
     granularity,
     period,
     projectID,
@@ -484,73 +491,11 @@ const { status, data } = await apiInstance.getSessionTimeStats(
 
 ### Return type
 
-**StatsSessionTimeStatsResponse**
+**StatsSessionTimeseriesResponse**
 
 ### Authorization
 
 [ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getSessionTotalStats**
-> StatsSessionTotalStatsResponse getSessionTotalStats()
-
-Endpoint to get session total stats
-
-### Example
-
-```typescript
-import {
-    StatsApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new StatsApi(configuration);
-
-let granularity: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'; // (default to undefined)
-let period: 'realtime' | 'day' | '7days' | '14days' | 'week' | 'month' | 'year' | 'all'; // (default to undefined)
-let projectID: string; // (default to undefined)
-let date: string; // (optional) (default to undefined)
-
-const { status, data } = await apiInstance.getSessionTotalStats(
-    granularity,
-    period,
-    projectID,
-    date
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **granularity** | [**&#39;hourly&#39; | &#39;daily&#39; | &#39;weekly&#39; | &#39;monthly&#39; | &#39;yearly&#39;**]**Array<&#39;hourly&#39; &#124; &#39;daily&#39; &#124; &#39;weekly&#39; &#124; &#39;monthly&#39; &#124; &#39;yearly&#39;>** |  | defaults to undefined|
-| **period** | [**&#39;realtime&#39; | &#39;day&#39; | &#39;7days&#39; | &#39;14days&#39; | &#39;week&#39; | &#39;month&#39; | &#39;year&#39; | &#39;all&#39;**]**Array<&#39;realtime&#39; &#124; &#39;day&#39; &#124; &#39;7days&#39; &#124; &#39;14days&#39; &#124; &#39;week&#39; &#124; &#39;month&#39; &#124; &#39;year&#39; &#124; &#39;all&#39;>** |  | defaults to undefined|
-| **projectID** | [**string**] |  | defaults to undefined|
-| **date** | [**string**] |  | (optional) defaults to undefined|
-
-
-### Return type
-
-**StatsSessionTotalStatsResponse**
-
-### Authorization
-
-No authorization required
 
 ### HTTP request headers
 
@@ -621,10 +566,10 @@ const { status, data } = await apiInstance.getStatsConfig(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getTopStats**
-> StatsTopResponse getTopStats()
+# **getTopByDimension**
+> StatsTopResponse getTopByDimension()
 
-Endpoint to get top stats
+Endpoint to get top by dimension
 
 ### Example
 
@@ -645,7 +590,7 @@ let date: string; // (optional) (default to undefined)
 let keys: Array<string>; // (optional) (default to undefined)
 let values: Array<string>; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.getTopStats(
+const { status, data } = await apiInstance.getTopByDimension(
     granularity,
     period,
     projectID,
@@ -726,6 +671,61 @@ const { status, data } = await apiInstance.putEventTypeConfig(
 ### Return type
 
 **ResponseEventTypeConfigResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **queryEvents**
+> StatsEventTimeseriesResponse queryEvents(request)
+
+Query events with custom filters and aggregations
+
+### Example
+
+```typescript
+import {
+    StatsApi,
+    Configuration,
+    StatsQueryEventsRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new StatsApi(configuration);
+
+let request: StatsQueryEventsRequest; //Query events request
+
+const { status, data } = await apiInstance.queryEvents(
+    request
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **request** | **StatsQueryEventsRequest**| Query events request | |
+
+
+### Return type
+
+**StatsEventTimeseriesResponse**
 
 ### Authorization
 

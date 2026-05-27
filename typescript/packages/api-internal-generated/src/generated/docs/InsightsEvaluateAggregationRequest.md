@@ -1,23 +1,23 @@
-# PatCreateRequest
+# InsightsEvaluateAggregationRequest
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**expiresAt** | **string** |  | [optional] [default to undefined]
+**field** | **string** |  | [optional] [default to undefined]
+**func** | **string** |  | [default to undefined]
 **name** | **string** |  | [default to undefined]
-**scopes** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import { PatCreateRequest } from './api';
+import { InsightsEvaluateAggregationRequest } from './api';
 
-const instance: PatCreateRequest = {
-    expiresAt,
+const instance: InsightsEvaluateAggregationRequest = {
+    field,
+    func,
     name,
-    scopes,
 };
 ```
 

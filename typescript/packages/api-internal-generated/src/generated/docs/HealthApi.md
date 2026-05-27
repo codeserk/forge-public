@@ -7,7 +7,7 @@ All URIs are relative to *http://localhost*
 |[**health**](#health) | **GET** /api/v1/health | Health endpoint|
 
 # **health**
-> CmdApiInternalModulesHealthHealthResponse health()
+> HealthHealthResponse health()
 
 Endpoint to make sure the application is healthy
 
@@ -31,7 +31,7 @@ This endpoint does not have any parameters.
 
 ### Return type
 
-**CmdApiInternalModulesHealthHealthResponse**
+**HealthHealthResponse**
 
 ### Authorization
 

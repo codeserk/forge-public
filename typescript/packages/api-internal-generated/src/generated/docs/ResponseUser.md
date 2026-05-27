@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **name** | **string** |  | [default to undefined]
 **organizations** | [**Array&lt;ResponseUserOrganization&gt;**](ResponseUserOrganization.md) |  | [optional] [default to undefined]
 **projects** | [**Array&lt;ResponseUserProject&gt;**](ResponseUserProject.md) |  | [optional] [default to undefined]
-**role** | [**EntityUserRole**](EntityUserRole.md) |  | [default to undefined]
+**role** | **string** |  | [default to undefined]
 **updatedAt** | **string** |  | [default to undefined]
 
 ## Example

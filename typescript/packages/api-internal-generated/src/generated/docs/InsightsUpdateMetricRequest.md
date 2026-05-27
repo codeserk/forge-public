@@ -1,23 +1,25 @@
-# PatCreateRequest
+# InsightsUpdateMetricRequest
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**expiresAt** | **string** |  | [optional] [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**expression** | **string** |  | [default to undefined]
 **name** | **string** |  | [default to undefined]
-**scopes** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**pinned** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import { PatCreateRequest } from './api';
+import { InsightsUpdateMetricRequest } from './api';
 
-const instance: PatCreateRequest = {
-    expiresAt,
+const instance: InsightsUpdateMetricRequest = {
+    description,
+    expression,
     name,
-    scopes,
+    pinned,
 };
 ```
 

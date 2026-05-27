@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **name** | **string** |  | [default to undefined]
 **prefix** | **string** |  | [default to undefined]
 **revokedAt** | **string** |  | [optional] [default to undefined]
-**scopes** | [**Array&lt;EntityPersonalAccessTokenScope&gt;**](EntityPersonalAccessTokenScope.md) |  | [default to undefined]
+**scopes** | **Array&lt;string&gt;** |  | [default to undefined]
 
 ## Example
 

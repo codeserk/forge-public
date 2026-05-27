@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **appVersionID** | **string** |  | [optional] [default to undefined]
 **appVersionName** | **string** |  | [optional] [default to undefined]
 **bucket** | **string** |  | [optional] [default to undefined]
-**data** | **{ [key: string]: object; }** |  | [optional] [default to undefined]
+**data** | **object** |  | [optional] [default to undefined]
 **deviceBrowser** | **string** |  | [optional] [default to undefined]
 **deviceOS** | **string** |  | [optional] [default to undefined]
 **deviceOSVersion** | **string** |  | [optional] [default to undefined]
