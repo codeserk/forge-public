@@ -32,9 +32,11 @@ const FORGE_HELP_DESCRIPTION = [
   'Call patterns:',
   '  forge_help()                              — list all API namespaces and method counts',
   '  forge_help({ api: "events" })             — list every method on EventsApi with one-line signatures',
-  '  forge_help({ api: "events", method: "getEvents" }) — full signature with param types and response type',
+  '  forge_help({ api: "events", method: "getEvents" }) — full signature with request body + response fields',
+  '  forge_help({ api: "concepts" })           — behavioral docs & gotchas not in the swagger',
   '',
   'Use this BEFORE forge_evaluate to avoid guessing method names or parameter shapes.',
+  'Read forge_help({ api: "concepts" }) before authoring insights queries/metrics/views or funnels.',
 ].join('\n')
 
 const forgeEvaluateInputSchema = {
@@ -48,7 +50,10 @@ const forgeHelpInputSchema = {
   api: z
     .string()
     .optional()
-    .describe('Namespace tag from swagger, e.g. "events", "projects", "personal-access-tokens".'),
+    .describe(
+      'Namespace tag from swagger, e.g. "events", "projects", "personal-access-tokens". ' +
+        'Use "concepts" for behavioral docs & gotchas.',
+    ),
   method: z
     .string()
     .optional()

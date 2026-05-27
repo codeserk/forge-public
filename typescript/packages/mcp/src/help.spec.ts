@@ -32,8 +32,40 @@ const SPEC: OpenAPISpec = {
         },
       },
     },
+    '/api/v1/things': {
+      post: {
+        tags: ['things'],
+        operationId: 'createThing',
+        summary: 'Create thing',
+        parameters: [
+          { name: 'request', in: 'body', required: true, schema: { $ref: '#/definitions/things.CreateThingRequest' } },
+        ],
+        responses: {
+          '200': { schema: { $ref: '#/definitions/things.ThingResponse' } },
+        },
+      },
+    },
   },
   definitions: {
+    'things.CreateThingRequest': {
+      type: 'object',
+      required: ['name', 'kind'],
+      properties: {
+        name: { type: 'string' },
+        kind: { type: 'string', enum: ['number', 'line', 'bar'] },
+        config: { $ref: '#/definitions/things.Config' },
+      },
+    },
+    'things.Config': {
+      type: 'object',
+      properties: {
+        legend: { type: 'string', enum: ['auto', 'on', 'off'] },
+      },
+    },
+    'things.ThingResponse': {
+      type: 'object',
+      properties: { id: { type: 'string' } },
+    },
     'events.EventsResponse': {
       type: 'object',
       required: ['items', 'total'],
@@ -59,7 +91,7 @@ describe('buildHelpIndex', () => {
     const idx = buildHelpIndex(SPEC)
 
     // Assert
-    expect(Object.keys(idx.byApi).sort()).toEqual(['events', 'project'])
+    expect(Object.keys(idx.byApi).sort()).toEqual(['events', 'project', 'things'])
     expect(idx.byOperationId.getEvents).toBeDefined()
     expect(idx.byOperationId.getEvents!.params).toHaveLength(4)
     expect(idx.byOperationId.getEvents!.responseRef).toBe('events.EventsResponse')
@@ -77,6 +109,15 @@ describe('renderHelp', () => {
     expect(out).toMatch(/client\.events/)
     expect(out).toMatch(/client\.projects/)
     expect(out).toMatch(/1 method/)
+  })
+
+  it('should surface the concepts pointer as the first thing in the no-arg index', () => {
+    // Act
+    const out = renderHelp(idx)
+
+    // Assert — leads with the concepts pointer, before the namespace list
+    expect(out).toMatch(/^▶ READ FIRST: forge_help\(\{ api: "concepts" \}\)/)
+    expect(out.indexOf('concepts')).toBeLessThan(out.indexOf('Available API namespaces'))
   })
 
   it('should list methods on a namespace when given api', () => {
@@ -103,6 +144,28 @@ describe('renderHelp', () => {
     expect(out).toMatch(/items: events\.EventResponse\[\]/)
     expect(out).toMatch(/page\?: integer/)
     expect(out).toMatch(/id\?: string/)
+  })
+
+  it('should expand the request body fields and enums for a create method', () => {
+    // Act
+    const out = renderHelp(idx, { api: 'things', method: 'createThing' })
+
+    // Assert — body param is expanded, not left as an opaque ref
+    expect(out).toMatch(/request: things\.CreateThingRequest \(in: body\)/)
+    expect(out).toMatch(/name: string/)
+    expect(out).toMatch(/kind: "number" \| "line" \| "bar"/)
+    // nested config object expanded one level deeper, with its enum
+    expect(out).toMatch(/config\?: things\.Config/)
+    expect(out).toMatch(/legend\?: "auto" \| "on" \| "off"/)
+  })
+
+  it('should return the concepts doc for the reserved topic', () => {
+    // Act
+    const out = renderHelp(idx, { api: 'concepts' })
+
+    // Assert
+    expect(out).toMatch(/Forge concepts & gotchas/)
+    expect(out).toMatch(/source is "events" \(live\) or "aggregated"/)
   })
 
   it('should report an unknown api gracefully', () => {

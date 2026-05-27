@@ -5,6 +5,11 @@ import type {
   OpenAPISpec,
 } from '@codeserk/forge-api-internal-generated'
 
+import { CONCEPTS_DOC } from './concepts'
+
+/** Reserved forge_help topic that returns behavioral docs instead of an API namespace. */
+const CONCEPTS_TOPIC = 'concepts'
+
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const
 
 export interface HelpIndex {
@@ -33,6 +38,8 @@ export interface ParamInfo {
   required: boolean
   type: string
   description?: string
+  /** Definition name when the param is a schema ref (e.g. a body), for field expansion. */
+  ref?: string
 }
 
 /** Builds a discovery index from a swagger spec. */
@@ -78,12 +85,18 @@ function tagToApi(tag?: string): string {
 }
 
 function toParamInfo(p: OpenAPIParameter): ParamInfo {
+  const ref = p.schema?.$ref
+    ? refToName(p.schema.$ref)
+    : p.schema?.items?.$ref
+      ? refToName(p.schema.items.$ref)
+      : undefined
   return {
     name: p.name,
     in: p.in,
     required: !!p.required,
     type: paramType(p),
     description: p.description,
+    ref,
   }
 }
 
@@ -157,6 +170,9 @@ export interface RenderHelpOptions {
 }
 
 export function renderHelp(index: HelpIndex, options: RenderHelpOptions = {}): string {
+  if (options.api?.toLowerCase() === CONCEPTS_TOPIC) {
+    return CONCEPTS_DOC
+  }
   const resolvedApi = options.api ? resolveApiKey(index, options.api) : undefined
   if (resolvedApi && options.method) {
     return renderMethod(index, resolvedApi, options.method)
@@ -186,6 +202,11 @@ function resolveApiKey(index: HelpIndex, input: string): string | undefined {
 
 function renderIndex(index: HelpIndex): string {
   const lines: string[] = []
+  lines.push('▶ READ FIRST: forge_help({ api: "concepts" }) — behavioral docs & gotchas not in the')
+  lines.push('  swagger (auth scopes, query source/slug rules, metric grammar, views, funnels-vs-')
+  lines.push('  insights, date format). Read it before authoring insights queries/metrics/views or')
+  lines.push('  funnels — it will save you from non-obvious failures.')
+  lines.push('')
   lines.push('Available API namespaces on `client`:')
   lines.push('')
   const apis = Object.keys(index.byApi).sort()
@@ -242,6 +263,11 @@ function renderMethod(index: HelpIndex, api: string, method: string): string {
       const req = p.required ? '' : '?'
       const desc = p.description ? ` — ${p.description}` : ''
       lines.push(`  ${p.name}${req}: ${p.type} (in: ${p.in})${desc}`)
+      // Expand the request body schema so callers see input fields and enums.
+      const schema = p.ref ? index.definitions[p.ref] : undefined
+      if (schema) {
+        lines.push(...renderSchemaFields(schema, index, 0, new Set([p.ref!])))
+      }
     }
   }
   if (info.responseRef) {
@@ -265,7 +291,7 @@ function renderSchemaFields(
   depth: number,
   seen: Set<string>,
 ): string[] {
-  if (depth > 2 || !schema.properties) {
+  if (depth > 3 || !schema.properties) {
     return []
   }
   const required = new Set(schema.required ?? [])
@@ -279,7 +305,7 @@ function renderSchemaFields(
     lines.push(`${indent}${name}${req}: ${type}${desc}`)
     // Expand nested refs once
     const refName = field.$ref ? refToName(field.$ref) : field.items?.$ref ? refToName(field.items.$ref) : undefined
-    if (refName && !seen.has(refName) && index.definitions[refName] && depth < 1) {
+    if (refName && !seen.has(refName) && index.definitions[refName] && depth < 2) {
       seen.add(refName)
       lines.push(...renderSchemaFields(index.definitions[refName]!, index, depth + 1, seen))
     }
