@@ -38,9 +38,6 @@ tenantID: ""
 existingSecretName: ""
 
 # NATS tunnel endpoint. Forge provides this URL during install.
-# Phase 1 (dogfood): in-cluster URL with no transport auth - tenantID is the
-# only thing isolating tenants at the subject level, so keep it unguessable.
-# Phase 2 will add JWT-based account auth via signed challenge.
 nats:
   url: "nats://nats:4222"
 
