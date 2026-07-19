@@ -1,4 +1,4 @@
-# OrganizationResponse
+# DatasourceDatasourceAgentResponse
 
 
 ## Properties
@@ -6,25 +6,25 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **archivedAt** | **string** |  | [optional] [default to undefined]
-**billing** | [**OrganizationBillingResponse**](OrganizationBillingResponse.md) |  | [optional] [default to undefined]
 **createdAt** | **string** |  | [default to undefined]
 **id** | **string** |  | [default to undefined]
+**lastSeenAt** | **string** |  | [optional] [default to undefined]
 **name** | **string** |  | [default to undefined]
-**ownerID** | **string** |  | [optional] [default to undefined]
+**organizationID** | **string** |  | [default to undefined]
 **updatedAt** | **string** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { OrganizationResponse } from './api';
+import { DatasourceDatasourceAgentResponse } from './api';
 
-const instance: OrganizationResponse = {
+const instance: DatasourceDatasourceAgentResponse = {
     archivedAt,
-    billing,
     createdAt,
     id,
+    lastSeenAt,
     name,
-    ownerID,
+    organizationID,
     updatedAt,
 };
 ```

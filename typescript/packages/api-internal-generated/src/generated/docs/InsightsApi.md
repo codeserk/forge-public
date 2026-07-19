@@ -826,12 +826,14 @@ let id: string; //Query ID (default to undefined)
 let from: string; //Start of time range (RFC3339) (default to undefined)
 let to: string; //End of time range (RFC3339) (default to undefined)
 let compareToPrevious: boolean; //If true, also evaluates the same-length immediately-preceding range and returns it as `previous` (optional) (default to undefined)
+let aggregatePeriod: boolean; //If true, collapses the time axis: one row per BreakdownValue summed across the full range (TimeBucket is zero) (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getInsightsQueryData(
     id,
     from,
     to,
-    compareToPrevious
+    compareToPrevious,
+    aggregatePeriod
 );
 ```
 
@@ -843,6 +845,7 @@ const { status, data } = await apiInstance.getInsightsQueryData(
 | **from** | [**string**] | Start of time range (RFC3339) | defaults to undefined|
 | **to** | [**string**] | End of time range (RFC3339) | defaults to undefined|
 | **compareToPrevious** | [**boolean**] | If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60; | (optional) defaults to undefined|
+| **aggregatePeriod** | [**boolean**] | If true, collapses the time axis: one row per BreakdownValue summed across the full range (TimeBucket is zero) | (optional) defaults to undefined|
 
 
 ### Return type

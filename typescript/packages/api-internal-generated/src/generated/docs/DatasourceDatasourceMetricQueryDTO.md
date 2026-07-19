@@ -1,21 +1,21 @@
-# EntityInsightsViewConfigBar
+# DatasourceDatasourceMetricQueryDTO
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**aggregatePeriod** | **boolean** |  | [optional] [default to undefined]
-**barStyle** | **string** |  | [optional] [default to undefined]
+**expr** | **string** |  | [optional] [default to undefined]
+**language** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import { EntityInsightsViewConfigBar } from './api';
+import { DatasourceDatasourceMetricQueryDTO } from './api';
 
-const instance: EntityInsightsViewConfigBar = {
-    aggregatePeriod,
-    barStyle,
+const instance: DatasourceDatasourceMetricQueryDTO = {
+    expr,
+    language,
 };
 ```
 

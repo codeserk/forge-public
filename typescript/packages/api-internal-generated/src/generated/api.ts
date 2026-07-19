@@ -47,6 +47,210 @@ export interface ControllerHTTPError {
     'code'?: string;
     'message'?: string;
 }
+export interface DatasourceCreateDatasourceAgentRequest {
+    'name': string;
+    'organizationID': string;
+}
+export interface DatasourceCreateDatasourceAgentResponse {
+    'agent': DatasourceDatasourceAgentResponse;
+    'plaintextTenant': string;
+}
+export interface DatasourceCreateDatasourceMetricRequest {
+    'cache'?: DatasourceDatasourceMetricCacheRequest;
+    'description'?: string;
+    'displayKind': string;
+    'kind': string;
+    'name': string;
+    'persistence'?: DatasourceDatasourceMetricPersistenceRequest;
+    'query': DatasourceDatasourceMetricQueryRequest;
+    'resolution': string;
+    'slug': string;
+    'tags'?: Array<string>;
+    'unit'?: string;
+}
+export interface DatasourceCreateDatasourceRequest {
+    'config': DatasourceDatasourceConfigRequest;
+    'description'?: string;
+    'kind': string;
+    'name': string;
+    'organizationID': string;
+    'projectID': string;
+    'slug': string;
+}
+export interface DatasourceDatasourceAgentArchiveResponse {
+    'ok': boolean;
+}
+export interface DatasourceDatasourceAgentConfigRequest {
+    'agentID': string;
+}
+export interface DatasourceDatasourceAgentConfigResponse {
+    'agentID': string;
+    'lastSeenAt'?: string;
+    'version'?: string;
+}
+export interface DatasourceDatasourceAgentResponse {
+    'archivedAt'?: string;
+    'createdAt': string;
+    'id': string;
+    'lastSeenAt'?: string;
+    'name': string;
+    'organizationID': string;
+    'updatedAt': string;
+}
+export interface DatasourceDatasourceArchiveResponse {
+    'ok': boolean;
+}
+export interface DatasourceDatasourceConfigRequest {
+    'agent'?: DatasourceDatasourceAgentConfigRequest;
+    'googlePlay'?: DatasourceDatasourceGooglePlayConfigRequest;
+}
+export interface DatasourceDatasourceConfigResponse {
+    'agent'?: DatasourceDatasourceAgentConfigResponse;
+    'googlePlay'?: DatasourceDatasourceGooglePlayConfigResponse;
+}
+export interface DatasourceDatasourceGooglePlayConfigRequest {
+    'credentialsBase64'?: string;
+    'enableBulkReports'?: boolean;
+    'packageNames': Array<string>;
+    'reportsBucketID': string;
+}
+export interface DatasourceDatasourceGooglePlayConfigResponse {
+    'enableBulkReports'?: boolean;
+    'hasCredentials'?: boolean;
+    'packageNames': Array<string>;
+    'reportsBucketID': string;
+}
+export interface DatasourceDatasourceMetricArchiveResponse {
+    'ok': boolean;
+}
+export interface DatasourceDatasourceMetricCacheRequest {
+    'ttlSeconds'?: number;
+}
+export interface DatasourceDatasourceMetricCacheResponse {
+    'ttlSeconds'?: number;
+}
+export interface DatasourceDatasourceMetricPersistenceRequest {
+    'backfillOnCreate'?: boolean;
+    'enabled'?: boolean;
+    'retentionDays'?: number;
+}
+export interface DatasourceDatasourceMetricPersistenceResponse {
+    'backfillOnCreate'?: boolean;
+    'enabled'?: boolean;
+    'retentionDays'?: number;
+}
+export interface DatasourceDatasourceMetricQueryRequest {
+    'googlePlay'?: DatasourceGooglePlayMetricQueryRequest;
+    'loki'?: DatasourceLokiMetricQueryRequest;
+    'prometheus'?: DatasourcePrometheusMetricQueryRequest;
+}
+export interface DatasourceDatasourceMetricQueryResponse {
+    'googlePlay'?: DatasourceGooglePlayMetricQueryResponse;
+    'loki'?: DatasourceLokiMetricQueryResponse;
+    'prometheus'?: DatasourcePrometheusMetricQueryResponse;
+}
+export interface DatasourceDatasourceMetricResponse {
+    'archivedAt'?: string;
+    'cache': DatasourceDatasourceMetricCacheResponse;
+    'createdAt': string;
+    'datasourceID': string;
+    'description'?: string;
+    'displayKind': string;
+    'id': string;
+    'kind': string;
+    'name': string;
+    'organizationID': string;
+    'persistence': DatasourceDatasourceMetricPersistenceResponse;
+    'projectID': string;
+    'query': DatasourceDatasourceMetricQueryResponse;
+    'resolution': string;
+    'slug': string;
+    'tags'?: Array<string>;
+    'unit'?: string;
+    'updatedAt': string;
+}
+export interface DatasourceDatasourceMetricResultResponse {
+    'cached'?: boolean;
+    'fromMs': number;
+    'partial'?: boolean;
+    'series': Array<DatasourceDatasourceMetricSeriesResponse>;
+    'stepMs': number;
+    'toMs': number;
+}
+export interface DatasourceDatasourceMetricSeriesPointResponse {
+    'timestampMs': number;
+    'value': number;
+}
+export interface DatasourceDatasourceMetricSeriesResponse {
+    'labels'?: { [key: string]: string; };
+    'points': Array<DatasourceDatasourceMetricSeriesPointResponse>;
+}
+export interface DatasourceDatasourceResponse {
+    'archivedAt'?: string;
+    'config': DatasourceDatasourceConfigResponse;
+    'createdAt': string;
+    'description'?: string;
+    'id': string;
+    'kind': string;
+    'name': string;
+    'organizationID': string;
+    'projectID': string;
+    'slug': string;
+    'status': string;
+    'updatedAt': string;
+}
+export interface DatasourceEvaluateDatasourceMetricRequest {
+    'fromMs': number;
+    'stepMs'?: number;
+    'toMs': number;
+}
+export interface DatasourceGooglePlayMetricQueryRequest {
+    'appVersion'?: string;
+    'catalogMetricID': string;
+    'country'?: string;
+    'packageName'?: string;
+    'productSku'?: string;
+}
+export interface DatasourceGooglePlayMetricQueryResponse {
+    'appVersion'?: string;
+    'catalogMetricID': string;
+    'country'?: string;
+    'packageName'?: string;
+    'productSku'?: string;
+}
+export interface DatasourceIngestDatasourceResponse {
+    'datasourceID': string;
+    'fromMs': number;
+    'toMs': number;
+}
+export interface DatasourceLokiMetricQueryRequest {
+    'expr': string;
+}
+export interface DatasourceLokiMetricQueryResponse {
+    'expr': string;
+}
+export interface DatasourcePrometheusMetricQueryRequest {
+    'expr': string;
+}
+export interface DatasourcePrometheusMetricQueryResponse {
+    'expr': string;
+}
+export interface DatasourceUpdateDatasourceMetricRequest {
+    'cache'?: DatasourceDatasourceMetricCacheRequest;
+    'description'?: string;
+    'displayKind': string;
+    'name': string;
+    'persistence'?: DatasourceDatasourceMetricPersistenceRequest;
+    'query': DatasourceDatasourceMetricQueryRequest;
+    'resolution': string;
+    'tags'?: Array<string>;
+    'unit'?: string;
+}
+export interface DatasourceUpdateDatasourceRequest {
+    'config'?: DatasourceDatasourceConfigRequest;
+    'description'?: string;
+    'name': string;
+}
 export interface EntityEventQuery {
     'conditions': Array<EntityEventQueryCondition>;
     'result': EntityEventQueryResultEnum;
@@ -72,6 +276,7 @@ export interface EntityInsightsViewConfig {
     'number'?: EntityInsightsViewConfigNumber;
 }
 export interface EntityInsightsViewConfigBar {
+    'aggregatePeriod'?: boolean;
     'barStyle'?: EntityInsightsViewConfigBarBarStyleEnum;
 }
 
@@ -629,7 +834,11 @@ export interface OrganizationResponse {
     'createdAt': string;
     'id': string;
     'name': string;
+    'ownerID'?: string;
     'updatedAt': string;
+}
+export interface OrganizationTransferOwnershipRequest {
+    'newOwnerID': string;
 }
 export interface OrganizationUpcomingInvoiceResponse {
     'currency'?: string;
@@ -658,6 +867,12 @@ export const OrganizationUpdateStatsSubscriptionRequestTierEnum = {
 
 export type OrganizationUpdateStatsSubscriptionRequestTierEnum = typeof OrganizationUpdateStatsSubscriptionRequestTierEnum[keyof typeof OrganizationUpdateStatsSubscriptionRequestTierEnum];
 
+export interface OrganizationUpdateUserPermissionsRequest {
+    'delete'?: boolean;
+    'manageMembers'?: boolean;
+    'read'?: boolean;
+    'update'?: boolean;
+}
 export interface PatCreateRequest {
     'expiresAt'?: string;
     'name': string;
@@ -728,6 +943,7 @@ export interface ProjectResponse {
     'id': string;
     'name': string;
     'organizationID': string;
+    'ownerID'?: string;
     'publicSettings'?: ProjectPublicSettingsResponse;
     'statsConfig'?: ProjectStatsConfigResponse;
     'updatedAt': string;
@@ -746,6 +962,9 @@ export interface ProjectStatsTierValuesResponse {
     'rateLimitHour'?: number;
     'rateLimitMinute'?: number;
     'rateLimitMonth'?: number;
+}
+export interface ProjectTransferOwnershipRequest {
+    'newOwnerID': string;
 }
 export interface ProjectUpdateClientRequest {
     'domains'?: Array<string>;
@@ -769,6 +988,12 @@ export interface ProjectUpdateRequest {
 }
 export interface ProjectUpdateStatsConfigRequest {
     'aggregationDimensions'?: Array<ProjectAggregationDimensionRequest>;
+}
+export interface ProjectUpdateUserPermissionsRequest {
+    'delete'?: boolean;
+    'manageMembers'?: boolean;
+    'read'?: boolean;
+    'update'?: boolean;
 }
 export interface ResponseAggregationDimensionKeyResponse {
     'key'?: string;
@@ -851,6 +1076,7 @@ export interface ResponseUserOrganization {
 }
 export interface ResponseUserPermissions {
     'delete': boolean;
+    'manageMembers': boolean;
     'read': boolean;
     'update': boolean;
 }
@@ -1079,6 +1305,296 @@ export interface StatsTopResponse {
     'granularity': string;
     'projectID': number;
 }
+
+/**
+ * AdminApi - axios parameter creator
+ */
+export const AdminApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Cross-tenant listing of all organizations. Admin-only.
+         * @summary Admin list organizations
+         * @param {string} [name] Filter by name (substring, case-insensitive)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminListOrganizations: async (name?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/admin/organizations`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Cross-tenant listing of all projects. Admin-only.
+         * @summary Admin list projects
+         * @param {string} [organizationID] Filter by organization id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminListProjects: async (organizationID?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/admin/projects`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (organizationID !== undefined) {
+                localVarQueryParameter['organizationID'] = organizationID;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Cross-tenant user search by name or email. Admin-only. Distinct from /api/v1/users which scopes by org/project.
+         * @summary Admin search users
+         * @param {string} [name] Filter by name (substring, case-insensitive)
+         * @param {string} [email] Filter by email (substring, case-insensitive)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminListUsers: async (name?: string, email?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/admin/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AdminApi - functional programming interface
+ */
+export const AdminApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AdminApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Cross-tenant listing of all organizations. Admin-only.
+         * @summary Admin list organizations
+         * @param {string} [name] Filter by name (substring, case-insensitive)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async adminListOrganizations(name?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OrganizationResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.adminListOrganizations(name, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AdminApi.adminListOrganizations']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Cross-tenant listing of all projects. Admin-only.
+         * @summary Admin list projects
+         * @param {string} [organizationID] Filter by organization id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async adminListProjects(organizationID?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProjectResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.adminListProjects(organizationID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AdminApi.adminListProjects']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Cross-tenant user search by name or email. Admin-only. Distinct from /api/v1/users which scopes by org/project.
+         * @summary Admin search users
+         * @param {string} [name] Filter by name (substring, case-insensitive)
+         * @param {string} [email] Filter by email (substring, case-insensitive)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async adminListUsers(name?: string, email?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ResponseUser>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.adminListUsers(name, email, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AdminApi.adminListUsers']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * AdminApi - factory interface
+ */
+export const AdminApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AdminApiFp(configuration)
+    return {
+        /**
+         * Cross-tenant listing of all organizations. Admin-only.
+         * @summary Admin list organizations
+         * @param {AdminApiAdminListOrganizationsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminListOrganizations(requestParameters: AdminApiAdminListOrganizationsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<OrganizationResponse>> {
+            return localVarFp.adminListOrganizations(requestParameters.name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Cross-tenant listing of all projects. Admin-only.
+         * @summary Admin list projects
+         * @param {AdminApiAdminListProjectsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminListProjects(requestParameters: AdminApiAdminListProjectsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<ProjectResponse>> {
+            return localVarFp.adminListProjects(requestParameters.organizationID, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Cross-tenant user search by name or email. Admin-only. Distinct from /api/v1/users which scopes by org/project.
+         * @summary Admin search users
+         * @param {AdminApiAdminListUsersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminListUsers(requestParameters: AdminApiAdminListUsersRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<ResponseUser>> {
+            return localVarFp.adminListUsers(requestParameters.name, requestParameters.email, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for adminListOrganizations operation in AdminApi.
+ */
+export interface AdminApiAdminListOrganizationsRequest {
+    /**
+     * Filter by name (substring, case-insensitive)
+     */
+    readonly name?: string
+}
+
+/**
+ * Request parameters for adminListProjects operation in AdminApi.
+ */
+export interface AdminApiAdminListProjectsRequest {
+    /**
+     * Filter by organization id
+     */
+    readonly organizationID?: string
+}
+
+/**
+ * Request parameters for adminListUsers operation in AdminApi.
+ */
+export interface AdminApiAdminListUsersRequest {
+    /**
+     * Filter by name (substring, case-insensitive)
+     */
+    readonly name?: string
+
+    /**
+     * Filter by email (substring, case-insensitive)
+     */
+    readonly email?: string
+}
+
+/**
+ * AdminApi - object-oriented interface
+ */
+export class AdminApi extends BaseAPI {
+    /**
+     * Cross-tenant listing of all organizations. Admin-only.
+     * @summary Admin list organizations
+     * @param {AdminApiAdminListOrganizationsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public adminListOrganizations(requestParameters: AdminApiAdminListOrganizationsRequest = {}, options?: RawAxiosRequestConfig) {
+        return AdminApiFp(this.configuration).adminListOrganizations(requestParameters.name, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Cross-tenant listing of all projects. Admin-only.
+     * @summary Admin list projects
+     * @param {AdminApiAdminListProjectsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public adminListProjects(requestParameters: AdminApiAdminListProjectsRequest = {}, options?: RawAxiosRequestConfig) {
+        return AdminApiFp(this.configuration).adminListProjects(requestParameters.organizationID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Cross-tenant user search by name or email. Admin-only. Distinct from /api/v1/users which scopes by org/project.
+     * @summary Admin search users
+     * @param {AdminApiAdminListUsersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public adminListUsers(requestParameters: AdminApiAdminListUsersRequest = {}, options?: RawAxiosRequestConfig) {
+        return AdminApiFp(this.configuration).adminListUsers(requestParameters.name, requestParameters.email, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
 
 /**
  * AuthApi - axios parameter creator
@@ -1555,6 +2071,1387 @@ export class AuthApi extends BaseAPI {
      */
     public verifyEmail(requestParameters: AuthApiVerifyEmailRequest, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).verifyEmail(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * DatasourcesApi - axios parameter creator
+ */
+export const DatasourcesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Archive a datasource by ID
+         * @summary Archive datasource
+         * @param {string} id Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        archiveDatasource: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('archiveDatasource', 'id', id)
+            const localVarPath = `/api/v1/datasources/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Archive a datasource agent by ID
+         * @summary Archive datasource agent
+         * @param {string} id Agent ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        archiveDatasourceAgent: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('archiveDatasourceAgent', 'id', id)
+            const localVarPath = `/api/v1/datasource-agents/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Archive a datasource metric by ID
+         * @summary Archive datasource metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        archiveDatasourceMetric: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('archiveDatasourceMetric', 'id', id)
+            const localVarPath = `/api/v1/datasource-metrics/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new datasource
+         * @summary Create datasource
+         * @param {DatasourceCreateDatasourceRequest} request Create datasource body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDatasource: async (request: DatasourceCreateDatasourceRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('createDatasource', 'request', request)
+            const localVarPath = `/api/v1/datasources`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new datasource agent. The plaintext tenant token is returned ONCE and never stored.
+         * @summary Create datasource agent
+         * @param {DatasourceCreateDatasourceAgentRequest} request Create agent body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDatasourceAgent: async (request: DatasourceCreateDatasourceAgentRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('createDatasourceAgent', 'request', request)
+            const localVarPath = `/api/v1/datasource-agents`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new metric on a datasource
+         * @summary Create datasource metric
+         * @param {string} datasourceID Datasource ID
+         * @param {DatasourceCreateDatasourceMetricRequest} request Create metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDatasourceMetric: async (datasourceID: string, request: DatasourceCreateDatasourceMetricRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'datasourceID' is not null or undefined
+            assertParamExists('createDatasourceMetric', 'datasourceID', datasourceID)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('createDatasourceMetric', 'request', request)
+            const localVarPath = `/api/v1/datasources/{datasourceID}/metrics`
+                .replace('{datasourceID}', encodeURIComponent(String(datasourceID)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Evaluate a metric over a time range
+         * @summary Evaluate datasource metric
+         * @param {string} id Metric ID
+         * @param {DatasourceEvaluateDatasourceMetricRequest} request Evaluate range
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        evaluateDatasourceMetric: async (id: string, request: DatasourceEvaluateDatasourceMetricRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('evaluateDatasourceMetric', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('evaluateDatasourceMetric', 'request', request)
+            const localVarPath = `/api/v1/datasource-metrics/{id}/evaluate`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a datasource by ID
+         * @summary Get datasource
+         * @param {string} id Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasource: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getDatasource', 'id', id)
+            const localVarPath = `/api/v1/datasources/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a datasource agent by ID
+         * @summary Get datasource agent
+         * @param {string} id Agent ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceAgent: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getDatasourceAgent', 'id', id)
+            const localVarPath = `/api/v1/datasource-agents/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List datasource agents for an organization
+         * @summary List datasource agents
+         * @param {string} organizationID Organization ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceAgents: async (organizationID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationID' is not null or undefined
+            assertParamExists('getDatasourceAgents', 'organizationID', organizationID)
+            const localVarPath = `/api/v1/datasource-agents`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (organizationID !== undefined) {
+                localVarQueryParameter['organizationID'] = organizationID;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a datasource metric by ID
+         * @summary Get datasource metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceMetric: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getDatasourceMetric', 'id', id)
+            const localVarPath = `/api/v1/datasource-metrics/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List metrics for a datasource
+         * @summary List datasource metrics
+         * @param {string} datasourceID Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceMetrics: async (datasourceID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'datasourceID' is not null or undefined
+            assertParamExists('getDatasourceMetrics', 'datasourceID', datasourceID)
+            const localVarPath = `/api/v1/datasources/{datasourceID}/metrics`
+                .replace('{datasourceID}', encodeURIComponent(String(datasourceID)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List datasources for a project
+         * @summary List datasources
+         * @param {string} projectID Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasources: async (projectID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectID' is not null or undefined
+            assertParamExists('getDatasources', 'projectID', projectID)
+            const localVarPath = `/api/v1/datasources`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (projectID !== undefined) {
+                localVarQueryParameter['projectID'] = projectID;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Trigger an ingest run for a datasource over the last 7 days
+         * @summary Ingest datasource
+         * @param {string} id Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ingestDatasource: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ingestDatasource', 'id', id)
+            const localVarPath = `/api/v1/datasources/{id}/ingest`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update an existing datasource
+         * @summary Update datasource
+         * @param {string} id Datasource ID
+         * @param {DatasourceUpdateDatasourceRequest} request Update datasource body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateDatasource: async (id: string, request: DatasourceUpdateDatasourceRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateDatasource', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('updateDatasource', 'request', request)
+            const localVarPath = `/api/v1/datasources/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update an existing datasource metric
+         * @summary Update datasource metric
+         * @param {string} id Metric ID
+         * @param {DatasourceUpdateDatasourceMetricRequest} request Update metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateDatasourceMetric: async (id: string, request: DatasourceUpdateDatasourceMetricRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateDatasourceMetric', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('updateDatasourceMetric', 'request', request)
+            const localVarPath = `/api/v1/datasource-metrics/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DatasourcesApi - functional programming interface
+ */
+export const DatasourcesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DatasourcesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Archive a datasource by ID
+         * @summary Archive datasource
+         * @param {string} id Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async archiveDatasource(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceArchiveResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.archiveDatasource(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.archiveDatasource']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Archive a datasource agent by ID
+         * @summary Archive datasource agent
+         * @param {string} id Agent ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async archiveDatasourceAgent(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceAgentArchiveResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.archiveDatasourceAgent(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.archiveDatasourceAgent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Archive a datasource metric by ID
+         * @summary Archive datasource metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async archiveDatasourceMetric(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceMetricArchiveResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.archiveDatasourceMetric(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.archiveDatasourceMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Create a new datasource
+         * @summary Create datasource
+         * @param {DatasourceCreateDatasourceRequest} request Create datasource body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createDatasource(request: DatasourceCreateDatasourceRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDatasource(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.createDatasource']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Create a new datasource agent. The plaintext tenant token is returned ONCE and never stored.
+         * @summary Create datasource agent
+         * @param {DatasourceCreateDatasourceAgentRequest} request Create agent body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createDatasourceAgent(request: DatasourceCreateDatasourceAgentRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceCreateDatasourceAgentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDatasourceAgent(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.createDatasourceAgent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Create a new metric on a datasource
+         * @summary Create datasource metric
+         * @param {string} datasourceID Datasource ID
+         * @param {DatasourceCreateDatasourceMetricRequest} request Create metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createDatasourceMetric(datasourceID: string, request: DatasourceCreateDatasourceMetricRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceMetricResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDatasourceMetric(datasourceID, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.createDatasourceMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Evaluate a metric over a time range
+         * @summary Evaluate datasource metric
+         * @param {string} id Metric ID
+         * @param {DatasourceEvaluateDatasourceMetricRequest} request Evaluate range
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async evaluateDatasourceMetric(id: string, request: DatasourceEvaluateDatasourceMetricRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceMetricResultResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.evaluateDatasourceMetric(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.evaluateDatasourceMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get a datasource by ID
+         * @summary Get datasource
+         * @param {string} id Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDatasource(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDatasource(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.getDatasource']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get a datasource agent by ID
+         * @summary Get datasource agent
+         * @param {string} id Agent ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDatasourceAgent(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceAgentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDatasourceAgent(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.getDatasourceAgent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List datasource agents for an organization
+         * @summary List datasource agents
+         * @param {string} organizationID Organization ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDatasourceAgents(organizationID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DatasourceDatasourceAgentResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDatasourceAgents(organizationID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.getDatasourceAgents']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get a datasource metric by ID
+         * @summary Get datasource metric
+         * @param {string} id Metric ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDatasourceMetric(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceMetricResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDatasourceMetric(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.getDatasourceMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List metrics for a datasource
+         * @summary List datasource metrics
+         * @param {string} datasourceID Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDatasourceMetrics(datasourceID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DatasourceDatasourceMetricResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDatasourceMetrics(datasourceID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.getDatasourceMetrics']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List datasources for a project
+         * @summary List datasources
+         * @param {string} projectID Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDatasources(projectID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DatasourceDatasourceResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDatasources(projectID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.getDatasources']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Trigger an ingest run for a datasource over the last 7 days
+         * @summary Ingest datasource
+         * @param {string} id Datasource ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ingestDatasource(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceIngestDatasourceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ingestDatasource(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.ingestDatasource']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update an existing datasource
+         * @summary Update datasource
+         * @param {string} id Datasource ID
+         * @param {DatasourceUpdateDatasourceRequest} request Update datasource body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateDatasource(id: string, request: DatasourceUpdateDatasourceRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDatasource(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.updateDatasource']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update an existing datasource metric
+         * @summary Update datasource metric
+         * @param {string} id Metric ID
+         * @param {DatasourceUpdateDatasourceMetricRequest} request Update metric body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateDatasourceMetric(id: string, request: DatasourceUpdateDatasourceMetricRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatasourceDatasourceMetricResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDatasourceMetric(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DatasourcesApi.updateDatasourceMetric']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * DatasourcesApi - factory interface
+ */
+export const DatasourcesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DatasourcesApiFp(configuration)
+    return {
+        /**
+         * Archive a datasource by ID
+         * @summary Archive datasource
+         * @param {DatasourcesApiArchiveDatasourceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        archiveDatasource(requestParameters: DatasourcesApiArchiveDatasourceRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceArchiveResponse> {
+            return localVarFp.archiveDatasource(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Archive a datasource agent by ID
+         * @summary Archive datasource agent
+         * @param {DatasourcesApiArchiveDatasourceAgentRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        archiveDatasourceAgent(requestParameters: DatasourcesApiArchiveDatasourceAgentRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceAgentArchiveResponse> {
+            return localVarFp.archiveDatasourceAgent(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Archive a datasource metric by ID
+         * @summary Archive datasource metric
+         * @param {DatasourcesApiArchiveDatasourceMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        archiveDatasourceMetric(requestParameters: DatasourcesApiArchiveDatasourceMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceMetricArchiveResponse> {
+            return localVarFp.archiveDatasourceMetric(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new datasource
+         * @summary Create datasource
+         * @param {DatasourcesApiCreateDatasourceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDatasource(requestParameters: DatasourcesApiCreateDatasourceRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceResponse> {
+            return localVarFp.createDatasource(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new datasource agent. The plaintext tenant token is returned ONCE and never stored.
+         * @summary Create datasource agent
+         * @param {DatasourcesApiCreateDatasourceAgentRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDatasourceAgent(requestParameters: DatasourcesApiCreateDatasourceAgentRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceCreateDatasourceAgentResponse> {
+            return localVarFp.createDatasourceAgent(requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new metric on a datasource
+         * @summary Create datasource metric
+         * @param {DatasourcesApiCreateDatasourceMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDatasourceMetric(requestParameters: DatasourcesApiCreateDatasourceMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceMetricResponse> {
+            return localVarFp.createDatasourceMetric(requestParameters.datasourceID, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Evaluate a metric over a time range
+         * @summary Evaluate datasource metric
+         * @param {DatasourcesApiEvaluateDatasourceMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        evaluateDatasourceMetric(requestParameters: DatasourcesApiEvaluateDatasourceMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceMetricResultResponse> {
+            return localVarFp.evaluateDatasourceMetric(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a datasource by ID
+         * @summary Get datasource
+         * @param {DatasourcesApiGetDatasourceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasource(requestParameters: DatasourcesApiGetDatasourceRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceResponse> {
+            return localVarFp.getDatasource(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a datasource agent by ID
+         * @summary Get datasource agent
+         * @param {DatasourcesApiGetDatasourceAgentRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceAgent(requestParameters: DatasourcesApiGetDatasourceAgentRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceAgentResponse> {
+            return localVarFp.getDatasourceAgent(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List datasource agents for an organization
+         * @summary List datasource agents
+         * @param {DatasourcesApiGetDatasourceAgentsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceAgents(requestParameters: DatasourcesApiGetDatasourceAgentsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<DatasourceDatasourceAgentResponse>> {
+            return localVarFp.getDatasourceAgents(requestParameters.organizationID, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a datasource metric by ID
+         * @summary Get datasource metric
+         * @param {DatasourcesApiGetDatasourceMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceMetric(requestParameters: DatasourcesApiGetDatasourceMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceMetricResponse> {
+            return localVarFp.getDatasourceMetric(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List metrics for a datasource
+         * @summary List datasource metrics
+         * @param {DatasourcesApiGetDatasourceMetricsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasourceMetrics(requestParameters: DatasourcesApiGetDatasourceMetricsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<DatasourceDatasourceMetricResponse>> {
+            return localVarFp.getDatasourceMetrics(requestParameters.datasourceID, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List datasources for a project
+         * @summary List datasources
+         * @param {DatasourcesApiGetDatasourcesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDatasources(requestParameters: DatasourcesApiGetDatasourcesRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<DatasourceDatasourceResponse>> {
+            return localVarFp.getDatasources(requestParameters.projectID, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Trigger an ingest run for a datasource over the last 7 days
+         * @summary Ingest datasource
+         * @param {DatasourcesApiIngestDatasourceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ingestDatasource(requestParameters: DatasourcesApiIngestDatasourceRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceIngestDatasourceResponse> {
+            return localVarFp.ingestDatasource(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update an existing datasource
+         * @summary Update datasource
+         * @param {DatasourcesApiUpdateDatasourceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateDatasource(requestParameters: DatasourcesApiUpdateDatasourceRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceResponse> {
+            return localVarFp.updateDatasource(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update an existing datasource metric
+         * @summary Update datasource metric
+         * @param {DatasourcesApiUpdateDatasourceMetricRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateDatasourceMetric(requestParameters: DatasourcesApiUpdateDatasourceMetricRequest, options?: RawAxiosRequestConfig): AxiosPromise<DatasourceDatasourceMetricResponse> {
+            return localVarFp.updateDatasourceMetric(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for archiveDatasource operation in DatasourcesApi.
+ */
+export interface DatasourcesApiArchiveDatasourceRequest {
+    /**
+     * Datasource ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for archiveDatasourceAgent operation in DatasourcesApi.
+ */
+export interface DatasourcesApiArchiveDatasourceAgentRequest {
+    /**
+     * Agent ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for archiveDatasourceMetric operation in DatasourcesApi.
+ */
+export interface DatasourcesApiArchiveDatasourceMetricRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for createDatasource operation in DatasourcesApi.
+ */
+export interface DatasourcesApiCreateDatasourceRequest {
+    /**
+     * Create datasource body
+     */
+    readonly request: DatasourceCreateDatasourceRequest
+}
+
+/**
+ * Request parameters for createDatasourceAgent operation in DatasourcesApi.
+ */
+export interface DatasourcesApiCreateDatasourceAgentRequest {
+    /**
+     * Create agent body
+     */
+    readonly request: DatasourceCreateDatasourceAgentRequest
+}
+
+/**
+ * Request parameters for createDatasourceMetric operation in DatasourcesApi.
+ */
+export interface DatasourcesApiCreateDatasourceMetricRequest {
+    /**
+     * Datasource ID
+     */
+    readonly datasourceID: string
+
+    /**
+     * Create metric body
+     */
+    readonly request: DatasourceCreateDatasourceMetricRequest
+}
+
+/**
+ * Request parameters for evaluateDatasourceMetric operation in DatasourcesApi.
+ */
+export interface DatasourcesApiEvaluateDatasourceMetricRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+
+    /**
+     * Evaluate range
+     */
+    readonly request: DatasourceEvaluateDatasourceMetricRequest
+}
+
+/**
+ * Request parameters for getDatasource operation in DatasourcesApi.
+ */
+export interface DatasourcesApiGetDatasourceRequest {
+    /**
+     * Datasource ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getDatasourceAgent operation in DatasourcesApi.
+ */
+export interface DatasourcesApiGetDatasourceAgentRequest {
+    /**
+     * Agent ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getDatasourceAgents operation in DatasourcesApi.
+ */
+export interface DatasourcesApiGetDatasourceAgentsRequest {
+    /**
+     * Organization ID
+     */
+    readonly organizationID: string
+}
+
+/**
+ * Request parameters for getDatasourceMetric operation in DatasourcesApi.
+ */
+export interface DatasourcesApiGetDatasourceMetricRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getDatasourceMetrics operation in DatasourcesApi.
+ */
+export interface DatasourcesApiGetDatasourceMetricsRequest {
+    /**
+     * Datasource ID
+     */
+    readonly datasourceID: string
+}
+
+/**
+ * Request parameters for getDatasources operation in DatasourcesApi.
+ */
+export interface DatasourcesApiGetDatasourcesRequest {
+    /**
+     * Project ID
+     */
+    readonly projectID: string
+}
+
+/**
+ * Request parameters for ingestDatasource operation in DatasourcesApi.
+ */
+export interface DatasourcesApiIngestDatasourceRequest {
+    /**
+     * Datasource ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for updateDatasource operation in DatasourcesApi.
+ */
+export interface DatasourcesApiUpdateDatasourceRequest {
+    /**
+     * Datasource ID
+     */
+    readonly id: string
+
+    /**
+     * Update datasource body
+     */
+    readonly request: DatasourceUpdateDatasourceRequest
+}
+
+/**
+ * Request parameters for updateDatasourceMetric operation in DatasourcesApi.
+ */
+export interface DatasourcesApiUpdateDatasourceMetricRequest {
+    /**
+     * Metric ID
+     */
+    readonly id: string
+
+    /**
+     * Update metric body
+     */
+    readonly request: DatasourceUpdateDatasourceMetricRequest
+}
+
+/**
+ * DatasourcesApi - object-oriented interface
+ */
+export class DatasourcesApi extends BaseAPI {
+    /**
+     * Archive a datasource by ID
+     * @summary Archive datasource
+     * @param {DatasourcesApiArchiveDatasourceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public archiveDatasource(requestParameters: DatasourcesApiArchiveDatasourceRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).archiveDatasource(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Archive a datasource agent by ID
+     * @summary Archive datasource agent
+     * @param {DatasourcesApiArchiveDatasourceAgentRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public archiveDatasourceAgent(requestParameters: DatasourcesApiArchiveDatasourceAgentRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).archiveDatasourceAgent(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Archive a datasource metric by ID
+     * @summary Archive datasource metric
+     * @param {DatasourcesApiArchiveDatasourceMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public archiveDatasourceMetric(requestParameters: DatasourcesApiArchiveDatasourceMetricRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).archiveDatasourceMetric(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a new datasource
+     * @summary Create datasource
+     * @param {DatasourcesApiCreateDatasourceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public createDatasource(requestParameters: DatasourcesApiCreateDatasourceRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).createDatasource(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a new datasource agent. The plaintext tenant token is returned ONCE and never stored.
+     * @summary Create datasource agent
+     * @param {DatasourcesApiCreateDatasourceAgentRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public createDatasourceAgent(requestParameters: DatasourcesApiCreateDatasourceAgentRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).createDatasourceAgent(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a new metric on a datasource
+     * @summary Create datasource metric
+     * @param {DatasourcesApiCreateDatasourceMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public createDatasourceMetric(requestParameters: DatasourcesApiCreateDatasourceMetricRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).createDatasourceMetric(requestParameters.datasourceID, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Evaluate a metric over a time range
+     * @summary Evaluate datasource metric
+     * @param {DatasourcesApiEvaluateDatasourceMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public evaluateDatasourceMetric(requestParameters: DatasourcesApiEvaluateDatasourceMetricRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).evaluateDatasourceMetric(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a datasource by ID
+     * @summary Get datasource
+     * @param {DatasourcesApiGetDatasourceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getDatasource(requestParameters: DatasourcesApiGetDatasourceRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).getDatasource(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a datasource agent by ID
+     * @summary Get datasource agent
+     * @param {DatasourcesApiGetDatasourceAgentRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getDatasourceAgent(requestParameters: DatasourcesApiGetDatasourceAgentRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).getDatasourceAgent(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List datasource agents for an organization
+     * @summary List datasource agents
+     * @param {DatasourcesApiGetDatasourceAgentsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getDatasourceAgents(requestParameters: DatasourcesApiGetDatasourceAgentsRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).getDatasourceAgents(requestParameters.organizationID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a datasource metric by ID
+     * @summary Get datasource metric
+     * @param {DatasourcesApiGetDatasourceMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getDatasourceMetric(requestParameters: DatasourcesApiGetDatasourceMetricRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).getDatasourceMetric(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List metrics for a datasource
+     * @summary List datasource metrics
+     * @param {DatasourcesApiGetDatasourceMetricsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getDatasourceMetrics(requestParameters: DatasourcesApiGetDatasourceMetricsRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).getDatasourceMetrics(requestParameters.datasourceID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List datasources for a project
+     * @summary List datasources
+     * @param {DatasourcesApiGetDatasourcesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getDatasources(requestParameters: DatasourcesApiGetDatasourcesRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).getDatasources(requestParameters.projectID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Trigger an ingest run for a datasource over the last 7 days
+     * @summary Ingest datasource
+     * @param {DatasourcesApiIngestDatasourceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public ingestDatasource(requestParameters: DatasourcesApiIngestDatasourceRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).ingestDatasource(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update an existing datasource
+     * @summary Update datasource
+     * @param {DatasourcesApiUpdateDatasourceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public updateDatasource(requestParameters: DatasourcesApiUpdateDatasourceRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).updateDatasource(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update an existing datasource metric
+     * @summary Update datasource metric
+     * @param {DatasourcesApiUpdateDatasourceMetricRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public updateDatasourceMetric(requestParameters: DatasourcesApiUpdateDatasourceMetricRequest, options?: RawAxiosRequestConfig) {
+        return DatasourcesApiFp(this.configuration).updateDatasourceMetric(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -3644,10 +5541,11 @@ export const InsightsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} from Start of time range (RFC3339)
          * @param {string} to End of time range (RFC3339)
          * @param {boolean} [compareToPrevious] If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+         * @param {boolean} [aggregatePeriod] If true, collapses the time axis: one row per BreakdownValue summed across the full range (TimeBucket is zero)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getInsightsQueryData: async (id: string, from: string, to: string, compareToPrevious?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getInsightsQueryData: async (id: string, from: string, to: string, compareToPrevious?: boolean, aggregatePeriod?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getInsightsQueryData', 'id', id)
             // verify required parameter 'from' is not null or undefined
@@ -3680,6 +5578,10 @@ export const InsightsApiAxiosParamCreator = function (configuration?: Configurat
 
             if (compareToPrevious !== undefined) {
                 localVarQueryParameter['compareToPrevious'] = compareToPrevious;
+            }
+
+            if (aggregatePeriod !== undefined) {
+                localVarQueryParameter['aggregatePeriod'] = aggregatePeriod;
             }
 
             localVarHeaderParameter['Accept'] = 'application/json';
@@ -4062,11 +5964,12 @@ export const InsightsApiFp = function(configuration?: Configuration) {
          * @param {string} from Start of time range (RFC3339)
          * @param {string} to End of time range (RFC3339)
          * @param {boolean} [compareToPrevious] If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
+         * @param {boolean} [aggregatePeriod] If true, collapses the time axis: one row per BreakdownValue summed across the full range (TimeBucket is zero)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getInsightsQueryData(id: string, from: string, to: string, compareToPrevious?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsEvaluateQueryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsQueryData(id, from, to, compareToPrevious, options);
+        async getInsightsQueryData(id: string, from: string, to: string, compareToPrevious?: boolean, aggregatePeriod?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InsightsEvaluateQueryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInsightsQueryData(id, from, to, compareToPrevious, aggregatePeriod, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['InsightsApi.getInsightsQueryData']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4283,7 +6186,7 @@ export const InsightsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         getInsightsQueryData(requestParameters: InsightsApiGetInsightsQueryDataRequest, options?: RawAxiosRequestConfig): AxiosPromise<InsightsEvaluateQueryResponse> {
-            return localVarFp.getInsightsQueryData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, options).then((request) => request(axios, basePath));
+            return localVarFp.getInsightsQueryData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, requestParameters.aggregatePeriod, options).then((request) => request(axios, basePath));
         },
         /**
          * List insights views (chart placements) for a project
@@ -4516,6 +6419,11 @@ export interface InsightsApiGetInsightsQueryDataRequest {
      * If true, also evaluates the same-length immediately-preceding range and returns it as &#x60;previous&#x60;
      */
     readonly compareToPrevious?: boolean
+
+    /**
+     * If true, collapses the time axis: one row per BreakdownValue summed across the full range (TimeBucket is zero)
+     */
+    readonly aggregatePeriod?: boolean
 }
 
 /**
@@ -4739,7 +6647,7 @@ export class InsightsApi extends BaseAPI {
      * @throws {RequiredError}
      */
     public getInsightsQueryData(requestParameters: InsightsApiGetInsightsQueryDataRequest, options?: RawAxiosRequestConfig) {
-        return InsightsApiFp(this.configuration).getInsightsQueryData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, options).then((request) => request(this.axios, this.basePath));
+        return InsightsApiFp(this.configuration).getInsightsQueryData(requestParameters.id, requestParameters.from, requestParameters.to, requestParameters.compareToPrevious, requestParameters.aggregatePeriod, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4795,6 +6703,43 @@ export class InsightsApi extends BaseAPI {
 export const InvitationsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Accepts an invitation addressed to the authenticated user
+         * @summary Accept invitation
+         * @param {string} id Invitation ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        acceptInvitation: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('acceptInvitation', 'id', id)
+            const localVarPath = `/api/v1/invitations/{id}/accept`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Deletes an invitation
          * @summary Delete invitation
          * @param {string} id Invitation ID
@@ -4814,6 +6759,76 @@ export const InvitationsApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the invitation if it is addressed to the authenticated user
+         * @summary Get invitation by ID
+         * @param {string} id Invitation ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInvitationByID: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getInvitationByID', 'id', id)
+            const localVarPath = `/api/v1/invitations/{id}`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns pending invitations addressed to the authenticated user
+         * @summary Get my invitations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyInvitations: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/invitations/mine`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -4869,6 +6884,43 @@ export const InvitationsApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Rejects an invitation addressed to the authenticated user
+         * @summary Reject invitation
+         * @param {string} id Invitation ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rejectInvitation: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('rejectInvitation', 'id', id)
+            const localVarPath = `/api/v1/invitations/{id}/reject`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4879,16 +6931,54 @@ export const InvitationsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = InvitationsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Accepts an invitation addressed to the authenticated user
+         * @summary Accept invitation
+         * @param {string} id Invitation ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async acceptInvitation(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseInvitation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.acceptInvitation(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InvitationsApi.acceptInvitation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Deletes an invitation
          * @summary Delete invitation
          * @param {string} id Invitation ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteInvitation(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseInvitation>> {
+        async deleteInvitation(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInvitation(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['InvitationsApi.deleteInvitation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the invitation if it is addressed to the authenticated user
+         * @summary Get invitation by ID
+         * @param {string} id Invitation ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInvitationByID(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseInvitation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInvitationByID(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InvitationsApi.getInvitationByID']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns pending invitations addressed to the authenticated user
+         * @summary Get my invitations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMyInvitations(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ResponseInvitation>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMyInvitations(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InvitationsApi.getMyInvitations']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -4904,6 +6994,19 @@ export const InvitationsApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['InvitationsApi.inviteUser']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Rejects an invitation addressed to the authenticated user
+         * @summary Reject invitation
+         * @param {string} id Invitation ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rejectInvitation(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseInvitation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rejectInvitation(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InvitationsApi.rejectInvitation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -4914,14 +7017,43 @@ export const InvitationsApiFactory = function (configuration?: Configuration, ba
     const localVarFp = InvitationsApiFp(configuration)
     return {
         /**
+         * Accepts an invitation addressed to the authenticated user
+         * @summary Accept invitation
+         * @param {InvitationsApiAcceptInvitationRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        acceptInvitation(requestParameters: InvitationsApiAcceptInvitationRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseInvitation> {
+            return localVarFp.acceptInvitation(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Deletes an invitation
          * @summary Delete invitation
          * @param {InvitationsApiDeleteInvitationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteInvitation(requestParameters: InvitationsApiDeleteInvitationRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseInvitation> {
+        deleteInvitation(requestParameters: InvitationsApiDeleteInvitationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteInvitation(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the invitation if it is addressed to the authenticated user
+         * @summary Get invitation by ID
+         * @param {InvitationsApiGetInvitationByIDRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInvitationByID(requestParameters: InvitationsApiGetInvitationByIDRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseInvitation> {
+            return localVarFp.getInvitationByID(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns pending invitations addressed to the authenticated user
+         * @summary Get my invitations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyInvitations(options?: RawAxiosRequestConfig): AxiosPromise<Array<ResponseInvitation>> {
+            return localVarFp.getMyInvitations(options).then((request) => request(axios, basePath));
         },
         /**
          * Sends invitation to user via e-mail
@@ -4933,13 +7065,43 @@ export const InvitationsApiFactory = function (configuration?: Configuration, ba
         inviteUser(requestParameters: InvitationsApiInviteUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseInvitation> {
             return localVarFp.inviteUser(requestParameters.request, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Rejects an invitation addressed to the authenticated user
+         * @summary Reject invitation
+         * @param {InvitationsApiRejectInvitationRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rejectInvitation(requestParameters: InvitationsApiRejectInvitationRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseInvitation> {
+            return localVarFp.rejectInvitation(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for acceptInvitation operation in InvitationsApi.
+ */
+export interface InvitationsApiAcceptInvitationRequest {
+    /**
+     * Invitation ID
+     */
+    readonly id: string
+}
 
 /**
  * Request parameters for deleteInvitation operation in InvitationsApi.
  */
 export interface InvitationsApiDeleteInvitationRequest {
+    /**
+     * Invitation ID
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getInvitationByID operation in InvitationsApi.
+ */
+export interface InvitationsApiGetInvitationByIDRequest {
     /**
      * Invitation ID
      */
@@ -4957,9 +7119,30 @@ export interface InvitationsApiInviteUserRequest {
 }
 
 /**
+ * Request parameters for rejectInvitation operation in InvitationsApi.
+ */
+export interface InvitationsApiRejectInvitationRequest {
+    /**
+     * Invitation ID
+     */
+    readonly id: string
+}
+
+/**
  * InvitationsApi - object-oriented interface
  */
 export class InvitationsApi extends BaseAPI {
+    /**
+     * Accepts an invitation addressed to the authenticated user
+     * @summary Accept invitation
+     * @param {InvitationsApiAcceptInvitationRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public acceptInvitation(requestParameters: InvitationsApiAcceptInvitationRequest, options?: RawAxiosRequestConfig) {
+        return InvitationsApiFp(this.configuration).acceptInvitation(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Deletes an invitation
      * @summary Delete invitation
@@ -4972,6 +7155,27 @@ export class InvitationsApi extends BaseAPI {
     }
 
     /**
+     * Returns the invitation if it is addressed to the authenticated user
+     * @summary Get invitation by ID
+     * @param {InvitationsApiGetInvitationByIDRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getInvitationByID(requestParameters: InvitationsApiGetInvitationByIDRequest, options?: RawAxiosRequestConfig) {
+        return InvitationsApiFp(this.configuration).getInvitationByID(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns pending invitations addressed to the authenticated user
+     * @summary Get my invitations
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getMyInvitations(options?: RawAxiosRequestConfig) {
+        return InvitationsApiFp(this.configuration).getMyInvitations(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Sends invitation to user via e-mail
      * @summary Invite user
      * @param {InvitationsApiInviteUserRequest} requestParameters Request parameters.
@@ -4980,6 +7184,17 @@ export class InvitationsApi extends BaseAPI {
      */
     public inviteUser(requestParameters: InvitationsApiInviteUserRequest, options?: RawAxiosRequestConfig) {
         return InvitationsApiFp(this.configuration).inviteUser(requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Rejects an invitation addressed to the authenticated user
+     * @summary Reject invitation
+     * @param {InvitationsApiRejectInvitationRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public rejectInvitation(requestParameters: InvitationsApiRejectInvitationRequest, options?: RawAxiosRequestConfig) {
+        return InvitationsApiFp(this.configuration).rejectInvitation(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5468,6 +7683,89 @@ export const OrganizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * Revokes the user\'s organization access
+         * @summary Remove a user from an organization
+         * @param {string} id Organization ID
+         * @param {string} userID User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeOrganizationUser: async (id: string, userID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('removeOrganizationUser', 'id', id)
+            // verify required parameter 'userID' is not null or undefined
+            assertParamExists('removeOrganizationUser', 'userID', userID)
+            const localVarPath = `/api/v1/organizations/{id}/users/{userID}`
+                .replace('{id}', encodeURIComponent(String(id)))
+                .replace('{userID}', encodeURIComponent(String(userID)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Transfer ownership of the organization to another member. Only the current owner can call this.
+         * @summary Transfer organization ownership
+         * @param {string} id Organization ID
+         * @param {OrganizationTransferOwnershipRequest} request Transfer payload
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        transferOrganizationOwnership: async (id: string, request: OrganizationTransferOwnershipRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('transferOrganizationOwnership', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('transferOrganizationOwnership', 'request', request)
+            const localVarPath = `/api/v1/organizations/{id}/transfer-ownership`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update one organization
          * @summary Update
          * @param {string} id Organization ID
@@ -5532,6 +7830,52 @@ export const OrganizationApiAxiosParamCreator = function (configuration?: Config
             }
 
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates the organization access permissions for a specific user
+         * @summary Update permissions of a user on an organization
+         * @param {string} id Organization ID
+         * @param {string} userID User ID
+         * @param {OrganizationUpdateUserPermissionsRequest} request Permissions
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOrganizationUserPermissions: async (id: string, userID: string, request: OrganizationUpdateUserPermissionsRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateOrganizationUserPermissions', 'id', id)
+            // verify required parameter 'userID' is not null or undefined
+            assertParamExists('updateOrganizationUserPermissions', 'userID', userID)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('updateOrganizationUserPermissions', 'request', request)
+            const localVarPath = `/api/v1/organizations/{id}/users/{userID}`
+                .replace('{id}', encodeURIComponent(String(id)))
+                .replace('{userID}', encodeURIComponent(String(userID)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5678,6 +8022,34 @@ export const OrganizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Revokes the user\'s organization access
+         * @summary Remove a user from an organization
+         * @param {string} id Organization ID
+         * @param {string} userID User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeOrganizationUser(id: string, userID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeOrganizationUser(id, userID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationApi.removeOrganizationUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Transfer ownership of the organization to another member. Only the current owner can call this.
+         * @summary Transfer organization ownership
+         * @param {string} id Organization ID
+         * @param {OrganizationTransferOwnershipRequest} request Transfer payload
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async transferOrganizationOwnership(id: string, request: OrganizationTransferOwnershipRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.transferOrganizationOwnership(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationApi.transferOrganizationOwnership']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Update one organization
          * @summary Update
          * @param {string} id Organization ID
@@ -5703,6 +8075,21 @@ export const OrganizationApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationStatsSubscription(id, request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['OrganizationApi.updateOrganizationStatsSubscription']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Updates the organization access permissions for a specific user
+         * @summary Update permissions of a user on an organization
+         * @param {string} id Organization ID
+         * @param {string} userID User ID
+         * @param {OrganizationUpdateUserPermissionsRequest} request Permissions
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateOrganizationUserPermissions(id: string, userID: string, request: OrganizationUpdateUserPermissionsRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrganizationUserPermissions(id, userID, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrganizationApi.updateOrganizationUserPermissions']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -5804,6 +8191,26 @@ export const OrganizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.removeOrganizationStatsSubscription(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
         },
         /**
+         * Revokes the user\'s organization access
+         * @summary Remove a user from an organization
+         * @param {OrganizationApiRemoveOrganizationUserRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeOrganizationUser(requestParameters: OrganizationApiRemoveOrganizationUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.removeOrganizationUser(requestParameters.id, requestParameters.userID, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Transfer ownership of the organization to another member. Only the current owner can call this.
+         * @summary Transfer organization ownership
+         * @param {OrganizationApiTransferOrganizationOwnershipRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        transferOrganizationOwnership(requestParameters: OrganizationApiTransferOrganizationOwnershipRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrganizationResponse> {
+            return localVarFp.transferOrganizationOwnership(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Update one organization
          * @summary Update
          * @param {OrganizationApiUpdateOrganizationRequest} requestParameters Request parameters.
@@ -5822,6 +8229,16 @@ export const OrganizationApiFactory = function (configuration?: Configuration, b
          */
         updateOrganizationStatsSubscription(requestParameters: OrganizationApiUpdateOrganizationStatsSubscriptionRequest, options?: RawAxiosRequestConfig): AxiosPromise<ProjectResponse> {
             return localVarFp.updateOrganizationStatsSubscription(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates the organization access permissions for a specific user
+         * @summary Update permissions of a user on an organization
+         * @param {OrganizationApiUpdateOrganizationUserPermissionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOrganizationUserPermissions(requestParameters: OrganizationApiUpdateOrganizationUserPermissionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseUser> {
+            return localVarFp.updateOrganizationUserPermissions(requestParameters.id, requestParameters.userID, requestParameters.request, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5912,6 +8329,36 @@ export interface OrganizationApiRemoveOrganizationStatsSubscriptionRequest {
 }
 
 /**
+ * Request parameters for removeOrganizationUser operation in OrganizationApi.
+ */
+export interface OrganizationApiRemoveOrganizationUserRequest {
+    /**
+     * Organization ID
+     */
+    readonly id: string
+
+    /**
+     * User ID
+     */
+    readonly userID: string
+}
+
+/**
+ * Request parameters for transferOrganizationOwnership operation in OrganizationApi.
+ */
+export interface OrganizationApiTransferOrganizationOwnershipRequest {
+    /**
+     * Organization ID
+     */
+    readonly id: string
+
+    /**
+     * Transfer payload
+     */
+    readonly request: OrganizationTransferOwnershipRequest
+}
+
+/**
  * Request parameters for updateOrganization operation in OrganizationApi.
  */
 export interface OrganizationApiUpdateOrganizationRequest {
@@ -5939,6 +8386,26 @@ export interface OrganizationApiUpdateOrganizationStatsSubscriptionRequest {
      * Subscription params
      */
     readonly request: OrganizationUpdateStatsSubscriptionRequest
+}
+
+/**
+ * Request parameters for updateOrganizationUserPermissions operation in OrganizationApi.
+ */
+export interface OrganizationApiUpdateOrganizationUserPermissionsRequest {
+    /**
+     * Organization ID
+     */
+    readonly id: string
+
+    /**
+     * User ID
+     */
+    readonly userID: string
+
+    /**
+     * Permissions
+     */
+    readonly request: OrganizationUpdateUserPermissionsRequest
 }
 
 /**
@@ -6044,6 +8511,28 @@ export class OrganizationApi extends BaseAPI {
     }
 
     /**
+     * Revokes the user\'s organization access
+     * @summary Remove a user from an organization
+     * @param {OrganizationApiRemoveOrganizationUserRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public removeOrganizationUser(requestParameters: OrganizationApiRemoveOrganizationUserRequest, options?: RawAxiosRequestConfig) {
+        return OrganizationApiFp(this.configuration).removeOrganizationUser(requestParameters.id, requestParameters.userID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Transfer ownership of the organization to another member. Only the current owner can call this.
+     * @summary Transfer organization ownership
+     * @param {OrganizationApiTransferOrganizationOwnershipRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public transferOrganizationOwnership(requestParameters: OrganizationApiTransferOrganizationOwnershipRequest, options?: RawAxiosRequestConfig) {
+        return OrganizationApiFp(this.configuration).transferOrganizationOwnership(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Update one organization
      * @summary Update
      * @param {OrganizationApiUpdateOrganizationRequest} requestParameters Request parameters.
@@ -6063,6 +8552,17 @@ export class OrganizationApi extends BaseAPI {
      */
     public updateOrganizationStatsSubscription(requestParameters: OrganizationApiUpdateOrganizationStatsSubscriptionRequest, options?: RawAxiosRequestConfig) {
         return OrganizationApiFp(this.configuration).updateOrganizationStatsSubscription(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Updates the organization access permissions for a specific user
+     * @summary Update permissions of a user on an organization
+     * @param {OrganizationApiUpdateOrganizationUserPermissionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public updateOrganizationUserPermissions(requestParameters: OrganizationApiUpdateOrganizationUserPermissionsRequest, options?: RawAxiosRequestConfig) {
+        return OrganizationApiFp(this.configuration).updateOrganizationUserPermissions(requestParameters.id, requestParameters.userID, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -6487,6 +8987,43 @@ export const ProjectApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Gets all invitations targeting a given project
+         * @summary Get invitations in a project
+         * @param {string} id Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProjectInvitations: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getProjectInvitations', 'id', id)
+            const localVarPath = `/api/v1/projects/{id}/invitations`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get users in a given project
          * @summary Get users in a project
          * @param {string} id Project ID
@@ -6557,6 +9094,47 @@ export const ProjectApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Revokes the user\'s project access
+         * @summary Remove a user from a project
+         * @param {string} id Project ID
+         * @param {string} userID User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeProjectUser: async (id: string, userID: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('removeProjectUser', 'id', id)
+            // verify required parameter 'userID' is not null or undefined
+            assertParamExists('removeProjectUser', 'userID', userID)
+            const localVarPath = `/api/v1/projects/{id}/users/{userID}`
+                .replace('{id}', encodeURIComponent(String(id)))
+                .replace('{userID}', encodeURIComponent(String(userID)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Restore a previously archived project (clears archivedAt). The pending hard-delete task no-ops.
          * @summary Restore
          * @param {string} id Project ID
@@ -6587,6 +9165,48 @@ export const ProjectApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Transfer ownership of the project to another member. Only the current owner can call this.
+         * @summary Transfer project ownership
+         * @param {string} id Project ID
+         * @param {ProjectTransferOwnershipRequest} request Transfer payload
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        transferProjectOwnership: async (id: string, request: ProjectTransferOwnershipRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('transferProjectOwnership', 'id', id)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('transferProjectOwnership', 'request', request)
+            const localVarPath = `/api/v1/projects/{id}/transfer-ownership`
+                .replace('{id}', encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6724,6 +9344,52 @@ export const ProjectApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Updates the project access permissions for a specific user
+         * @summary Update permissions of a user on a project
+         * @param {string} id Project ID
+         * @param {string} userID User ID
+         * @param {ProjectUpdateUserPermissionsRequest} request Permissions
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProjectUserPermissions: async (id: string, userID: string, request: ProjectUpdateUserPermissionsRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateProjectUserPermissions', 'id', id)
+            // verify required parameter 'userID' is not null or undefined
+            assertParamExists('updateProjectUserPermissions', 'userID', userID)
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('updateProjectUserPermissions', 'request', request)
+            const localVarPath = `/api/v1/projects/{id}/users/{userID}`
+                .replace('{id}', encodeURIComponent(String(id)))
+                .replace('{userID}', encodeURIComponent(String(userID)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update stats config for a project, including aggregation dimensions.
          * @summary Update stats config
          * @param {string} id Project ID
@@ -6828,6 +9494,19 @@ export const ProjectApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Gets all invitations targeting a given project
+         * @summary Get invitations in a project
+         * @param {string} id Project ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getProjectInvitations(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ResponseInvitation>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectInvitations(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProjectApi.getProjectInvitations']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Get users in a given project
          * @summary Get users in a project
          * @param {string} id Project ID
@@ -6853,6 +9532,20 @@ export const ProjectApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Revokes the user\'s project access
+         * @summary Remove a user from a project
+         * @param {string} id Project ID
+         * @param {string} userID User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeProjectUser(id: string, userID: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeProjectUser(id, userID, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProjectApi.removeProjectUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Restore a previously archived project (clears archivedAt). The pending hard-delete task no-ops.
          * @summary Restore
          * @param {string} id Project ID
@@ -6863,6 +9556,20 @@ export const ProjectApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.restoreProject(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ProjectApi.restoreProject']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Transfer ownership of the project to another member. Only the current owner can call this.
+         * @summary Transfer project ownership
+         * @param {string} id Project ID
+         * @param {ProjectTransferOwnershipRequest} request Transfer payload
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async transferProjectOwnership(id: string, request: ProjectTransferOwnershipRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.transferProjectOwnership(id, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProjectApi.transferProjectOwnership']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6906,6 +9613,21 @@ export const ProjectApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectPublicSettings(id, request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ProjectApi.updateProjectPublicSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Updates the project access permissions for a specific user
+         * @summary Update permissions of a user on a project
+         * @param {string} id Project ID
+         * @param {string} userID User ID
+         * @param {ProjectUpdateUserPermissionsRequest} request Permissions
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateProjectUserPermissions(id: string, userID: string, request: ProjectUpdateUserPermissionsRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectUserPermissions(id, userID, request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProjectApi.updateProjectUserPermissions']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6972,6 +9694,16 @@ export const ProjectApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.deleteProjectClient(requestParameters.id, requestParameters.clientID, options).then((request) => request(axios, basePath));
         },
         /**
+         * Gets all invitations targeting a given project
+         * @summary Get invitations in a project
+         * @param {ProjectApiGetProjectInvitationsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProjectInvitations(requestParameters: ProjectApiGetProjectInvitationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<ResponseInvitation>> {
+            return localVarFp.getProjectInvitations(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get users in a given project
          * @summary Get users in a project
          * @param {ProjectApiGetProjectUsersRequest} requestParameters Request parameters.
@@ -6991,6 +9723,16 @@ export const ProjectApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getUserProjects(options).then((request) => request(axios, basePath));
         },
         /**
+         * Revokes the user\'s project access
+         * @summary Remove a user from a project
+         * @param {ProjectApiRemoveProjectUserRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeProjectUser(requestParameters: ProjectApiRemoveProjectUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.removeProjectUser(requestParameters.id, requestParameters.userID, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Restore a previously archived project (clears archivedAt). The pending hard-delete task no-ops.
          * @summary Restore
          * @param {ProjectApiRestoreProjectRequest} requestParameters Request parameters.
@@ -6999,6 +9741,16 @@ export const ProjectApiFactory = function (configuration?: Configuration, basePa
          */
         restoreProject(requestParameters: ProjectApiRestoreProjectRequest, options?: RawAxiosRequestConfig): AxiosPromise<ProjectResponse> {
             return localVarFp.restoreProject(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Transfer ownership of the project to another member. Only the current owner can call this.
+         * @summary Transfer project ownership
+         * @param {ProjectApiTransferProjectOwnershipRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        transferProjectOwnership(requestParameters: ProjectApiTransferProjectOwnershipRequest, options?: RawAxiosRequestConfig): AxiosPromise<ProjectResponse> {
+            return localVarFp.transferProjectOwnership(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
         },
         /**
          * Update one project
@@ -7029,6 +9781,16 @@ export const ProjectApiFactory = function (configuration?: Configuration, basePa
          */
         updateProjectPublicSettings(requestParameters: ProjectApiUpdateProjectPublicSettingsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ProjectResponse> {
             return localVarFp.updateProjectPublicSettings(requestParameters.id, requestParameters.request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates the project access permissions for a specific user
+         * @summary Update permissions of a user on a project
+         * @param {ProjectApiUpdateProjectUserPermissionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProjectUserPermissions(requestParameters: ProjectApiUpdateProjectUserPermissionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResponseUser> {
+            return localVarFp.updateProjectUserPermissions(requestParameters.id, requestParameters.userID, requestParameters.request, options).then((request) => request(axios, basePath));
         },
         /**
          * Update stats config for a project, including aggregation dimensions.
@@ -7089,6 +9851,16 @@ export interface ProjectApiDeleteProjectClientRequest {
 }
 
 /**
+ * Request parameters for getProjectInvitations operation in ProjectApi.
+ */
+export interface ProjectApiGetProjectInvitationsRequest {
+    /**
+     * Project ID
+     */
+    readonly id: string
+}
+
+/**
  * Request parameters for getProjectUsers operation in ProjectApi.
  */
 export interface ProjectApiGetProjectUsersRequest {
@@ -7099,6 +9871,21 @@ export interface ProjectApiGetProjectUsersRequest {
 }
 
 /**
+ * Request parameters for removeProjectUser operation in ProjectApi.
+ */
+export interface ProjectApiRemoveProjectUserRequest {
+    /**
+     * Project ID
+     */
+    readonly id: string
+
+    /**
+     * User ID
+     */
+    readonly userID: string
+}
+
+/**
  * Request parameters for restoreProject operation in ProjectApi.
  */
 export interface ProjectApiRestoreProjectRequest {
@@ -7106,6 +9893,21 @@ export interface ProjectApiRestoreProjectRequest {
      * Project ID
      */
     readonly id: string
+}
+
+/**
+ * Request parameters for transferProjectOwnership operation in ProjectApi.
+ */
+export interface ProjectApiTransferProjectOwnershipRequest {
+    /**
+     * Project ID
+     */
+    readonly id: string
+
+    /**
+     * Transfer payload
+     */
+    readonly request: ProjectTransferOwnershipRequest
 }
 
 /**
@@ -7156,6 +9958,26 @@ export interface ProjectApiUpdateProjectPublicSettingsRequest {
      * Update project public settings body
      */
     readonly request: ProjectUpdatePublicSettingsRequest
+}
+
+/**
+ * Request parameters for updateProjectUserPermissions operation in ProjectApi.
+ */
+export interface ProjectApiUpdateProjectUserPermissionsRequest {
+    /**
+     * Project ID
+     */
+    readonly id: string
+
+    /**
+     * User ID
+     */
+    readonly userID: string
+
+    /**
+     * Permissions
+     */
+    readonly request: ProjectUpdateUserPermissionsRequest
 }
 
 /**
@@ -7222,6 +10044,17 @@ export class ProjectApi extends BaseAPI {
     }
 
     /**
+     * Gets all invitations targeting a given project
+     * @summary Get invitations in a project
+     * @param {ProjectApiGetProjectInvitationsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getProjectInvitations(requestParameters: ProjectApiGetProjectInvitationsRequest, options?: RawAxiosRequestConfig) {
+        return ProjectApiFp(this.configuration).getProjectInvitations(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Get users in a given project
      * @summary Get users in a project
      * @param {ProjectApiGetProjectUsersRequest} requestParameters Request parameters.
@@ -7243,6 +10076,17 @@ export class ProjectApi extends BaseAPI {
     }
 
     /**
+     * Revokes the user\'s project access
+     * @summary Remove a user from a project
+     * @param {ProjectApiRemoveProjectUserRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public removeProjectUser(requestParameters: ProjectApiRemoveProjectUserRequest, options?: RawAxiosRequestConfig) {
+        return ProjectApiFp(this.configuration).removeProjectUser(requestParameters.id, requestParameters.userID, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Restore a previously archived project (clears archivedAt). The pending hard-delete task no-ops.
      * @summary Restore
      * @param {ProjectApiRestoreProjectRequest} requestParameters Request parameters.
@@ -7251,6 +10095,17 @@ export class ProjectApi extends BaseAPI {
      */
     public restoreProject(requestParameters: ProjectApiRestoreProjectRequest, options?: RawAxiosRequestConfig) {
         return ProjectApiFp(this.configuration).restoreProject(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Transfer ownership of the project to another member. Only the current owner can call this.
+     * @summary Transfer project ownership
+     * @param {ProjectApiTransferProjectOwnershipRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public transferProjectOwnership(requestParameters: ProjectApiTransferProjectOwnershipRequest, options?: RawAxiosRequestConfig) {
+        return ProjectApiFp(this.configuration).transferProjectOwnership(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7284,6 +10139,17 @@ export class ProjectApi extends BaseAPI {
      */
     public updateProjectPublicSettings(requestParameters: ProjectApiUpdateProjectPublicSettingsRequest, options?: RawAxiosRequestConfig) {
         return ProjectApiFp(this.configuration).updateProjectPublicSettings(requestParameters.id, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Updates the project access permissions for a specific user
+     * @summary Update permissions of a user on a project
+     * @param {ProjectApiUpdateProjectUserPermissionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public updateProjectUserPermissions(requestParameters: ProjectApiUpdateProjectUserPermissionsRequest, options?: RawAxiosRequestConfig) {
+        return ProjectApiFp(this.configuration).updateProjectUserPermissions(requestParameters.id, requestParameters.userID, requestParameters.request, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7710,6 +10576,9 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
             if (date !== undefined) {
                 localVarQueryParameter['date'] = date;
             }
@@ -7838,6 +10707,9 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
             if (projectID !== undefined) {
                 localVarQueryParameter['projectID'] = projectID;
             }
@@ -7881,6 +10753,9 @@ export const StatsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (date !== undefined) {
                 localVarQueryParameter['date'] = date;

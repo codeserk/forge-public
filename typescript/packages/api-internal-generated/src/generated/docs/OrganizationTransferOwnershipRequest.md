@@ -1,21 +1,19 @@
-# EntityInsightsViewConfigBar
+# OrganizationTransferOwnershipRequest
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**aggregatePeriod** | **boolean** |  | [optional] [default to undefined]
-**barStyle** | **string** |  | [optional] [default to undefined]
+**newOwnerID** | **string** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { EntityInsightsViewConfigBar } from './api';
+import { OrganizationTransferOwnershipRequest } from './api';
 
-const instance: EntityInsightsViewConfigBar = {
-    aggregatePeriod,
-    barStyle,
+const instance: OrganizationTransferOwnershipRequest = {
+    newOwnerID,
 };
 ```
 

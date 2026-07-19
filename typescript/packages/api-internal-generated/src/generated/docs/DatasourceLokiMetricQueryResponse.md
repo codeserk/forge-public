@@ -1,21 +1,19 @@
-# EntityInsightsViewConfigBar
+# DatasourceLokiMetricQueryResponse
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**aggregatePeriod** | **boolean** |  | [optional] [default to undefined]
-**barStyle** | **string** |  | [optional] [default to undefined]
+**expr** | **string** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { EntityInsightsViewConfigBar } from './api';
+import { DatasourceLokiMetricQueryResponse } from './api';
 
-const instance: EntityInsightsViewConfigBar = {
-    aggregatePeriod,
-    barStyle,
+const instance: DatasourceLokiMetricQueryResponse = {
+    expr,
 };
 ```
 

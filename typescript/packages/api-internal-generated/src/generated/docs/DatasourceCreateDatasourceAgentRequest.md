@@ -1,21 +1,21 @@
-# EntityInsightsViewConfigBar
+# DatasourceCreateDatasourceAgentRequest
 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**aggregatePeriod** | **boolean** |  | [optional] [default to undefined]
-**barStyle** | **string** |  | [optional] [default to undefined]
+**name** | **string** |  | [default to undefined]
+**organizationID** | **string** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { EntityInsightsViewConfigBar } from './api';
+import { DatasourceCreateDatasourceAgentRequest } from './api';
 
-const instance: EntityInsightsViewConfigBar = {
-    aggregatePeriod,
-    barStyle,
+const instance: DatasourceCreateDatasourceAgentRequest = {
+    name,
+    organizationID,
 };
 ```
 

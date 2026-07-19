@@ -1,6 +1,6 @@
 {
   "name": "@codeserk/forge-api-internal-generated",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Auto-generated TypeScript client for the Forge internal API. Do not edit by hand.",
   "license": "MIT",
   "publishConfig": {

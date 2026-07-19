@@ -1,44 +1,45 @@
-# ProjectApi
+# DatasourcesApi
 
 All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**archiveProject**](#archiveproject) | **DELETE** /api/v1/projects/{id} | Archive|
-|[**createProject**](#createproject) | **POST** /api/v1/projects | Create|
-|[**createProjectClient**](#createprojectclient) | **POST** /api/v1/projects/{id}/clients | CreateProjectClient|
-|[**deleteProjectClient**](#deleteprojectclient) | **DELETE** /api/v1/projects/{id}/clients/{clientID} | DeleteProjectClient|
-|[**getProjectInvitations**](#getprojectinvitations) | **GET** /api/v1/projects/{id}/invitations | Get invitations in a project|
-|[**getProjectUsers**](#getprojectusers) | **GET** /api/v1/projects/{id}/users | Get users in a project|
-|[**getUserProjects**](#getuserprojects) | **GET** /api/v1/projects/mine | GetFromUser|
-|[**removeProjectUser**](#removeprojectuser) | **DELETE** /api/v1/projects/{id}/users/{userID} | Remove a user from a project|
-|[**restoreProject**](#restoreproject) | **POST** /api/v1/projects/{id}/restore | Restore|
-|[**transferProjectOwnership**](#transferprojectownership) | **POST** /api/v1/projects/{id}/transfer-ownership | Transfer project ownership|
-|[**updateProject**](#updateproject) | **PATCH** /api/v1/projects/{id} | Update|
-|[**updateProjectClient**](#updateprojectclient) | **PATCH** /api/v1/projects/{id}/clients/{clientID} | UpdateProjectClient|
-|[**updateProjectPublicSettings**](#updateprojectpublicsettings) | **PATCH** /api/v1/projects/{id}/public-settings | UpdatePublicSettings|
-|[**updateProjectUserPermissions**](#updateprojectuserpermissions) | **PATCH** /api/v1/projects/{id}/users/{userID} | Update permissions of a user on a project|
-|[**updateStatsConfig**](#updatestatsconfig) | **PATCH** /api/v1/projects/{id}/stats-config | Update stats config|
+|[**archiveDatasource**](#archivedatasource) | **DELETE** /api/v1/datasources/{id} | Archive datasource|
+|[**archiveDatasourceAgent**](#archivedatasourceagent) | **DELETE** /api/v1/datasource-agents/{id} | Archive datasource agent|
+|[**archiveDatasourceMetric**](#archivedatasourcemetric) | **DELETE** /api/v1/datasource-metrics/{id} | Archive datasource metric|
+|[**createDatasource**](#createdatasource) | **POST** /api/v1/datasources | Create datasource|
+|[**createDatasourceAgent**](#createdatasourceagent) | **POST** /api/v1/datasource-agents | Create datasource agent|
+|[**createDatasourceMetric**](#createdatasourcemetric) | **POST** /api/v1/datasources/{datasourceID}/metrics | Create datasource metric|
+|[**evaluateDatasourceMetric**](#evaluatedatasourcemetric) | **POST** /api/v1/datasource-metrics/{id}/evaluate | Evaluate datasource metric|
+|[**getDatasource**](#getdatasource) | **GET** /api/v1/datasources/{id} | Get datasource|
+|[**getDatasourceAgent**](#getdatasourceagent) | **GET** /api/v1/datasource-agents/{id} | Get datasource agent|
+|[**getDatasourceAgents**](#getdatasourceagents) | **GET** /api/v1/datasource-agents | List datasource agents|
+|[**getDatasourceMetric**](#getdatasourcemetric) | **GET** /api/v1/datasource-metrics/{id} | Get datasource metric|
+|[**getDatasourceMetrics**](#getdatasourcemetrics) | **GET** /api/v1/datasources/{datasourceID}/metrics | List datasource metrics|
+|[**getDatasources**](#getdatasources) | **GET** /api/v1/datasources | List datasources|
+|[**ingestDatasource**](#ingestdatasource) | **POST** /api/v1/datasources/{id}/ingest | Ingest datasource|
+|[**updateDatasource**](#updatedatasource) | **PATCH** /api/v1/datasources/{id} | Update datasource|
+|[**updateDatasourceMetric**](#updatedatasourcemetric) | **PATCH** /api/v1/datasource-metrics/{id} | Update datasource metric|
 
-# **archiveProject**
-> ProjectResponse archiveProject()
+# **archiveDatasource**
+> DatasourceDatasourceArchiveResponse archiveDatasource()
 
-Archive one project
+Archive a datasource by ID
 
 ### Example
 
 ```typescript
 import {
-    ProjectApi,
+    DatasourcesApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
+const apiInstance = new DatasourcesApi(configuration);
 
-let id: string; //Project ID (default to undefined)
+let id: string; //Datasource ID (default to undefined)
 
-const { status, data } = await apiInstance.archiveProject(
+const { status, data } = await apiInstance.archiveDatasource(
     id
 );
 ```
@@ -47,12 +48,12 @@ const { status, data } = await apiInstance.archiveProject(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Project ID | defaults to undefined|
+| **id** | [**string**] | Datasource ID | defaults to undefined|
 
 
 ### Return type
 
-**ProjectResponse**
+**DatasourceDatasourceArchiveResponse**
 
 ### Authorization
 
@@ -70,411 +71,30 @@ const { status, data } = await apiInstance.archiveProject(
 |**200** | OK |  -  |
 |**400** | Bad Request |  -  |
 |**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createProject**
-> ProjectCreateResponse createProject(request)
-
-Create new project
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration,
-    ProjectCreateRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let request: ProjectCreateRequest; //Create project body
-
-const { status, data } = await apiInstance.createProject(
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **ProjectCreateRequest**| Create project body | |
-
-
-### Return type
-
-**ProjectCreateResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createProjectClient**
-> ProjectResponse createProjectClient()
-
-Create new project client
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-
-const { status, data } = await apiInstance.createProjectClient(
-    id
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Project ID | defaults to undefined|
-
-
-### Return type
-
-**ProjectResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteProjectClient**
-> ProjectResponse deleteProjectClient()
-
-Delete a project client
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-let clientID: string; //Client ID (default to undefined)
-
-const { status, data } = await apiInstance.deleteProjectClient(
-    id,
-    clientID
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Project ID | defaults to undefined|
-| **clientID** | [**string**] | Client ID | defaults to undefined|
-
-
-### Return type
-
-**ProjectResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getProjectInvitations**
-> Array<ResponseInvitation> getProjectInvitations()
-
-Gets all invitations targeting a given project
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-
-const { status, data } = await apiInstance.getProjectInvitations(
-    id
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Project ID | defaults to undefined|
-
-
-### Return type
-
-**Array<ResponseInvitation>**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**403** | Forbidden |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getProjectUsers**
-> Array<ResponseUser> getProjectUsers()
-
-Get users in a given project
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-
-const { status, data } = await apiInstance.getProjectUsers(
-    id
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Project ID | defaults to undefined|
-
-
-### Return type
-
-**Array<ResponseUser>**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getUserProjects**
-> Array<ProjectResponse> getUserProjects()
-
-Gets all the project to which the user has access
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-const { status, data } = await apiInstance.getUserProjects();
-```
-
-### Parameters
-This endpoint does not have any parameters.
-
-
-### Return type
-
-**Array<ProjectResponse>**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **removeProjectUser**
-> removeProjectUser()
-
-Revokes the user\'s project access
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-let userID: string; //User ID (default to undefined)
-
-const { status, data } = await apiInstance.removeProjectUser(
-    id,
-    userID
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Project ID | defaults to undefined|
-| **userID** | [**string**] | User ID | defaults to undefined|
-
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**204** |  |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**403** | Forbidden |  -  |
 |**404** | Not Found |  -  |
-|**409** | Conflict |  -  |
 |**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **restoreProject**
-> ProjectResponse restoreProject()
+# **archiveDatasourceAgent**
+> DatasourceDatasourceAgentArchiveResponse archiveDatasourceAgent()
 
-Restore a previously archived project (clears archivedAt). The pending hard-delete task no-ops.
+Archive a datasource agent by ID
 
 ### Example
 
 ```typescript
 import {
-    ProjectApi,
+    DatasourcesApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
+const apiInstance = new DatasourcesApi(configuration);
 
-let id: string; //Project ID (default to undefined)
+let id: string; //Agent ID (default to undefined)
 
-const { status, data } = await apiInstance.restoreProject(
+const { status, data } = await apiInstance.archiveDatasourceAgent(
     id
 );
 ```
@@ -483,12 +103,12 @@ const { status, data } = await apiInstance.restoreProject(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Project ID | defaults to undefined|
+| **id** | [**string**] | Agent ID | defaults to undefined|
 
 
 ### Return type
 
-**ProjectResponse**
+**DatasourceDatasourceAgentArchiveResponse**
 
 ### Authorization
 
@@ -497,64 +117,6 @@ const { status, data } = await apiInstance.restoreProject(
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **transferProjectOwnership**
-> ProjectResponse transferProjectOwnership(request)
-
-Transfer ownership of the project to another member. Only the current owner can call this.
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration,
-    ProjectTransferOwnershipRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-let request: ProjectTransferOwnershipRequest; //Transfer payload
-
-const { status, data } = await apiInstance.transferProjectOwnership(
-    id,
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **ProjectTransferOwnershipRequest**| Transfer payload | |
-| **id** | [**string**] | Project ID | defaults to undefined|
-
-
-### Return type
-
-**ProjectResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -570,28 +132,81 @@ const { status, data } = await apiInstance.transferProjectOwnership(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updateProject**
-> ProjectResponse updateProject(request)
+# **archiveDatasourceMetric**
+> DatasourceDatasourceMetricArchiveResponse archiveDatasourceMetric()
 
-Update one project
+Archive a datasource metric by ID
 
 ### Example
 
 ```typescript
 import {
-    ProjectApi,
-    Configuration,
-    ProjectUpdateRequest
+    DatasourcesApi,
+    Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
+const apiInstance = new DatasourcesApi(configuration);
 
-let id: string; //Project ID (default to undefined)
-let request: ProjectUpdateRequest; //Update project body
+let id: string; //Metric ID (default to undefined)
 
-const { status, data } = await apiInstance.updateProject(
-    id,
+const { status, data } = await apiInstance.archiveDatasourceMetric(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Metric ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceMetricArchiveResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **createDatasource**
+> DatasourceDatasourceResponse createDatasource(request)
+
+Create a new datasource
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration,
+    DatasourceCreateDatasourceRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let request: DatasourceCreateDatasourceRequest; //Create datasource body
+
+const { status, data } = await apiInstance.createDatasource(
     request
 );
 ```
@@ -600,13 +215,12 @@ const { status, data } = await apiInstance.updateProject(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **request** | **ProjectUpdateRequest**| Update project body | |
-| **id** | [**string**] | Project ID | defaults to undefined|
+| **request** | **DatasourceCreateDatasourceRequest**| Create datasource body | |
 
 
 ### Return type
 
-**ProjectResponse**
+**DatasourceDatasourceResponse**
 
 ### Authorization
 
@@ -628,30 +242,26 @@ const { status, data } = await apiInstance.updateProject(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updateProjectClient**
-> ProjectResponse updateProjectClient(request)
+# **createDatasourceAgent**
+> DatasourceCreateDatasourceAgentResponse createDatasourceAgent(request)
 
-Update a project client
+Create a new datasource agent. The plaintext tenant token is returned ONCE and never stored.
 
 ### Example
 
 ```typescript
 import {
-    ProjectApi,
+    DatasourcesApi,
     Configuration,
-    ProjectUpdateClientRequest
+    DatasourceCreateDatasourceAgentRequest
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
+const apiInstance = new DatasourcesApi(configuration);
 
-let id: string; //Project ID (default to undefined)
-let clientID: string; //Client ID (default to undefined)
-let request: ProjectUpdateClientRequest; //Update project client
+let request: DatasourceCreateDatasourceAgentRequest; //Create agent body
 
-const { status, data } = await apiInstance.updateProjectClient(
-    id,
-    clientID,
+const { status, data } = await apiInstance.createDatasourceAgent(
     request
 );
 ```
@@ -660,133 +270,12 @@ const { status, data } = await apiInstance.updateProjectClient(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **request** | **ProjectUpdateClientRequest**| Update project client | |
-| **id** | [**string**] | Project ID | defaults to undefined|
-| **clientID** | [**string**] | Client ID | defaults to undefined|
+| **request** | **DatasourceCreateDatasourceAgentRequest**| Create agent body | |
 
 
 ### Return type
 
-**ProjectResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateProjectPublicSettings**
-> ProjectResponse updateProjectPublicSettings(request)
-
-Update public settings of a project
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration,
-    ProjectUpdatePublicSettingsRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-let request: ProjectUpdatePublicSettingsRequest; //Update project public settings body
-
-const { status, data } = await apiInstance.updateProjectPublicSettings(
-    id,
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **ProjectUpdatePublicSettingsRequest**| Update project public settings body | |
-| **id** | [**string**] | Project ID | defaults to undefined|
-
-
-### Return type
-
-**ProjectResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateProjectUserPermissions**
-> ResponseUser updateProjectUserPermissions(request)
-
-Updates the project access permissions for a specific user
-
-### Example
-
-```typescript
-import {
-    ProjectApi,
-    Configuration,
-    ProjectUpdateUserPermissionsRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
-
-let id: string; //Project ID (default to undefined)
-let userID: string; //User ID (default to undefined)
-let request: ProjectUpdateUserPermissionsRequest; //Permissions
-
-const { status, data } = await apiInstance.updateProjectUserPermissions(
-    id,
-    userID,
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **ProjectUpdateUserPermissionsRequest**| Permissions | |
-| **id** | [**string**] | Project ID | defaults to undefined|
-| **userID** | [**string**] | User ID | defaults to undefined|
-
-
-### Return type
-
-**ResponseUser**
+**DatasourceCreateDatasourceAgentResponse**
 
 ### Authorization
 
@@ -805,34 +294,32 @@ const { status, data } = await apiInstance.updateProjectUserPermissions(
 |**400** | Bad Request |  -  |
 |**401** | Unauthorized |  -  |
 |**403** | Forbidden |  -  |
-|**404** | Not Found |  -  |
-|**409** | Conflict |  -  |
 |**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updateStatsConfig**
-> ProjectResponse updateStatsConfig(request)
+# **createDatasourceMetric**
+> DatasourceDatasourceMetricResponse createDatasourceMetric(request)
 
-Update stats config for a project, including aggregation dimensions.
+Create a new metric on a datasource
 
 ### Example
 
 ```typescript
 import {
-    ProjectApi,
+    DatasourcesApi,
     Configuration,
-    ProjectUpdateStatsConfigRequest
+    DatasourceCreateDatasourceMetricRequest
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new ProjectApi(configuration);
+const apiInstance = new DatasourcesApi(configuration);
 
-let id: string; //Project ID (default to undefined)
-let request: ProjectUpdateStatsConfigRequest; //Update stats config body
+let datasourceID: string; //Datasource ID (default to undefined)
+let request: DatasourceCreateDatasourceMetricRequest; //Create metric body
 
-const { status, data } = await apiInstance.updateStatsConfig(
-    id,
+const { status, data } = await apiInstance.createDatasourceMetric(
+    datasourceID,
     request
 );
 ```
@@ -841,13 +328,13 @@ const { status, data } = await apiInstance.updateStatsConfig(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **request** | **ProjectUpdateStatsConfigRequest**| Update stats config body | |
-| **id** | [**string**] | Project ID | defaults to undefined|
+| **request** | **DatasourceCreateDatasourceMetricRequest**| Create metric body | |
+| **datasourceID** | [**string**] | Datasource ID | defaults to undefined|
 
 
 ### Return type
 
-**ProjectResponse**
+**DatasourceDatasourceMetricResponse**
 
 ### Authorization
 
@@ -865,6 +352,569 @@ const { status, data } = await apiInstance.updateStatsConfig(
 |**200** | OK |  -  |
 |**400** | Bad Request |  -  |
 |**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **evaluateDatasourceMetric**
+> DatasourceDatasourceMetricResultResponse evaluateDatasourceMetric(request)
+
+Evaluate a metric over a time range
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration,
+    DatasourceEvaluateDatasourceMetricRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let id: string; //Metric ID (default to undefined)
+let request: DatasourceEvaluateDatasourceMetricRequest; //Evaluate range
+
+const { status, data } = await apiInstance.evaluateDatasourceMetric(
+    id,
+    request
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **request** | **DatasourceEvaluateDatasourceMetricRequest**| Evaluate range | |
+| **id** | [**string**] | Metric ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceMetricResultResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasource**
+> DatasourceDatasourceResponse getDatasource()
+
+Get a datasource by ID
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let id: string; //Datasource ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasource(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Datasource ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasourceAgent**
+> DatasourceDatasourceAgentResponse getDatasourceAgent()
+
+Get a datasource agent by ID
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let id: string; //Agent ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasourceAgent(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Agent ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceAgentResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**403** | Forbidden |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasourceAgents**
+> Array<DatasourceDatasourceAgentResponse> getDatasourceAgents()
+
+List datasource agents for an organization
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let organizationID: string; //Organization ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasourceAgents(
+    organizationID
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **organizationID** | [**string**] | Organization ID | defaults to undefined|
+
+
+### Return type
+
+**Array<DatasourceDatasourceAgentResponse>**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**403** | Forbidden |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasourceMetric**
+> DatasourceDatasourceMetricResponse getDatasourceMetric()
+
+Get a datasource metric by ID
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let id: string; //Metric ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasourceMetric(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Metric ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceMetricResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasourceMetrics**
+> Array<DatasourceDatasourceMetricResponse> getDatasourceMetrics()
+
+List metrics for a datasource
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let datasourceID: string; //Datasource ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasourceMetrics(
+    datasourceID
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **datasourceID** | [**string**] | Datasource ID | defaults to undefined|
+
+
+### Return type
+
+**Array<DatasourceDatasourceMetricResponse>**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasources**
+> Array<DatasourceDatasourceResponse> getDatasources()
+
+List datasources for a project
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let projectID: string; //Project ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasources(
+    projectID
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **projectID** | [**string**] | Project ID | defaults to undefined|
+
+
+### Return type
+
+**Array<DatasourceDatasourceResponse>**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ingestDatasource**
+> DatasourceIngestDatasourceResponse ingestDatasource()
+
+Trigger an ingest run for a datasource over the last 7 days
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let id: string; //Datasource ID (default to undefined)
+
+const { status, data } = await apiInstance.ingestDatasource(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Datasource ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceIngestDatasourceResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateDatasource**
+> DatasourceDatasourceResponse updateDatasource(request)
+
+Update an existing datasource
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration,
+    DatasourceUpdateDatasourceRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let id: string; //Datasource ID (default to undefined)
+let request: DatasourceUpdateDatasourceRequest; //Update datasource body
+
+const { status, data } = await apiInstance.updateDatasource(
+    id,
+    request
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **request** | **DatasourceUpdateDatasourceRequest**| Update datasource body | |
+| **id** | [**string**] | Datasource ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateDatasourceMetric**
+> DatasourceDatasourceMetricResponse updateDatasourceMetric(request)
+
+Update an existing datasource metric
+
+### Example
+
+```typescript
+import {
+    DatasourcesApi,
+    Configuration,
+    DatasourceUpdateDatasourceMetricRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourcesApi(configuration);
+
+let id: string; //Metric ID (default to undefined)
+let request: DatasourceUpdateDatasourceMetricRequest; //Update metric body
+
+const { status, data } = await apiInstance.updateDatasourceMetric(
+    id,
+    request
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **request** | **DatasourceUpdateDatasourceMetricRequest**| Update metric body | |
+| **id** | [**string**] | Metric ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceMetricResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
 |**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

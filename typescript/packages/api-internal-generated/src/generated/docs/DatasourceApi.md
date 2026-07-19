@@ -1,43 +1,42 @@
-# OrganizationApi
+# DatasourceApi
 
 All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**archiveOrganization**](#archiveorganization) | **DELETE** /api/v1/organizations/{id} | Archive|
-|[**cancelOrganizationSubscription**](#cancelorganizationsubscription) | **DELETE** /api/v1/organizations/{id}/billing | Cancel subscription|
-|[**createOrganization**](#createorganization) | **POST** /api/v1/organizations | Create|
-|[**createOrganizationCheckoutSession**](#createorganizationcheckoutsession) | **POST** /api/v1/organizations/{id}/billing/session | Create checkout session|
-|[**getOrganizationInvitations**](#getorganizationinvitations) | **GET** /api/v1/organizations/{id}/invitations | Get invitations in organization|
-|[**getOrganizationUpcomingInvoice**](#getorganizationupcominginvoice) | **GET** /api/v1/organizations/{id}/billing/invoice | Get upcoming invoice|
-|[**getOrganizationUsers**](#getorganizationusers) | **GET** /api/v1/organizations/{id}/users | Get users in a organization|
-|[**getUserOrganizations**](#getuserorganizations) | **GET** /api/v1/organizations/mine | GetFromUser|
-|[**removeOrganizationStatsSubscription**](#removeorganizationstatssubscription) | **DELETE** /api/v1/organizations/{id}/billing/stats | Remove stats subscription|
-|[**removeOrganizationUser**](#removeorganizationuser) | **DELETE** /api/v1/organizations/{id}/users/{userID} | Remove a user from an organization|
-|[**transferOrganizationOwnership**](#transferorganizationownership) | **POST** /api/v1/organizations/{id}/transfer-ownership | Transfer organization ownership|
-|[**updateOrganization**](#updateorganization) | **PATCH** /api/v1/organizations/{id} | Update|
-|[**updateOrganizationStatsSubscription**](#updateorganizationstatssubscription) | **PUT** /api/v1/organizations/{id}/billing/stats | Add or update stats subscription|
-|[**updateOrganizationUserPermissions**](#updateorganizationuserpermissions) | **PATCH** /api/v1/organizations/{id}/users/{userID} | Update permissions of a user on an organization|
+|[**archiveDatasource**](#archivedatasource) | **DELETE** /api/v1/observability/datasources/{id} | Archive datasource|
+|[**archiveDatasourceMetric**](#archivedatasourcemetric) | **DELETE** /api/v1/observability/datasource-metrics/{id} | Archive datasource metric|
+|[**createDatasource**](#createdatasource) | **POST** /api/v1/observability/datasources | Create datasource|
+|[**createDatasourceMetric**](#createdatasourcemetric) | **POST** /api/v1/observability/datasource-metrics | Create datasource metric|
+|[**evaluateDatasourceMetric**](#evaluatedatasourcemetric) | **GET** /api/v1/observability/datasource-metrics/{id}/evaluate | Evaluate datasource metric|
+|[**getDatasource**](#getdatasource) | **GET** /api/v1/observability/datasources/{id} | Get datasource|
+|[**getDatasourceHealth**](#getdatasourcehealth) | **GET** /api/v1/observability/datasources/{id}/health | Get datasource health|
+|[**getDatasourceMetric**](#getdatasourcemetric) | **GET** /api/v1/observability/datasource-metrics/{id} | Get datasource metric|
+|[**getDatasourceMetrics**](#getdatasourcemetrics) | **GET** /api/v1/observability/datasource-metrics | List datasource metrics|
+|[**getDatasources**](#getdatasources) | **GET** /api/v1/observability/datasources | List datasources|
+|[**queryDatasourceLogs**](#querydatasourcelogs) | **GET** /api/v1/observability/datasources/{id}/logs | Query datasource logs|
+|[**updateDatasource**](#updatedatasource) | **PATCH** /api/v1/observability/datasources/{id} | Update datasource|
+|[**updateDatasourceMetric**](#updatedatasourcemetric) | **PATCH** /api/v1/observability/datasource-metrics/{id} | Update datasource metric|
 
-# **archiveOrganization**
-> OrganizationResponse archiveOrganization()
+# **archiveDatasource**
+> DatasourceDatasourceResponse archiveDatasource()
 
-Archive one organization
+Archive a datasource. The record is soft-deleted via archivedAt.
 
 ### Example
 
 ```typescript
 import {
-    OrganizationApi,
+    DatasourceApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
+const apiInstance = new DatasourceApi(configuration);
 
-let id: string; //Organization ID (default to undefined)
+let id: string; //Datasource ID (default to undefined)
 
-const { status, data } = await apiInstance.archiveOrganization(
+const { status, data } = await apiInstance.archiveDatasource(
     id
 );
 ```
@@ -46,12 +45,12 @@ const { status, data } = await apiInstance.archiveOrganization(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Organization ID | defaults to undefined|
+| **id** | [**string**] | Datasource ID | defaults to undefined|
 
 
 ### Return type
 
-**OrganizationResponse**
+**DatasourceDatasourceResponse**
 
 ### Authorization
 
@@ -67,31 +66,31 @@ const { status, data } = await apiInstance.archiveOrganization(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | OK |  -  |
-|**400** | Bad Request |  -  |
 |**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
 |**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **cancelOrganizationSubscription**
-> OrganizationResponse cancelOrganizationSubscription()
+# **archiveDatasourceMetric**
+> DatasourceDatasourceMetricResponse archiveDatasourceMetric()
 
-Cancels the entire organization subscription at period end
+Archive a datasource metric. The record is soft-deleted via archivedAt.
 
 ### Example
 
 ```typescript
 import {
-    OrganizationApi,
+    DatasourceApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
+const apiInstance = new DatasourceApi(configuration);
 
-let id: string; //Organization ID (default to undefined)
+let id: string; //Metric ID (default to undefined)
 
-const { status, data } = await apiInstance.cancelOrganizationSubscription(
+const { status, data } = await apiInstance.archiveDatasourceMetric(
     id
 );
 ```
@@ -100,12 +99,12 @@ const { status, data } = await apiInstance.cancelOrganizationSubscription(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Organization ID | defaults to undefined|
+| **id** | [**string**] | Metric ID | defaults to undefined|
 
 
 ### Return type
 
-**OrganizationResponse**
+**DatasourceDatasourceMetricResponse**
 
 ### Authorization
 
@@ -121,32 +120,32 @@ const { status, data } = await apiInstance.cancelOrganizationSubscription(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | OK |  -  |
-|**400** | Bad Request |  -  |
 |**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
 |**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **createOrganization**
-> OrganizationCreateResponse createOrganization(request)
+# **createDatasource**
+> DatasourceDatasourceResponse createDatasource(request)
 
-Create new organization
+Create a new datasource attached to a project.
 
 ### Example
 
 ```typescript
 import {
-    OrganizationApi,
+    DatasourceApi,
     Configuration,
-    OrganizationCreateRequest
+    DatasourceCreateDatasourceRequest
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
+const apiInstance = new DatasourceApi(configuration);
 
-let request: OrganizationCreateRequest; //Create organization body
+let request: DatasourceCreateDatasourceRequest; //Create datasource body
 
-const { status, data } = await apiInstance.createOrganization(
+const { status, data } = await apiInstance.createDatasource(
     request
 );
 ```
@@ -155,12 +154,12 @@ const { status, data } = await apiInstance.createOrganization(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **request** | **OrganizationCreateRequest**| Create organization body | |
+| **request** | **DatasourceCreateDatasourceRequest**| Create datasource body | |
 
 
 ### Return type
 
-**OrganizationCreateResponse**
+**DatasourceDatasourceResponse**
 
 ### Authorization
 
@@ -182,290 +181,489 @@ const { status, data } = await apiInstance.createOrganization(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **createOrganizationCheckoutSession**
-> OrganizationCreateCheckoutSessionResponse createOrganizationCheckoutSession()
+# **createDatasourceMetric**
+> DatasourceDatasourceMetricResponse createDatasourceMetric(request)
 
-Creates a Stripe Checkout Session to set up a subscription for the organization
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-
-const { status, data } = await apiInstance.createOrganizationCheckoutSession(
-    id
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Organization ID | defaults to undefined|
-
-
-### Return type
-
-**OrganizationCreateCheckoutSessionResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getOrganizationInvitations**
-> Array<ResponseInvitation> getOrganizationInvitations()
-
-Gets all the invitations associated to a given organization
+Create a metric tied to a datasource. Tier-derived limits apply.
 
 ### Example
 
 ```typescript
 import {
-    OrganizationApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-
-const { status, data } = await apiInstance.getOrganizationInvitations(
-    id
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Organization ID | defaults to undefined|
-
-
-### Return type
-
-**Array<ResponseInvitation>**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getOrganizationUpcomingInvoice**
-> OrganizationUpcomingInvoiceResponse getOrganizationUpcomingInvoice()
-
-Returns the upcoming invoice for the organization\'s subscription, including line items and discounts
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-
-const { status, data } = await apiInstance.getOrganizationUpcomingInvoice(
-    id
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Organization ID | defaults to undefined|
-
-
-### Return type
-
-**OrganizationUpcomingInvoiceResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getOrganizationUsers**
-> Array<ResponseUser> getOrganizationUsers()
-
-Get users in a given organization
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-
-const { status, data } = await apiInstance.getOrganizationUsers(
-    id
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Organization ID | defaults to undefined|
-
-
-### Return type
-
-**Array<ResponseUser>**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getUserOrganizations**
-> Array<OrganizationResponse> getUserOrganizations()
-
-Gets all the organization to which the user has access
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-const { status, data } = await apiInstance.getUserOrganizations();
-```
-
-### Parameters
-This endpoint does not have any parameters.
-
-
-### Return type
-
-**Array<OrganizationResponse>**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **removeOrganizationStatsSubscription**
-> ProjectResponse removeOrganizationStatsSubscription(request)
-
-Removes the stats subscription item for a project
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
+    DatasourceApi,
     Configuration,
-    OrganizationRemoveStatsSubscriptionRequest
+    DatasourceCreateMetricRequest
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
+const apiInstance = new DatasourceApi(configuration);
 
-let id: string; //Organization ID (default to undefined)
-let request: OrganizationRemoveStatsSubscriptionRequest; //Subscription params
+let request: DatasourceCreateMetricRequest; //Create metric body
 
-const { status, data } = await apiInstance.removeOrganizationStatsSubscription(
+const { status, data } = await apiInstance.createDatasourceMetric(
+    request
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **request** | **DatasourceCreateMetricRequest**| Create metric body | |
+
+
+### Return type
+
+**DatasourceDatasourceMetricResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **evaluateDatasourceMetric**
+> DatasourceDatasourceMetricResultResponse evaluateDatasourceMetric()
+
+Run a live range query for a metric. Results are cached for the metric\'s configured TTL.
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let id: string; //Metric ID (default to undefined)
+let from: string; //Start of time range (RFC3339) (default to undefined)
+let to: string; //End of time range (RFC3339) (default to undefined)
+let step: number; //Step size in milliseconds (default to undefined)
+
+const { status, data } = await apiInstance.evaluateDatasourceMetric(
+    id,
+    from,
+    to,
+    step
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Metric ID | defaults to undefined|
+| **from** | [**string**] | Start of time range (RFC3339) | defaults to undefined|
+| **to** | [**string**] | End of time range (RFC3339) | defaults to undefined|
+| **step** | [**number**] | Step size in milliseconds | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceMetricResultResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasource**
+> DatasourceDatasourceResponse getDatasource()
+
+Get a datasource by ID
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let id: string; //Datasource ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasource(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Datasource ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasourceHealth**
+> DatasourceDatasourceHealthResponse getDatasourceHealth()
+
+Check live connectivity to the datasource agent and report per-integration availability.
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let id: string; //Datasource ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasourceHealth(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Datasource ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceHealthResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**502** | Bad Gateway |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasourceMetric**
+> DatasourceDatasourceMetricResponse getDatasourceMetric()
+
+Get a datasource metric by ID
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let id: string; //Metric ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasourceMetric(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Metric ID | defaults to undefined|
+
+
+### Return type
+
+**DatasourceDatasourceMetricResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasourceMetrics**
+> Array<DatasourceDatasourceMetricResponse> getDatasourceMetrics()
+
+List datasource metrics for a project, optionally filtered by datasource or persistence flag.
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let projectID: string; //Project ID (default to undefined)
+let datasourceID: string; //Filter by datasource ID (optional) (default to undefined)
+let persistenceOnly: boolean; //Only return metrics with persistence enabled (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getDatasourceMetrics(
+    projectID,
+    datasourceID,
+    persistenceOnly
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **projectID** | [**string**] | Project ID | defaults to undefined|
+| **datasourceID** | [**string**] | Filter by datasource ID | (optional) defaults to undefined|
+| **persistenceOnly** | [**boolean**] | Only return metrics with persistence enabled | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array<DatasourceDatasourceMetricResponse>**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDatasources**
+> Array<DatasourceDatasourceResponse> getDatasources()
+
+List datasources for a project
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let projectID: string; //Project ID (default to undefined)
+
+const { status, data } = await apiInstance.getDatasources(
+    projectID
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **projectID** | [**string**] | Project ID | defaults to undefined|
+
+
+### Return type
+
+**Array<DatasourceDatasourceResponse>**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **queryDatasourceLogs**
+> DatasourceLogsResponse queryDatasourceLogs()
+
+Run a live logs query for a datasource. Results are NOT cached.
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let id: string; //Datasource ID (default to undefined)
+let expr: string; //Log query expression (default to undefined)
+let from: string; //Start of time range (RFC3339) (default to undefined)
+let to: string; //End of time range (RFC3339) (default to undefined)
+let limit: number; //Maximum number of log lines (default 1000, capped at 10000) (optional) (default to undefined)
+
+const { status, data } = await apiInstance.queryDatasourceLogs(
+    id,
+    expr,
+    from,
+    to,
+    limit
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] | Datasource ID | defaults to undefined|
+| **expr** | [**string**] | Log query expression | defaults to undefined|
+| **from** | [**string**] | Start of time range (RFC3339) | defaults to undefined|
+| **to** | [**string**] | End of time range (RFC3339) | defaults to undefined|
+| **limit** | [**number**] | Maximum number of log lines (default 1000, capped at 10000) | (optional) defaults to undefined|
+
+
+### Return type
+
+**DatasourceLogsResponse**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**401** | Unauthorized |  -  |
+|**404** | Not Found |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateDatasource**
+> DatasourceDatasourceResponse updateDatasource(request)
+
+Update a datasource\'s editable fields.
+
+### Example
+
+```typescript
+import {
+    DatasourceApi,
+    Configuration,
+    DatasourceUpdateDatasourceRequest
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DatasourceApi(configuration);
+
+let id: string; //Datasource ID (default to undefined)
+let request: DatasourceUpdateDatasourceRequest; //Update datasource body
+
+const { status, data } = await apiInstance.updateDatasource(
     id,
     request
 );
@@ -475,13 +673,13 @@ const { status, data } = await apiInstance.removeOrganizationStatsSubscription(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **request** | **OrganizationRemoveStatsSubscriptionRequest**| Subscription params | |
-| **id** | [**string**] | Organization ID | defaults to undefined|
+| **request** | **DatasourceUpdateDatasourceRequest**| Update datasource body | |
+| **id** | [**string**] | Datasource ID | defaults to undefined|
 
 
 ### Return type
 
-**ProjectResponse**
+**DatasourceDatasourceResponse**
 
 ### Authorization
 
@@ -504,28 +702,29 @@ const { status, data } = await apiInstance.removeOrganizationStatsSubscription(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **removeOrganizationUser**
-> removeOrganizationUser()
+# **updateDatasourceMetric**
+> DatasourceDatasourceMetricResponse updateDatasourceMetric(request)
 
-Revokes the user\'s organization access
+Update a datasource metric. Tier-derived limits apply.
 
 ### Example
 
 ```typescript
 import {
-    OrganizationApi,
-    Configuration
+    DatasourceApi,
+    Configuration,
+    DatasourceUpdateMetricRequest
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
+const apiInstance = new DatasourceApi(configuration);
 
-let id: string; //Organization ID (default to undefined)
-let userID: string; //User ID (default to undefined)
+let id: string; //Metric ID (default to undefined)
+let request: DatasourceUpdateMetricRequest; //Update metric body
 
-const { status, data } = await apiInstance.removeOrganizationUser(
+const { status, data } = await apiInstance.updateDatasourceMetric(
     id,
-    userID
+    request
 );
 ```
 
@@ -533,13 +732,13 @@ const { status, data } = await apiInstance.removeOrganizationUser(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**string**] | Organization ID | defaults to undefined|
-| **userID** | [**string**] | User ID | defaults to undefined|
+| **request** | **DatasourceUpdateMetricRequest**| Update metric body | |
+| **id** | [**string**] | Metric ID | defaults to undefined|
 
 
 ### Return type
 
-void (empty response body)
+**DatasourceDatasourceMetricResponse**
 
 ### Authorization
 
@@ -547,259 +746,17 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**204** |  |  -  |
+|**200** | OK |  -  |
 |**400** | Bad Request |  -  |
 |**401** | Unauthorized |  -  |
-|**403** | Forbidden |  -  |
 |**404** | Not Found |  -  |
-|**409** | Conflict |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **transferOrganizationOwnership**
-> OrganizationResponse transferOrganizationOwnership(request)
-
-Transfer ownership of the organization to another member. Only the current owner can call this.
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration,
-    OrganizationTransferOwnershipRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-let request: OrganizationTransferOwnershipRequest; //Transfer payload
-
-const { status, data } = await apiInstance.transferOrganizationOwnership(
-    id,
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **OrganizationTransferOwnershipRequest**| Transfer payload | |
-| **id** | [**string**] | Organization ID | defaults to undefined|
-
-
-### Return type
-
-**OrganizationResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**403** | Forbidden |  -  |
-|**404** | Not Found |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateOrganization**
-> OrganizationResponse updateOrganization(request)
-
-Update one organization
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration,
-    OrganizationUpdateRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-let request: OrganizationUpdateRequest; //Update organization body
-
-const { status, data } = await apiInstance.updateOrganization(
-    id,
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **OrganizationUpdateRequest**| Update organization body | |
-| **id** | [**string**] | Organization ID | defaults to undefined|
-
-
-### Return type
-
-**OrganizationResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateOrganizationStatsSubscription**
-> ProjectResponse updateOrganizationStatsSubscription(request)
-
-Adds or updates the stats subscription item for a project to a new tier/quota
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration,
-    OrganizationUpdateStatsSubscriptionRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-let request: OrganizationUpdateStatsSubscriptionRequest; //Subscription params
-
-const { status, data } = await apiInstance.updateOrganizationStatsSubscription(
-    id,
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **OrganizationUpdateStatsSubscriptionRequest**| Subscription params | |
-| **id** | [**string**] | Organization ID | defaults to undefined|
-
-
-### Return type
-
-**ProjectResponse**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**500** | Internal Server Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateOrganizationUserPermissions**
-> ResponseUser updateOrganizationUserPermissions(request)
-
-Updates the organization access permissions for a specific user
-
-### Example
-
-```typescript
-import {
-    OrganizationApi,
-    Configuration,
-    OrganizationUpdateUserPermissionsRequest
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new OrganizationApi(configuration);
-
-let id: string; //Organization ID (default to undefined)
-let userID: string; //User ID (default to undefined)
-let request: OrganizationUpdateUserPermissionsRequest; //Permissions
-
-const { status, data } = await apiInstance.updateOrganizationUserPermissions(
-    id,
-    userID,
-    request
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **request** | **OrganizationUpdateUserPermissionsRequest**| Permissions | |
-| **id** | [**string**] | Organization ID | defaults to undefined|
-| **userID** | [**string**] | User ID | defaults to undefined|
-
-
-### Return type
-
-**ResponseUser**
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | OK |  -  |
-|**400** | Bad Request |  -  |
-|**401** | Unauthorized |  -  |
-|**403** | Forbidden |  -  |
-|**404** | Not Found |  -  |
-|**409** | Conflict |  -  |
 |**500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

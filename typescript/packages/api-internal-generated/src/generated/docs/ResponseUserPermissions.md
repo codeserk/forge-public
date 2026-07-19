@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_delete** | **boolean** |  | [default to undefined]
+**manageMembers** | **boolean** |  | [default to undefined]
 **read** | **boolean** |  | [default to undefined]
 **update** | **boolean** |  | [default to undefined]
 
@@ -16,6 +17,7 @@ import { ResponseUserPermissions } from './api';
 
 const instance: ResponseUserPermissions = {
     _delete,
+    manageMembers,
     read,
     update,
 };
