@@ -3,9 +3,9 @@ title: Forge MCP
 description: Run the Forge MCP server locally so Claude Code, Cursor and Claude Desktop can query and mutate your Forge project data from the editor.
 ---
 
-Forge ships an MCP (Model Context Protocol) server that exposes the Forge internal API to AI assistants. Point Claude Code, Cursor or Claude Desktop at it and they can list orgs, query events, aggregate stats, and edit configuration without a copy-paste loop through the dashboard.
+Forge ships an MCP (Model Context Protocol) server that exposes the Forge internal API to AI assistants. Point Claude Code (or Cursor, or Claude Desktop) at it and the assistant can list orgs, query events, aggregate stats, and edit configuration without a copy-paste loop through the dashboard.
 
-It is a single-user server that you run locally. It authenticates with a Personal Access Token (PAT) that you mint in the dashboard, and only reaches Forge - nothing else.
+It is a single-user server that you run locally. It authenticates with a Personal Access Token (PAT) that you create in the dashboard, and only reaches Forge - nothing else.
 
 ## Two tools
 
@@ -32,7 +32,7 @@ Tested with Node 20 and 22.
 
 ## Get a token
 
-Forge dashboard -> Settings -> Account -> Personal access tokens -> **New token**. The token is shown once at create time. If you lose it, revoke it from the same page and mint a new one.
+Forge dashboard -> Settings -> Account -> Personal access tokens -> **New token**. The token is shown once when you create it. If you lose it, revoke it from the same page and create a new one.
 
 Scopes map to HTTP methods:
 
@@ -43,11 +43,11 @@ Scopes map to HTTP methods:
 | `update` | PUT / PATCH      |
 | `delete` | DELETE           |
 
-Mint the narrowest scope that fits your use. `read` is enough to browse; add `create` to run mutations (including the read-only `/evaluate` previews, which are POST).
+Give the token the narrowest scope that fits your use. `read` is enough to browse; add `create` to run mutations (including the read-only `/evaluate` previews, which are POST).
 
-Token-management endpoints are blocked for PAT callers. A PAT can never mint or revoke other tokens.
+Token-management endpoints are blocked for PAT callers. A PAT can never create or revoke other tokens.
 
 ## Next steps
 
-- [Configure](/docs/mcp/configure) your AI client (Claude Desktop, Claude Code, Cursor).
+- [Configure](/docs/mcp/configure) your AI client (Claude Code, Cursor, Claude Desktop).
 - [Usage](/docs/mcp/usage) - what the tools return, the response shape, the trust model and a full example.

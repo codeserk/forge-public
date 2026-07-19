@@ -73,7 +73,7 @@ Single-user, runs on your machine. The sandbox has access to `client` only - no 
 Practical guidance:
 
 - Use a read-only Personal Access Token (PAT) for browsing / exploration.
-- Mint a scoped PAT per project when the assistant needs to mutate.
+- Create a scoped PAT per project when the assistant needs to mutate.
 - Rotate the PAT if you paste the config into a shared repo by mistake.
 - The server does not phone home. All traffic goes to `FORGE_BASE_URL`.
 
