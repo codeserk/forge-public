@@ -3,7 +3,7 @@ title: TypeScript SDK
 description: Track events from Node.js or browser using the TypeScript SDK.
 ---
 
-If you are building something with TypeScript (or plain JS), _this is your go-to_. Works in Node.js 18+ and browser. For React Native, use [`@codeserk/forge-stats-react-native`](/docs/stats/usage/sdks/react-native) instead.
+If you are building something with TypeScript (or plain JS), use this package. Works in Node.js 18+ and browser. For React Native, use [`@codeserk/forge-stats-react-native`](/docs/stats/usage/sdks/react-native) instead.
 
 ## Installation
 
@@ -15,7 +15,7 @@ npm install @codeserk/forge-stats
 
 ### Singleton (recommended)
 
-The easiest way to get started. Initialize once - _usually at app startup_ - and call `track` from anywhere **without passing a client around**.
+The easiest way to get started. Initialize once (usually at app startup) and call `track` from anywhere **without passing a client around**.
 
 ```ts
 import { init, track, trackView } from '@codeserk/forge-stats'

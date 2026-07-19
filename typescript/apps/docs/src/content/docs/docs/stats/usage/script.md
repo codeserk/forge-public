@@ -3,7 +3,7 @@ title: Script (CDN)
 description: Add Forge Stats to any page with a single script tag - no bundler needed.
 ---
 
-No npm, no build step, _no fuss_. Drop a `<script>` tag into your `<head>` and you are done.
+No npm, no build step. Drop a `<script>` tag into your `<head>` and you are done.
 
 ```html
 <script
@@ -24,7 +24,7 @@ Page views are tracked automatically via `trackView`. The script detects the con
 - **SPA** - patches `history.pushState` and listens to `popstate`
 - **Plain HTML** - fires once on load
 
-No extra configuration needed for any of these - _it just works_.
+No extra configuration needed for any of these.
 
 ## Error tracking
 
