@@ -126,6 +126,14 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: 'MCP',
+          items: [
+            { label: 'Overview', slug: 'docs/mcp' },
+            { label: 'Configure', slug: 'docs/mcp/configure' },
+            { label: 'Usage', slug: 'docs/mcp/usage' },
+          ],
+        },
       ],
     }),
     preact(),
