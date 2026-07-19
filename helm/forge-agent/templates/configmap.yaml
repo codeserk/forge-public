@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "forge-agent.fullname" . }}-env
+  labels:
+    {{- include "forge-agent.labels" . | nindent 4 }}
+data:
+  NATS_URL: {{ .Values.nats.url | quote }}
+  MAX_CONCURRENT_QUERIES: {{ .Values.limits.maxConcurrentQueries | quote }}
+  QUERY_TIMEOUT: {{ .Values.limits.queryTimeout | quote }}
+  PROM_ENABLED: {{ .Values.integrations.prom.enabled | quote }}
+  PROM_URL: {{ .Values.integrations.prom.url | quote }}
+  LOKI_ENABLED: {{ .Values.integrations.loki.enabled | quote }}
+  LOKI_URL: {{ .Values.integrations.loki.url | quote }}

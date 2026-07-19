@@ -1,0 +1,59 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/codeserk/forge-agent
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 25m
+    memory: 64Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Forge tenant identity - REQUIRED. Generated once in the Forge "Observability >
+# Data > New Agent" flow and shown only at create time. Treat like an API key:
+# store in a secret manager. Either set `tenantID` here directly, or reference an
+# existing Secret with the key `FORGE_TENANT_ID` via `existingSecretName`.
+tenantID: ""
+existingSecretName: ""
+
+# NATS tunnel endpoint. Forge provides this URL during install.
+# Phase 1 (dogfood): in-cluster URL with no transport auth - tenantID is the
+# only thing isolating tenants at the subject level, so keep it unguessable.
+# Phase 2 will add JWT-based account auth via signed challenge.
+nats:
+  url: "nats://nats:4222"
+
+limits:
+  maxConcurrentQueries: 10
+  queryTimeout: 30s
+
+# Per-integration toggles. Set `enabled: true` and the cluster-internal URL for
+# any integration the agent should serve.
+integrations:
+  prom:
+    enabled: false
+    url: ""
+  loki:
+    enabled: false
+    url: ""

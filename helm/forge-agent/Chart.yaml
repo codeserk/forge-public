@@ -1,0 +1,17 @@
+apiVersion: v2
+name: forge-agent
+description: Forge agent that tunnels Prometheus and Loki queries from a customer cluster to Forge over NATS.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+home: https://forge.codeserk.es
+sources:
+  - https://github.com/codeserk/forge-public
+maintainers:
+  - name: codeserk
+keywords:
+  - forge
+  - observability
+  - prometheus
+  - loki
+  - nats
