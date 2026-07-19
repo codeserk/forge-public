@@ -10,9 +10,6 @@
     "packages/api-internal",
     "packages/mcp"
   ],
-  "overrides": {
-    "zod": "^3.25.76"
-  },
   "devDependencies": {
     "@types/react": "^18.2.52",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
